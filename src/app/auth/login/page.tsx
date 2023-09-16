@@ -44,20 +44,6 @@ export default function Login2() {
                             <AuthLogin
                                 subtitle={
                                     <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-                                        {/* <Typography color="textSecondary" variant="h6" fontWeight="500">
-                                            New to Modernize?
-                                        </Typography>
-                                        <Typography
-                                            component={Link}
-                                            href="/auth/auth2/register"
-                                            fontWeight="500"
-                                            sx={{
-                                                textDecoration: 'none',
-                                                color: 'primary.main',
-                                            }}
-                                        >
-                                            Create an account
-                                        </Typography> */}
                                         <Typography
                                             component={Link}
                                             href="/auth/forgot-password"

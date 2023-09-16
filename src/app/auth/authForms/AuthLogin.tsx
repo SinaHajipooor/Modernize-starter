@@ -11,98 +11,87 @@ import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
+import { useState } from "react";
 
-const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
-    <>
-        {title ? (
-            <Typography fontWeight="700" variant="h3" mb={1}>
-                {title}
-            </Typography>
-        ) : null}
-
-        {subtext}
-
-        {/* <AuthSocialButtons title="Sign in with" />
-        <Box mt={3}>
-            <Divider>
-                <Typography
-                    component="span"
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                    position="relative"
-                    px={2}
-                >
-                    or sign in with
+const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+    // user information 
+    const [user, setUser] = useState({
+        username: '',
+        password: ''
+    })
+    // onLogin handler
+    async function onLogin() { }
+    // onchange for form inputs
+    function onChangeHandler(e: any, fieldName: any) {
+        setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
+    }
+    // ui
+    return (
+        <>
+            {title ? (
+                <Typography fontWeight="700" variant="h3" mb={1}>
+                    {title}
                 </Typography>
-            </Divider>
-        </Box> */}
-
-        <Stack>
-            <Box>
-                <CustomFormLabel htmlFor="username">نام کاربری</CustomFormLabel>
-                <CustomTextField id="username" variant="outlined" fullWidth />
-            </Box>
-            <Box>
-                <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
-                <CustomTextField
-                    id="password"
-                    type="password"
-                    variant="outlined"
-                    fullWidth
-                />
-            </Box>
-            <Stack
-                justifyContent="space-between"
-                direction="row"
-                alignItems="center"
-                my={2}
-            >
-                <FormGroup>
-                    <FormControlLabel
-                        control={<CustomCheckbox defaultChecked />}
-                        label="به خاطر بسپار"
+            ) : null}
+            <Stack>
+                <Box>
+                    <CustomFormLabel htmlFor="username">نام کاربری</CustomFormLabel>
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'username')} id="username" variant="outlined" fullWidth />
+                </Box>
+                <Box>
+                    <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
+                    <CustomTextField
+                        onChange={(e: any) => onChangeHandler(e, 'password')}
+                        id="password"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                        value={user.password}
                     />
-                </FormGroup>
-                <Typography
-                    component={Link}
-                    href="/auth/register"
-                    fontWeight="500"
-                    sx={{
-                        textDecoration: 'none',
-                        color: 'primary.main',
-                    }}
+                </Box>
+                <Stack
+                    justifyContent="space-between"
+                    direction="row"
+                    alignItems="center"
+                    my={2}
                 >
-                    ثبت‌ نام
-                </Typography>
-                {/* <Typography
-                    component={Link}
-                    href="/auth/auth1/forgot-password"
-                    fontWeight="500"
-                    sx={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                    }}
-                >
-                    رمز عبور خود را فراموش کردید ؟
-                </Typography> */}
-            </Stack>
-        </Stack>
-        <Box>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                fullWidth
-                component={Link}
-                href="/"
-                type="submit"
-            >
-                ورود
-            </Button>
-        </Box>
-        {subtitle}
-    </>
-);
+                    <FormGroup>
+                        <FormControlLabel
+                            control={<CustomCheckbox defaultChecked />}
+                            label="به خاطر بسپار"
+                        />
+                    </FormGroup>
+                    <Typography
+                        component={Link}
+                        href="/auth/register"
+                        fontWeight="500"
+                        sx={{
+                            textDecoration: 'none',
+                            color: 'primary.main',
+                        }}
+                    >
+                        ثبت‌ نام
+                    </Typography>
 
+                </Stack>
+            </Stack>
+            <Box>
+                <Button
+                    onClick={() => console.log(user)}
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    component={Link}
+                    href=""
+                    type="submit"
+                >
+                    ورود
+                </Button>
+            </Box>
+            {/* forget password text */}
+            {subtitle}
+        </>
+    );
+}
 export default AuthLogin;

@@ -15,8 +15,8 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
     // register handler
     function onRegister() { }
     // onChange handler for form inputs 
-    function onChangeHandler(e: any, feildName: any) {
-        setUser((curUser) => ({ ...curUser, [feildName]: e.target.value }))
+    function onChangeHandler(e: any, fieldName: any) {
+        setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
     }
     // ui
     return (
