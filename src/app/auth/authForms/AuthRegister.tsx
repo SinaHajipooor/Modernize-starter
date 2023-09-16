@@ -12,56 +12,41 @@ import { useState } from "react";
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
     // user information
     const [user, setUser] = useState({ email: '', username: '', password: '' })
-
-    // register haqndler
-    async function onRegister() { }
-
+    // register handler
+    function onRegister() { }
+    // onChange handler for form inputs 
+    function onChangeHandler(e: any, feildName: any) {
+        setUser((curUser) => ({ ...curUser, [feildName]: e.target.value }))
+    }
     // ui
     return (
-
         <>
             {title ? (
                 <Typography fontWeight="700" variant="h3" mb={1}>
                     {title}
                 </Typography>
             ) : null}
-            {/* {subtext} */}
-            {/* <AuthSocialButtons title="Sign up with" /> */}
-            {/* <Box mt={3}>
-            <Divider>
-                <Typography
-                    component="span"
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                    position="relative"
-                    px={2}
-                >
-                    or sign up with
-                </Typography>
-            </Divider>
-        </Box> */}
-
             <Box>
                 <Stack mb={3}>
                     <CustomFormLabel htmlFor="name">نام</CustomFormLabel>
-                    <CustomTextField id="name" variant="outlined" fullWidth />
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'username')} id="name" variant="outlined" fullWidth />
                     <CustomFormLabel htmlFor="email">آدرس ایمیل</CustomFormLabel>
-                    <CustomTextField id="email" variant="outlined" fullWidth />
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'email')} id="email" variant="outlined" fullWidth />
                     <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
-                    <CustomTextField id="password" variant="outlined" fullWidth />
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'password')} id="password" variant="outlined" fullWidth />
                 </Stack>
                 <Button
+                    onClick={() => console.log(user)}
                     color="primary"
                     variant="contained"
                     size="large"
                     fullWidth
                     component={Link}
-                    href="/auth/login"
+                    href=""
                 >
                     ثبت نام
                 </Button>
-            </Box>
+            </Box >
             {subtitle}
         </>
     );
