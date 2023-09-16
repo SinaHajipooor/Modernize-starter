@@ -4,11 +4,19 @@ import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elem
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { Stack } from "@mui/system";
 import { registerType } from "@/app/(DashboardLayout)/types/auth/auth";
-import { useState } from 'react'
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useState } from "react";
 
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
+    // user information
+    const [user, setUser] = useState({ email: '', username: '', password: '' })
 
+    // register haqndler
+    async function onRegister() { }
+
+    // ui
     return (
 
         <>
