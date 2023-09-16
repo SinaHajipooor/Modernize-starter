@@ -67,9 +67,9 @@ export default function RootLayout({
                                 height: "100vh",
                             }}
                         >
-                            {/* <Box sx={{ width: '100%' }}> */}
+
                             <LinearProgress variant="determinate" />
-                            {/* </Box> */}
+
                         </Box>
                     )}
                 </Provider>
