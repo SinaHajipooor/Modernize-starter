@@ -1,16 +1,13 @@
 "use client";
+import { Grid, Box, Card, Typography, Stack } from '@mui/material';
 import Link from 'next/link';
-import { Grid, Box, Card, Stack, Typography } from '@mui/material';
-
-// components
 import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import AuthLogin from '../../authForms/AuthLogin';
+import AuthRegister from '../authForms/AuthRegister';
 
-export default function Login2() {
-
+export default function Register2() {
     return (
-        <PageContainer title="Login Page" description="this is Sample page">
+        <PageContainer title="Register Page" description="this is Sample page">
             <Box
                 sx={{
                     position: 'relative',
@@ -41,33 +38,27 @@ export default function Login2() {
                             <Box display="flex" alignItems="center" justifyContent="center">
                                 <Logo />
                             </Box>
-                            <AuthLogin
+                            <AuthRegister
+                                subtext={
+                                    <Typography variant="subtitle1" textAlign="center" color="textSecondary" mb={1}>
+                                        Your Social Campaigns
+                                    </Typography>
+                                }
                                 subtitle={
-                                    <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-                                        {/* <Typography color="textSecondary" variant="h6" fontWeight="500">
-                                            New to Modernize?
+                                    <Stack direction="row" spacing={1} mt={3} justifyContent='center'>
+                                        <Typography color="textSecondary" variant="h6" fontWeight="400">
+                                            حساب دیگری دارید ؟
                                         </Typography>
                                         <Typography
                                             component={Link}
-                                            href="/auth/auth2/register"
+                                            href="/auth/login"
                                             fontWeight="500"
                                             sx={{
                                                 textDecoration: 'none',
                                                 color: 'primary.main',
                                             }}
                                         >
-                                            Create an account
-                                        </Typography> */}
-                                        <Typography
-                                            component={Link}
-                                            href="/auth/auth1/forgot-password"
-                                            fontWeight="500"
-                                            sx={{
-                                                textDecoration: "none",
-                                                color: "primary.main",
-                                            }}
-                                        >
-                                            رمز عبور خود را فراموش کردید ؟
+                                            ورود
                                         </Typography>
                                     </Stack>
                                 }
@@ -77,8 +68,8 @@ export default function Login2() {
                 </Grid>
             </Box>
         </PageContainer>
-    );
+    )
 };
 
-Login2.layout = "Blank";
+Register2.layout = "Blank";
 

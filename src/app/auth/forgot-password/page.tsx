@@ -2,11 +2,11 @@
 import { Grid, Box, Card, Typography } from '@mui/material';
 import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import AuthTwoSteps from '../../authForms/AuthTwoSteps';
+import AuthForgotPassword from '../authForms/AuthForgotPassword';
 
-export default function TwoSteps2() {
+export default function ForgotPassword2() {
     return (
-        <PageContainer title="Two steps Page" description="this is Sample page">
+        <PageContainer title="Forgot Password Page" description="this is Sample page">
             <Box
                 sx={{
                     position: 'relative',
@@ -27,25 +27,26 @@ export default function TwoSteps2() {
                         item
                         xs={12}
                         sm={12}
-                        lg={5}
-                        xl={4}
+                        lg={4}
+                        xl={3}
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
+                        <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '500px' }}>
                             <Box display="flex" alignItems="center" justifyContent="center">
                                 <Logo />
                             </Box>
-                            <Typography variant="subtitle1" textAlign="center" color="textSecondary" mb={1}>
-                                {/* We sent a verification code to your mobile. Enter the code from the mobile in the
-              field below. */}
-                                ما پیامکی حاوی کد تایید برای شما ارسال کردیم . کد تایید را وارد کنید
+                            <Typography
+                                color="textSecondary"
+                                textAlign="center"
+                                variant="subtitle2"
+                                fontWeight="400"
+                            >
+                                Please enter the email address associated with your account and We will email you a
+                                link to reset your password.
                             </Typography>
-                            <Typography variant="subtitle1" textAlign="center" fontWeight="700" mb={1}>
-                                ******1234
-                            </Typography>
-                            <AuthTwoSteps />
+                            <AuthForgotPassword />
                         </Card>
                     </Grid>
                 </Grid>
@@ -54,5 +55,5 @@ export default function TwoSteps2() {
     )
 };
 
-TwoSteps2.layout = "Blank";
+ForgotPassword2.layout = "Blank";
 
