@@ -1,21 +1,25 @@
-import { Box, Typography, Button, Divider } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { Stack } from "@mui/system";
 import { registerType } from "@/app/(DashboardLayout)/types/auth/auth";
-import AuthSocialButtons from "./AuthSocialButtons";
+import { useState } from 'react'
 
-const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
-    <>
-        {title ? (
-            <Typography fontWeight="700" variant="h3" mb={1}>
-                {title}
-            </Typography>
-        ) : null}
-        {/* {subtext} */}
-        {/* <AuthSocialButtons title="Sign up with" /> */}
-        {/* <Box mt={3}>
+
+const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
+
+    return (
+
+        <>
+            {title ? (
+                <Typography fontWeight="700" variant="h3" mb={1}>
+                    {title}
+                </Typography>
+            ) : null}
+            {/* {subtext} */}
+            {/* <AuthSocialButtons title="Sign up with" /> */}
+            {/* <Box mt={3}>
             <Divider>
                 <Typography
                     component="span"
@@ -30,28 +34,28 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
             </Divider>
         </Box> */}
 
-        <Box>
-            <Stack mb={3}>
-                <CustomFormLabel htmlFor="name">نام</CustomFormLabel>
-                <CustomTextField id="name" variant="outlined" fullWidth />
-                <CustomFormLabel htmlFor="email">آدرس ایمیل</CustomFormLabel>
-                <CustomTextField id="email" variant="outlined" fullWidth />
-                <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
-                <CustomTextField id="password" variant="outlined" fullWidth />
-            </Stack>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                fullWidth
-                component={Link}
-                href="/auth/login"
-            >
-                ثبت نام
-            </Button>
-        </Box>
-        {subtitle}
-    </>
-);
-
+            <Box>
+                <Stack mb={3}>
+                    <CustomFormLabel htmlFor="name">نام</CustomFormLabel>
+                    <CustomTextField id="name" variant="outlined" fullWidth />
+                    <CustomFormLabel htmlFor="email">آدرس ایمیل</CustomFormLabel>
+                    <CustomTextField id="email" variant="outlined" fullWidth />
+                    <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
+                    <CustomTextField id="password" variant="outlined" fullWidth />
+                </Stack>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    component={Link}
+                    href="/auth/login"
+                >
+                    ثبت نام
+                </Button>
+            </Box>
+            {subtitle}
+        </>
+    );
+}
 export default AuthRegister;
