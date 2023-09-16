@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
+import { LinearProgress } from "@mui/material";
 
 
 
@@ -66,7 +67,9 @@ export default function RootLayout({
                                 height: "100vh",
                             }}
                         >
-                            <CircularProgress />
+                            <Box sx={{ width: '100%' }}>
+                                <LinearProgress variant="determinate" />
+                            </Box>
                         </Box>
                     )}
                 </Provider>
