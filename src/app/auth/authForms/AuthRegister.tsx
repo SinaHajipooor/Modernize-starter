@@ -13,10 +13,8 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
                 {title}
             </Typography>
         ) : null}
-
         {/* {subtext} */}
         {/* <AuthSocialButtons title="Sign up with" /> */}
-
         {/* <Box mt={3}>
             <Divider>
                 <Typography
