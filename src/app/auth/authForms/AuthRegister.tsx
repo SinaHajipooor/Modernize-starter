@@ -36,7 +36,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
                     <CustomTextField onChange={(e: any) => onChangeHandler(e, 'password')} id="password" variant="outlined" fullWidth />
                 </Stack>
                 <Button
-                    onClick={() => console.log(user)}
+                    onClick={onRegister}
                     color="primary"
                     variant="contained"
                     size="large"
