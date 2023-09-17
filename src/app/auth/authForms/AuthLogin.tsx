@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@/store/auth/AuthContext";
 
 
-
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     const router = useRouter();
     const context = useContext(AuthContext)

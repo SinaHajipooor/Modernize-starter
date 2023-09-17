@@ -1,5 +1,7 @@
 import { apiLogin } from "@/utils/api/auth/apiLogin";
 import { createContext, useState } from "react";
+import axiosConfig from "@/utils/axios";
+import axios from "axios";
 
 // define default values
 export const AuthContext = createContext({
@@ -25,9 +27,13 @@ const AuthContextProvider = ({ children }) => {
     // login user 
     async function login(userInfo) {
         setIsLoading(true);
+        // send user info into laravel api and then get the userdata (user id and token ) from that api
         const userData = await apiLogin(userInfo)
         setToken(userData.token);
         setUser(userData.user);
+        // send user token into next server
+        const response = await axios.post('/api/auth/login', { token: userData.token });
+        console.log(response);
         setIsAuthenticated(true);
         setIsLoading(false);
     }
