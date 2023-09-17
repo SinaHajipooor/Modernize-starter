@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
         setUser(userData.user);
         // send user token into next server
         const response = await axios.post('/api/auth/login', { token: userData.token });
-        console.log(response);
         setIsAuthenticated(true);
         setIsLoading(false);
     }
