@@ -9,13 +9,11 @@ import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { Provider } from "react-redux";
 import NextTopLoader from 'nextjs-toploader';
-import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import { LinearProgress } from "@mui/material";
-
 
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
@@ -67,9 +65,7 @@ export default function RootLayout({
                                 height: "100vh",
                             }}
                         >
-
                             <LinearProgress variant="determinate" />
-
                         </Box>
                     )}
                 </Provider>

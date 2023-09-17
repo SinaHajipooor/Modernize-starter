@@ -14,6 +14,7 @@ import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elem
 import { useState } from "react";
 import { login } from "@/utils/api/auth/apiLogin";
 
+
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     //pending 
     const [isLoading, setIsLoading] = useState(false);
@@ -24,9 +25,15 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     })
     // onLogin handler
     async function onLogin() {
-        setIsLoading(true);
-        const userData = await login(user);
-        console.log(userData)
+        try {
+            setIsLoading(true);
+            const userData = await login(user);
+            // navigate 
+        } catch (error: any) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
     // onchange for form inputs
     function onChangeHandler(e: any, fieldName: any) {
@@ -69,8 +76,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                         />
                     </FormGroup>
                     <Typography
-                        component={Link}
                         href="/auth/register"
+                        component={Link}
                         fontWeight="500"
                         sx={{
                             textDecoration: 'none',
@@ -79,7 +86,6 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                     >
                         ثبت‌ نام
                     </Typography>
-
                 </Stack>
             </Stack>
             <Box>
