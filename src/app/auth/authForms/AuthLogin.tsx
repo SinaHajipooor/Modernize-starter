@@ -13,9 +13,13 @@ import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elem
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { useState } from "react";
 import { login } from "@/utils/api/auth/apiLogin";
+import { toast } from 'react-hot-toast'
+import { useRouter } from "next/navigation";
+
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+    const router = useRouter();
     //pending 
     const [isLoading, setIsLoading] = useState(false);
     // user information 
@@ -28,8 +32,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         try {
             setIsLoading(true);
             const userData = await login(user);
-            console.log(userData)
-            // navigate 
+            // navigate
+            router.push('')
         } catch (error: any) {
             console.error(error)
         } finally {
