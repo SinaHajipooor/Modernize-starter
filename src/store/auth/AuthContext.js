@@ -1,3 +1,4 @@
+import { apiLogin } from "@/utils/api/auth/apiLogin";
 import { createContext, useState } from "react";
 
 // define default values
@@ -6,44 +7,47 @@ export const AuthContext = createContext({
     token: '',
     user: {},
     isAuthenticated: false,
-    authenticate: () => { },
+    login: (userInfo) => { },
+    signup: () => { },
     logout: () => { }
 });
 
 // provider 
 const AuthContextProvider = ({ children }) => {
-    // states
+    // ------------ STATES -------------
     const [isLoading, setIsLoading] = useState(false);
     const [token, setToken] = useState('');
     const [user, setUser] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(false)
-    // authenticate user 
-    const authenticate = (token, userData) => {
+    // ------------ METHODS -------------
+    // user signup 
+    async function signup() { }
+    // login user 
+    async function login(userInfo) {
         setIsLoading(true);
-        setToken(token);
-        setUser(userData);
+        const userData = await apiLogin(userInfo)
+        setToken(userData.token);
+        setUser(userData.user);
         setIsAuthenticated(true);
-        // set token into cookies
-        // ...
-        setIsLoading(false)
-    };
-    // logout user 
+        setIsLoading(false);
+    }
+    // user logout
     const logout = () => {
         setIsLoading(true);
-        // remove all user info
+        // Remove all user info
         setToken('');
         setUser({});
         setIsAuthenticated(false);
-        // remove token from coockie
-        //     ... 
         setIsLoading(false);
     };
+    // ------------ VALUES -------------
     const value = {
         isLoading: isLoading,
         token: token,
         user: user,
         isAuthenticated: isAuthenticated,
-        authenticate: authenticate,
+        login: login,
+        signup: signup,
         logout: logout
     };
     // return the provider with values

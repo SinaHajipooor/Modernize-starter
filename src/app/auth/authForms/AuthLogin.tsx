@@ -11,15 +11,15 @@ import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
-import { useState } from "react";
-import { login } from "@/utils/api/auth/apiLogin";
-import { toast } from 'react-hot-toast'
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/store/auth/AuthContext";
 
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     const router = useRouter();
+    const context = useContext(AuthContext)
     //pending 
     const [isLoading, setIsLoading] = useState(false);
     // user information 
@@ -28,18 +28,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         password: ''
     })
     // onLogin handler
-    async function onLogin() {
-        try {
-            setIsLoading(true);
-            const userData = await login(user);
-            console.log(userData)
-            // navigate
-            router.replace('/',)
-        } catch (error: any) {
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
+    function onLogin() {
+        context.login(user);
     }
     // onchange for form inputs
     function onChangeHandler(e: any, fieldName: any) {
