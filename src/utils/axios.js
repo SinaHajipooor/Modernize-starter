@@ -17,11 +17,12 @@
 import axios from 'axios';
 
 const axiosConfig = axios.create({
-    baseURL: 'https://api.example.com',  // BASE URL
+    baseURL: 'http://45.149.77.156:',  // BASE URL
     headers: {
         'Content-Type': 'application/json', // CONTENT TYPE
     },
 });
+export default axiosConfig;
 
 // USER TOKEN
 axiosConfig.interceptors.request.use(
@@ -37,5 +38,4 @@ axiosConfig.interceptors.request.use(
     //     }
 );
 
-export default axiosConfig;
 

@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { register } from "@/utils/api/auth/apiRegister";
 
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
@@ -21,10 +22,14 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
         setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
     }
     // register handler
-    function onRegister() {
+    async function onRegister() {
         try {
-            //     start pending 
+            // start pending 
             setIsLoading(true);
+            // get user data from api
+            const userData = await register(user);
+            // navigate 
+            router.push('/login')
             // request 
         } catch (error: any) {
             console.log('Failed to sign up' + error.message)

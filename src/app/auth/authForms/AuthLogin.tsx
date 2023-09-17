@@ -12,15 +12,22 @@ import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-eleme
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { useState } from "react";
+import { login } from "@/utils/api/auth/apiLogin";
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+    //pending 
+    const [isLoading, setIsLoading] = useState(false);
     // user information 
     const [user, setUser] = useState({
         username: '',
         password: ''
     })
     // onLogin handler
-    async function onLogin() { }
+    async function onLogin() {
+        setIsLoading(true);
+        const userData = await login(user);
+        console.log(userData)
+    }
     // onchange for form inputs
     function onChangeHandler(e: any, fieldName: any) {
         setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
@@ -77,7 +84,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             </Stack>
             <Box>
                 <Button
-                    onClick={() => console.log(user)}
+                    onClick={onLogin}
                     color="primary"
                     variant="contained"
                     size="large"
