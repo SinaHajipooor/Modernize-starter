@@ -28,6 +28,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         try {
             setIsLoading(true);
             const userData = await login(user);
+            console.log(userData)
             // navigate 
         } catch (error: any) {
             console.error(error)
