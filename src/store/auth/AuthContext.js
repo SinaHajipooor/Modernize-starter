@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export const AuthContext = createContext({
     isLoading: false,
     token: '',
-    user: {},
+    user: { id: '', username: '', mobile: '' },
     isAuthenticated: false,
     login: (userInfo) => { },
     signup: () => { },
@@ -31,9 +31,14 @@ const AuthContextProvider = ({ children }) => {
         // send user info into laravel api and then get the userdata (user id and token ) from that api
         const userData = await apiLogin(userInfo)
         setToken(userData.token);
-        setUser(userData.user);
+        setUser({
+            id: userData.user.id,
+            username: userData.user.username,
+            mobile: userData.user.mobile
+        });
         // send user token into next server
         const response = await axios.post('/api/auth/login', { token: userData.token });
+        console.log(userData.user)
         setIsAuthenticated(true);
         setIsLoading(false);
         router.replace('/')
