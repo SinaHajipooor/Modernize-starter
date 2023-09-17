@@ -32,6 +32,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         try {
             setIsLoading(true);
             const userData = await login(user);
+            console.log(userData)
             // navigate
             router.replace('/',)
         } catch (error: any) {
