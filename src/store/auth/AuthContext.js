@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 // define default values
 export const AuthContext = createContext({
+    isLoading: false,
     token: '',
     user: {},
     isAuthenticated: false,
@@ -11,26 +12,34 @@ export const AuthContext = createContext({
 
 // provider 
 const AuthContextProvider = ({ children }) => {
-    // user token
+    // states
+    const [isLoading, setIsLoading] = useState(false);
     const [token, setToken] = useState('');
     const [user, setUser] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     // authenticate user 
     const authenticate = (token, userData) => {
+        setIsLoading(true);
         setToken(token);
         setUser(userData);
         setIsAuthenticated(true);
         // set token into cookies
+        // ...
+        setIsLoading(false)
     };
     // logout user 
     const logout = () => {
+        setIsLoading(true);
         // remove all user info
         setToken('');
         setUser({});
         setIsAuthenticated(false);
         // remove token from coockie
+        //     ... 
+        setIsLoading(false);
     };
     const value = {
+        isLoading: isLoading,
         token: token,
         user: user,
         isAuthenticated: isAuthenticated,
