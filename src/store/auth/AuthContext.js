@@ -1,7 +1,7 @@
 import { apiLogin } from "@/utils/api/auth/apiLogin";
 import { createContext, useState } from "react";
-import axiosConfig from "@/utils/axios";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 // define default values
 export const AuthContext = createContext({
@@ -21,6 +21,7 @@ const AuthContextProvider = ({ children }) => {
     const [token, setToken] = useState('');
     const [user, setUser] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const router = useRouter()
     // ------------ METHODS -------------
     // user signup 
     async function signup() { }
@@ -35,6 +36,7 @@ const AuthContextProvider = ({ children }) => {
         const response = await axios.post('/api/auth/login', { token: userData.token });
         setIsAuthenticated(true);
         setIsLoading(false);
+        router.replace('/')
     }
     // user logout
     const logout = () => {
