@@ -17,7 +17,7 @@ export default function Loading() {
         //     <CircularProgress />
         // </Box>
         <Box sx={{ width: '100%' }}>
-            <LinearProgress variant="determinate" />
+            <LinearProgress variant="determinate" value={50} />
         </Box>
     );
 };
