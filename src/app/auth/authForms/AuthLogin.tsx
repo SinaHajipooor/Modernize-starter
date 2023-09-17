@@ -33,7 +33,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             setIsLoading(true);
             const userData = await login(user);
             // navigate
-            router.push('')
+            router.replace('/',)
         } catch (error: any) {
             console.error(error)
         } finally {
@@ -95,6 +95,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             </Stack>
             <Box>
                 <Button
+                    disabled={isLoading}
                     onClick={onLogin}
                     color="primary"
                     variant="contained"

@@ -14,6 +14,7 @@ import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import { LinearProgress } from "@mui/material";
+import AuthContextProvider from "@/store/auth/AuthContext";
 
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
@@ -51,24 +52,26 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
-                <Provider store={store}>
-                    {loading ? (
-                        // eslint-disable-next-line react/no-children-prop
-                        <MyApp children={children} />
-                    ) : (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                width: "100%",
-                                height: "100vh",
-                            }}
-                        >
-                            <LinearProgress variant="determinate" />
-                        </Box>
-                    )}
-                </Provider>
+                <AuthContextProvider>
+                    <Provider store={store}>
+                        {loading ? (
+                            // eslint-disable-next-line react/no-children-prop
+                            <MyApp children={children} />
+                        ) : (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    width: "100%",
+                                    height: "100vh",
+                                }}
+                            >
+                                <LinearProgress variant="determinate" />
+                            </Box>
+                        )}
+                    </Provider>
+                </AuthContextProvider>
             </body>
         </html>
     );
