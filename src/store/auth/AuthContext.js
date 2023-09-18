@@ -9,7 +9,7 @@ import { apiAuthenticate } from "@/utils/api/auth/apiAuthenticate";
 export const AuthContext = createContext({
     isLoading: false,
     token: '',
-    user: { id: '', username: '', mobile: '' },
+    user: { avatar: null, firstName: '', lastName: '', id: '', username: '', mobile: '' },
     isAuthenticated: false,
     login: (userInfo) => { },
     signup: () => { },
@@ -37,6 +37,9 @@ const AuthContextProvider = ({ children }) => {
         const userData = await apiLogin(userInfo)
         setToken(userData.token);
         setUser({
+            avatar: userData.user.avatar,
+            firstName: userData.user.first_name,
+            lastName: userData.user.last_name,
             id: userData.user.id,
             username: userData.user.username,
             mobile: userData.user.mobile
@@ -51,13 +54,24 @@ const AuthContextProvider = ({ children }) => {
     // authenticate user 
     async function authenticate() {
         setIsLoading(true);
+        // ask for getting the user token
         const response = await axios.get('/api/auth/login')
-        const laravelResponse = await apiAuthenticate();
-        console.log(laravelResponse);
-        setIsLoading(false)
-        if (response.data.token) {
-            return response.data.token.value;
+        // check if user is authenticated ( send th token into backend api and get the user data if is authenticated)
+        const isAuthenticatedResponse = await apiAuthenticate();
+        // set user data into context state if the user is authenticated 
+        if (isAuthenticatedResponse.status == 200) {
+            setUser({
+                avatar: isAuthenticatedResponse.data.avatar,
+                firstName: isAuthenticatedResponse.data.first_name,
+                lastName: isAuthenticatedResponse.data.last_name,
+                id: isAuthenticatedResponse.data.id,
+                username: isAuthenticatedResponse.data.username,
+                mobile: isAuthenticatedResponse.data.mobile
+            });
         }
+        setIsAuthenticated(true)
+        setIsLoading(false)
+        router.replace('/')
     }
     // user logout
     async function logout() {
