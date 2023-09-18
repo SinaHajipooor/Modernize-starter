@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+
 // define default values
 export const AuthContext = createContext({
     isLoading: false,
@@ -11,8 +12,10 @@ export const AuthContext = createContext({
     isAuthenticated: false,
     login: (userInfo) => { },
     signup: () => { },
-    logout: () => { }
+    logout: () => { },
 });
+
+
 
 // provider 
 const AuthContextProvider = ({ children }) => {
@@ -38,6 +41,7 @@ const AuthContextProvider = ({ children }) => {
         });
         // send user token into next server
         const response = await axios.post('/api/auth/login', { token: userData.token });
+        console.log(response)
         setIsAuthenticated(true);
         setIsLoading(false);
         router.replace('/')

@@ -1,11 +1,4 @@
-import {
-    Box,
-    Typography,
-    FormGroup,
-    FormControlLabel,
-    Button,
-    Stack,
-} from "@mui/material";
+import { Box, Typography, FormGroup, FormControlLabel, Button, Stack, } from "@mui/material";
 import Link from "next/link";
 import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
