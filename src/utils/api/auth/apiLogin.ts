@@ -11,14 +11,3 @@ export async function apiLogin(userData: any) {
         throw new Error(error.message)
     }
 }
-
-
-// authenticate user 
-export async function apiAuthenticateUser(token: String) {
-    try {
-        const response = await axiosConfig.get('/api/user')
-        console.log(response);
-    } catch (error: any) {
-        throw new Error('user didnt authenticated')
-    }
-}

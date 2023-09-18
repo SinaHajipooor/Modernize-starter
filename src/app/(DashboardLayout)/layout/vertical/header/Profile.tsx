@@ -14,15 +14,13 @@ import * as dropdownData from './data';
 import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
-import { apiAuthenticateUser } from '@/utils/api/auth/apiLogin';
 
 const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
     const [anchorEl2, setAnchorEl2] = useState(null);
     const handleClick2 = (event: any) => {
-        // setAnchorEl2(event.currentTarget);
-        context.authenticate();
+        setAnchorEl2(event.currentTarget);
     };
     const handleClose2 = () => {
         setAnchorEl2(null);
