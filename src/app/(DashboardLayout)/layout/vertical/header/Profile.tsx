@@ -146,7 +146,7 @@ const Profile = () => {
                     </Box>
                 ))}
                 <Box mt={2}>
-                    <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
+                    {/* <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
                         <Box display="flex" justifyContent="space-between">
                             <Box>
                                 <Typography variant="h5" mb={2}>
@@ -159,7 +159,7 @@ const Profile = () => {
                             </Box>
                             <Image src={"/images/backgrounds/unlimited-bg.png"} width={150} height={183} alt="unlimited" className="signup-bg" />
                         </Box>
-                    </Box>
+                    </Box> */}
                     <Button onClick={() => context.logout()} href="" variant="outlined" color="primary" component={Link} fullWidth>
                         Logout
                     </Button>

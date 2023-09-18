@@ -49,7 +49,7 @@ const AuthContextProvider = ({ children }) => {
     // user logout
     async function logout() {
         setIsLoading(true);
-        const response = await axios.post('/api/auth/logout', { token: token })
+        const response = await axios.post('/api/auth/logout');
         // Remove all user info
         setToken('');
         setUser({});
