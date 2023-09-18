@@ -47,8 +47,8 @@ const Profile = () => {
                     src={"/images/profile/user-1.jpg"}
                     alt={'ProfileImg'}
                     sx={{
-                        width: 35,
-                        height: 35,
+                        width: 30,
+                        height: 30,
                     }}
                 />
             </IconButton>
