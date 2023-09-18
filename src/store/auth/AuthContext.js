@@ -2,6 +2,7 @@ import { apiLogin } from "@/utils/api/auth/apiLogin";
 import { createContext, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { apiAuthenticate } from "@/utils/api/auth/apiAuthenticate";
 
 
 // define default values
@@ -12,6 +13,7 @@ export const AuthContext = createContext({
     isAuthenticated: false,
     login: (userInfo) => { },
     signup: () => { },
+    authenticate: () => { },
     logout: () => { },
 });
 
@@ -46,6 +48,17 @@ const AuthContextProvider = ({ children }) => {
         router.replace('/')
         return response;
     }
+    // authenticate user 
+    async function authenticate() {
+        setIsLoading(true);
+        const response = await axios.get('/api/auth/login')
+        const laravelResponse = await apiAuthenticate();
+        console.log(laravelResponse);
+        setIsLoading(false)
+        if (response.data.token) {
+            return response.data.token.value;
+        }
+    }
     // user logout
     async function logout() {
         setIsLoading(true);
@@ -65,6 +78,7 @@ const AuthContextProvider = ({ children }) => {
         isAuthenticated: isAuthenticated,
         login: login,
         signup: signup,
+        authenticate: authenticate,
         logout: logout
     };
     // return the provider with values

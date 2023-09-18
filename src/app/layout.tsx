@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -14,7 +14,7 @@ import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import { LinearProgress } from "@mui/material";
-import AuthContextProvider from "@/store/auth/AuthContext";
+import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
@@ -46,6 +46,7 @@ export default function RootLayout({
 }) {
     const [loading, setLoading] = React.useState(false);
     React.useEffect(() => {
+
         setTimeout(() => setLoading(true), 0);
     }, []);
     return (

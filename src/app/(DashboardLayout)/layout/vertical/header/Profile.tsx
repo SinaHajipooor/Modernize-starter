@@ -11,18 +11,18 @@ import {
 } from '@mui/material';
 import * as dropdownData from './data';
 
-import { IconMail } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
-import Image from 'next/image';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
+import { apiAuthenticateUser } from '@/utils/api/auth/apiLogin';
 
 const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
     const [anchorEl2, setAnchorEl2] = useState(null);
     const handleClick2 = (event: any) => {
-        setAnchorEl2(event.currentTarget);
+        // setAnchorEl2(event.currentTarget);
+        context.authenticate();
     };
     const handleClose2 = () => {
         setAnchorEl2(null);

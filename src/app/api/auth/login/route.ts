@@ -11,19 +11,15 @@ export async function POST(request: NextRequest) {
         success: true
     })
     // set token in cookie
-    response.cookies.set('token', token, { httpOnly: true })
+    response.cookies.set('token', token, { httpOnly: true });
 
     return response;
 }
 
 
-// get cookie
-export async function GET() {
-    const response = NextResponse.json({
-        message: 'token has been get from cookies',
-        success: true,
-    })
-    //  get token from cookies
-    const token = response.cookies.get('token');
-    return token;
+export async function GET(request: NextRequest) {
+    // get the token from cookies
+    const token = request.cookies.get('token');
+    // return the token in the response
+    return new Response(JSON.stringify({ token }));
 }

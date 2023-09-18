@@ -8,18 +8,18 @@ const axiosConfig = axios.create({
 });
 export default axiosConfig;
 
-// USER TOKEN
+// // USER TOKEN
 axiosConfig.interceptors.request.use(
-    //     (config) => {
-    //         const userToken = localStorage.getItem('userToken');
-    //         if (userToken) {
-    //             config.headers['Authorization'] = `Bearer ${userToken}`;
-    //         }
-    //         return config;
-    //     },
-    //     (error) => {
-    //         return Promise.reject(error);
-    //     }
+    async (config) => {
+        const response = await axios.get('/api/auth/login')
+        if (response.data.token) {
+            config.headers['Authorization'] = `Bearer ${response.data.token.value}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
 );
 
 
