@@ -65,42 +65,32 @@ const Profile = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 sx={{
                     '& .MuiMenu-paper': {
-                        width: '360px',
-                        p: 4,
+                        width: '230px',
+                        p: 1,
                     },
                 }}
             >
-                <Typography variant="h5">User Profile</Typography>
-                <Stack direction="row" py={3} spacing={2} alignItems="center">
-                    <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 95, height: 95 }} />
+                <Stack direction="row" py={0} pb={2} spacing={2} alignItems="center">
+                    <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
-                        <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
+                        <Typography variant="h6" color="textPrimary" fontWeight={400}>
                             {context.user.username}
                         </Typography>
-                        <Typography variant="subtitle2" color="textSecondary">
+                        <Typography variant="caption" color="textSecondary">
                             Designer
                         </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            color="textSecondary"
-                            display="flex"
-                            alignItems="center"
-                            gap={1}
-                        >
-                            <IconMail width={15} height={15} />
-                            {context.user.mobile}
-                        </Typography>
+                        {/* user role  */}
                     </Box>
                 </Stack>
                 <Divider />
                 {dropdownData.profile.map((profile) => (
                     <Box key={profile.title}>
-                        <Box sx={{ py: 2, px: 0 }} className="hover-text-primary">
+                        <Box sx={{ py: 1.5, px: 0, }} className="hover-text-primary">
                             <Link href={profile.href}>
-                                <Stack direction="row" spacing={2}>
+                                <Stack direction="row" spacing={2} alignItems='center'>
                                     <Box
-                                        width="45px"
-                                        height="45px"
+                                        width="30px"
+                                        height="30px"
                                         bgcolor="primary.light"
                                         display="flex"
                                         alignItems="center"
@@ -110,16 +100,16 @@ const Profile = () => {
                                             src={profile.icon}
                                             alt={profile.icon}
                                             sx={{
-                                                width: 24,
-                                                height: 24,
+                                                width: 15,
+                                                height: 15,
                                                 borderRadius: 0,
                                             }}
                                         />
                                     </Box>
                                     <Box>
                                         <Typography
-                                            variant="subtitle2"
-                                            fontWeight={600}
+                                            variant="h6"
+                                            fontWeight={400}
                                             color="textPrimary"
                                             className="text-hover"
                                             noWrap
@@ -129,16 +119,7 @@ const Profile = () => {
                                         >
                                             {profile.title}
                                         </Typography>
-                                        <Typography
-                                            color="textSecondary"
-                                            variant="subtitle2"
-                                            sx={{
-                                                width: '240px',
-                                            }}
-                                            noWrap
-                                        >
-                                            {profile.subtitle}
-                                        </Typography>
+
                                     </Box>
                                 </Stack>
                             </Link>
@@ -146,26 +127,12 @@ const Profile = () => {
                     </Box>
                 ))}
                 <Box mt={2}>
-                    {/* <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
-                        <Box display="flex" justifyContent="space-between">
-                            <Box>
-                                <Typography variant="h5" mb={2}>
-                                    Unlimited <br />
-                                    Access
-                                </Typography>
-                                <Button variant="contained" color="primary">
-                                    Upgrade
-                                </Button>
-                            </Box>
-                            <Image src={"/images/backgrounds/unlimited-bg.png"} width={150} height={183} alt="unlimited" className="signup-bg" />
-                        </Box>
-                    </Box> */}
                     <Button onClick={() => context.logout()} href="" variant="outlined" color="primary" component={Link} fullWidth>
-                        Logout
+                        خروج
                     </Button>
                 </Box>
             </Menu>
-        </Box>
+        </Box >
     );
 };
 
