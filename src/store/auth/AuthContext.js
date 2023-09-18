@@ -41,19 +41,21 @@ const AuthContextProvider = ({ children }) => {
         });
         // send user token into next server
         const response = await axios.post('/api/auth/login', { token: userData.token });
-        console.log(response)
         setIsAuthenticated(true);
         setIsLoading(false);
         router.replace('/')
+        return response;
     }
     // user logout
-    const logout = () => {
+    async function logout() {
         setIsLoading(true);
+        const response = await axios.post('/api/auth/logout', { token: token })
         // Remove all user info
         setToken('');
         setUser({});
         setIsAuthenticated(false);
         setIsLoading(false);
+        return response;
     };
     // ------------ VALUES -------------
     const value = {
