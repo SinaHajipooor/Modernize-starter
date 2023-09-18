@@ -68,6 +68,7 @@ export default function RootLayout({
                                 }}
                             >
                                 <LinearProgress variant="determinate" />
+
                             </Box>
                         )}
                     </Provider>

@@ -23,8 +23,7 @@ const Profile = () => {
         setAnchorEl2(event.currentTarget);
     };
     const handleClose2 = () => {
-        // setAnchorEl2(null);
-        context.authenticate()
+        setAnchorEl2(null);
     };
 
     return (
