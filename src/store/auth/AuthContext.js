@@ -1,5 +1,5 @@
 import { apiLogin } from "@/utils/api/auth/apiLogin";
-import { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { apiAuthenticate } from "@/utils/api/auth/apiAuthenticate";
@@ -79,8 +79,11 @@ const AuthContextProvider = ({ children }) => {
         } finally {
             setIsLoading(false)
         }
-
     }
+
+
+
+
     // user logout
     async function logout() {
         setIsLoading(true);
@@ -104,6 +107,7 @@ const AuthContextProvider = ({ children }) => {
         authenticate: authenticate,
         logout: logout
     };
+
     // return the provider with values
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

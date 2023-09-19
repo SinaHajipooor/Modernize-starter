@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -16,15 +16,22 @@ import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 import { SyncLoader } from "react-spinners";
 import './global.css'
+import { useRouter } from "next/navigation";
+
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
-    const context = useContext(AuthContext)
     const customizer = useSelector((state: AppState) => state.customizer);
+    const router = useRouter()
+    const context = useContext(AuthContext)
     useEffect(() => {
         context.authenticate()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+
+
+
     return (
         <>
             <NextTopLoader color="#5D87FF" />
