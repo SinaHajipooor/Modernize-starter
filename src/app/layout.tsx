@@ -13,16 +13,19 @@ import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
-import { LinearProgress } from "@mui/material";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
-
+import { SyncLoader } from "react-spinners";
+import './global.css'
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
     const context = useContext(AuthContext)
     const customizer = useSelector((state: AppState) => state.customizer);
     useEffect(() => {
-        context.authenticate()
+        if (context.isAuthenticated) {
+            context.authenticate()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <>
@@ -41,7 +44,6 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
 };
 
 
-
 export default function RootLayout({
     children,
 }: {
@@ -49,8 +51,11 @@ export default function RootLayout({
 }) {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000)
+        setTimeout(() => setIsLoading(false), 0)
     }, []);
+
+    // Define a variable for the progress value
+    const progressValue = 50; // You should set this to the actual progress value
 
     return (
         <html lang="en" suppressHydrationWarning>
@@ -72,12 +77,13 @@ export default function RootLayout({
                                     height: "100vh",
                                 }}
                             >
-                                <LinearProgress variant="determinate" />
+                                <SyncLoader color="#36afd7" />
+
                             </Box>
                         )}
                     </Provider>
                 </AuthContextProvider>
             </body>
-        </html >
+        </html>
     );
 }

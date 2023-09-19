@@ -86,10 +86,10 @@ const Profile = () => {
                     <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
                         <Typography variant="h6" color="textPrimary" fontWeight={400}>
-                            {context.user.firstName}
+                            {context.user.firstName} {context.user.lastName}
                         </Typography>
                         <Typography variant="caption" color="textSecondary">
-                            Designer
+                            {/* Designer */} {context.user.mobile}
                         </Typography>
                         {/* user role  */}
                     </Box>
