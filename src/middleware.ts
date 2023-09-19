@@ -3,6 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 // loging part
 export function middleware(request: NextRequest) {
+    // get the path that user has entered
     const path = request.nextUrl.pathname;
     const isPublicPath = path === '/auth/login' || path === '/auth/register' || path === '/auth/two-steps' || path === '/auth/forgot-password';
 
