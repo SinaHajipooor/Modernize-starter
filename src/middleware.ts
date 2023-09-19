@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
     // get the path that user has entered
     const path = request.nextUrl.pathname;
     const isPublicPath = path === '/auth/login' || path === '/auth/register' || path === '/auth/two-steps' || path === '/auth/forgot-password';
-
     // Extract token from cookies
     const token = request.cookies.get('token')?.value || '';
     // Redirect the authenticated users into dashboard
@@ -20,7 +19,6 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/auth/login', request.nextUrl));
     }
 }
-
 
 // matchin part 
 export const config = {
