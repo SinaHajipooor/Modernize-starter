@@ -15,7 +15,6 @@ export function middleware(request: NextRequest) {
     }
     // Redirect the users that are not authenticated into the login page
     if (!isPublicPath && !token) {
-        console.log('not token');
         return NextResponse.redirect(new URL('/auth/login', request.nextUrl));
     }
 }
