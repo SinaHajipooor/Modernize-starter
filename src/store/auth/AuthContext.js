@@ -54,27 +54,32 @@ const AuthContextProvider = ({ children }) => {
     }
     // authenticate user 
     async function authenticate() {
-        console.log('slm')
-        setIsLoading(true);
-        // ask for getting the user token
-        const response = await axios.get('/api/auth/login')
-        // check if user is authenticated ( send th token into backend api and get the user data if is authenticated)
-        const isAuthenticatedResponse = await apiAuthenticate();
-        // set user data into context state if the user is authenticated 
-        if (isAuthenticatedResponse.status == 200) {
-            setUser({
-                avatar: isAuthenticatedResponse.data.avatar,
-                firstName: isAuthenticatedResponse.data.first_name,
-                lastName: isAuthenticatedResponse.data.last_name,
-                id: isAuthenticatedResponse.data.id,
-                username: isAuthenticatedResponse.data.username,
-                mobile: isAuthenticatedResponse.data.mobile
-            });
+        try {
+            setIsLoading(true);
+            // ask for getting the user token
+            const response = await axios.get('/api/auth/login')
+            // check if user is authenticated ( send th token into backend api and get the user data if is authenticated)
+            const isAuthenticatedResponse = await apiAuthenticate();
+            // set user data into context state if the user is authenticated 
+            if (isAuthenticatedResponse.status == 200) {
+                setUser({
+                    avatar: isAuthenticatedResponse.data.avatar,
+                    firstName: isAuthenticatedResponse.data.first_name,
+                    lastName: isAuthenticatedResponse.data.last_name,
+                    id: isAuthenticatedResponse.data.id,
+                    username: isAuthenticatedResponse.data.username,
+                    mobile: isAuthenticatedResponse.data.mobile
+                });
+            }
+            setIsAuthenticated(true)
+            router.replace('/');
+            return response;
+        } catch (error) {
+            console.log(error.message)
+        } finally {
+            setIsLoading(false)
         }
-        setIsAuthenticated(true)
-        setIsLoading(false)
-        router.replace('/');
-        return response;
+
     }
     // user logout
     async function logout() {

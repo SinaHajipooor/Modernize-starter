@@ -22,9 +22,7 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const context = useContext(AuthContext)
     const customizer = useSelector((state: AppState) => state.customizer);
     useEffect(() => {
-        if (context.isAuthenticated) {
-            context.authenticate()
-        }
+        context.authenticate()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (

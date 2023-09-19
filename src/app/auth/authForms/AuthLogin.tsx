@@ -10,12 +10,13 @@ import { AuthContext } from "@/store/auth/AuthContext";
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-    const router = useRouter();
     const context = useContext(AuthContext)
     // user information 
-    const [user, setUser] = useState({ username: '', password: '' })
+    const [user, setUser] = useState({ username: '', password: '' });
+    const [isLoading, setIsLoading] = useState(false);
     // onLogin handler
     async function onLogin() {
+        setIsLoading(true)
         context.login(user);
     }
     // onchange for form inputs
@@ -73,7 +74,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             </Stack>
             <Box>
                 <Button
-                    disabled={context.isLoading}
+                    disabled={isLoading}
                     onClick={onLogin}
                     color="primary"
                     variant="contained"
