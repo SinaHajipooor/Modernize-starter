@@ -29,7 +29,8 @@ const AuthContextProvider = ({ children }) => {
     const router = useRouter()
     // ------------ METHODS -------------
     // user signup 
-    async function signup() { }
+    async function signup() {
+    }
     // login user 
     async function login(userInfo) {
         setIsLoading(true);
@@ -53,6 +54,7 @@ const AuthContextProvider = ({ children }) => {
     }
     // authenticate user 
     async function authenticate() {
+        console.log('slm')
         setIsLoading(true);
         // ask for getting the user token
         const response = await axios.get('/api/auth/login')

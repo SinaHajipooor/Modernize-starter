@@ -14,15 +14,12 @@ import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 
 
 
 const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
-    // get router 
-    const router = useRouter();
     const [anchorEl2, setAnchorEl2] = useState(null);
     const handleClick2 = (event: any) => {
         setAnchorEl2(event.currentTarget);
@@ -89,7 +86,7 @@ const Profile = () => {
                     <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
                         <Typography variant="h6" color="textPrimary" fontWeight={400}>
-                            {context.user.username}
+                            {context.user.firstName}
                         </Typography>
                         <Typography variant="caption" color="textSecondary">
                             Designer

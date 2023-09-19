@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -15,13 +15,15 @@ import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import { LinearProgress } from "@mui/material";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
-import Login2 from "./auth/login/page";
+
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
-
+    const context = useContext(AuthContext)
     const customizer = useSelector((state: AppState) => state.customizer);
-
+    useEffect(() => {
+        context.authenticate()
+    }, []);
     return (
         <>
             <NextTopLoader color="#5D87FF" />
@@ -45,19 +47,21 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [loading, setLoading] = React.useState(false);
-    React.useEffect(() => {
-
-        setTimeout(() => setLoading(true), 0);
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 2000)
     }, []);
+
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
                 <AuthContextProvider>
                     <Provider store={store}>
-                        {loading ? (
-                            // eslint-disable-next-line react/no-children-prop
-                            <MyApp children={children} />
+                        {!isLoading ? (
+                            <>
+                                {/* eslint-disable-next-line react/no-children-prop */}
+                                <MyApp children={children} />
+                            </>
                         ) : (
                             <Box
                                 sx={{
@@ -69,12 +73,11 @@ export default function RootLayout({
                                 }}
                             >
                                 <LinearProgress variant="determinate" />
-
                             </Box>
                         )}
                     </Provider>
                 </AuthContextProvider>
             </body>
-        </html>
+        </html >
     );
 }
