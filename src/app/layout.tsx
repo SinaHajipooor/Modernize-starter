@@ -15,6 +15,7 @@ import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import { LinearProgress } from "@mui/material";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
+import Login2 from "./auth/login/page";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();

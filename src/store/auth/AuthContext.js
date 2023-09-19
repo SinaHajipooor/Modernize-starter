@@ -71,7 +71,8 @@ const AuthContextProvider = ({ children }) => {
         }
         setIsAuthenticated(true)
         setIsLoading(false)
-        router.replace('/')
+        router.replace('/');
+        return response;
     }
     // user logout
     async function logout() {
@@ -82,6 +83,7 @@ const AuthContextProvider = ({ children }) => {
         setUser({});
         setIsAuthenticated(false);
         setIsLoading(false);
+        router.replace('/auth/login')
         return response;
     };
     // ------------ VALUES -------------

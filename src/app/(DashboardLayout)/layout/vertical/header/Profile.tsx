@@ -10,14 +10,19 @@ import {
     IconButton,
 } from '@mui/material';
 import * as dropdownData from './data';
-
 import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+
+
 
 const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
+    // get router 
+    const router = useRouter();
     const [anchorEl2, setAnchorEl2] = useState(null);
     const handleClick2 = (event: any) => {
         setAnchorEl2(event.currentTarget);
@@ -25,6 +30,18 @@ const Profile = () => {
     const handleClose2 = () => {
         setAnchorEl2(null);
     };
+    // logout user 
+    async function logoutHandler() {
+        try {
+            const response = context.logout();
+            toast.success('Logout successfully');
+            console.log(response)
+            // redirect to login page 
+        } catch (error: any) {
+            console.log(error.message)
+            toast.error(error.message)
+        }
+    }
 
     return (
         <Box>
@@ -125,7 +142,7 @@ const Profile = () => {
                     </Box>
                 ))}
                 <Box mt={2}>
-                    <Button onClick={() => context.logout()} href="" variant="outlined" color="primary" component={Link} fullWidth>
+                    <Button onClick={logoutHandler} href="" variant="outlined" color="primary" component={Link} fullWidth>
                         خروج
                     </Button>
                 </Box>
