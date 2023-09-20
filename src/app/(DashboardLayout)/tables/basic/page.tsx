@@ -17,7 +17,7 @@ const BCrumb = [
         title: 'Home',
     },
     {
-        title: 'Basic Table',
+        title: 'سوابق فعالیت',
     },
 ];
 
@@ -26,7 +26,7 @@ const BasicTable = () => (
         {/* breadcrumb */}
         {/* <Breadcrumb title="Basic Table" items={BCrumb} /> */}
         {/* end breadcrumb */}
-        <ParentCard title="Basic Table">
+        <ParentCard title="سوابق فعالیت">
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Box>
@@ -38,7 +38,7 @@ const BasicTable = () => (
                         <Table2 />
                     </Box>
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <Box>
                         <Table3 />
                     </Box>
@@ -52,7 +52,7 @@ const BasicTable = () => (
                     <Box>
                         <Table4 />
                     </Box>
-                </Grid>
+                </Grid> */}
             </Grid>
         </ParentCard>
     </PageContainer>

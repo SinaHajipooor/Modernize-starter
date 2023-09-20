@@ -81,7 +81,7 @@ const Menuitems: MenuitemsType[] = [
     },
     {
         id: uniqueId(),
-        title: "دوره ها",
+        title: "سوابق فعالیت",
         icon: IconAperture,
         href: "/tables/basic",
         chipColor: "secondary",
