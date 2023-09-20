@@ -6,9 +6,10 @@ const axiosConfig = axios.create({
         'Content-Type': 'application/json', // CONTENT TYPE
     },
 });
+
 export default axiosConfig;
 
-// // USER TOKEN
+// SET USER TOKEN INTO HEADER
 axiosConfig.interceptors.request.use(
     async (config) => {
         const response = await axios.get('/api/auth/authenticate')
