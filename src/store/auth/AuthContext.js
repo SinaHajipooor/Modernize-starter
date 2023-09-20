@@ -31,6 +31,7 @@ const AuthContextProvider = ({ children }) => {
     // user signup 
     async function signup() {
     }
+
     // login user 
     async function login(userInfo) {
         setIsLoading(true);
@@ -52,6 +53,7 @@ const AuthContextProvider = ({ children }) => {
         router.replace('/')
         return response;
     }
+
     // authenticate user 
     async function authenticate() {
         try {
@@ -80,9 +82,6 @@ const AuthContextProvider = ({ children }) => {
             setIsLoading(false)
         }
     }
-
-
-
 
     // user logout
     async function logout() {
