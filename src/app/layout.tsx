@@ -16,13 +16,11 @@ import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 import { SyncLoader } from "react-spinners";
 import './global.css'
-import { useRouter } from "next/navigation";
 
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
     const customizer = useSelector((state: AppState) => state.customizer);
-    const router = useRouter()
     const context = useContext(AuthContext)
     useEffect(() => {
         context.authenticate()
@@ -47,6 +45,11 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
         </>
     );
 };
+
+
+export const metadata = {
+    title: 'HajiNext'
+}
 
 
 export default function RootLayout({
