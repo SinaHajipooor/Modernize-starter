@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { styled } from '@mui/material';
-import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
+import { styled } from '@mui/material/styles';
+import Radio, { RadioProps } from '@mui/material/Radio';
 
 const BpIcon = styled('span')(({ theme }) => ({
-  borderRadius: 3,
-  width: 19,
-  height: 19,
-  marginLeft: '4px',
+  borderRadius: '50%',
+  width: 21,
+  height: 21,
   boxShadow:
     theme.palette.mode === 'dark'
       ? `0 0 0 1px ${theme.palette.grey[200]}`
       : `inset 0 0 0 1px ${theme.palette.grey[300]}`,
   backgroundColor: 'transparent',
-
   '.Mui-focusVisible &': {
     outline:
       theme.palette.mode === 'dark'
@@ -21,7 +19,7 @@ const BpIcon = styled('span')(({ theme }) => ({
     outlineOffset: 2,
   },
   'input:hover ~ &': {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary : theme.palette.primary,
+    backgroundColor: theme.palette.primary,
   },
   'input:disabled ~ &': {
     boxShadow: 'none',
@@ -29,28 +27,26 @@ const BpIcon = styled('span')(({ theme }) => ({
   },
 }));
 
-const BpCheckedIcon = styled(BpIcon)({
+const BpCheckedIcon = styled(BpIcon)(({ theme }) => ({
   boxShadow: 'none',
-  width: 19,
-  height: 19,
   '&:before': {
     display: 'block',
-    width: 19,
-    height: 19,
+    width: 21,
+    height: 21,
     backgroundImage:
-      "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
-      " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
-      "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
+      theme.palette.mode === 'dark'
+        ? `radial-gradient(${theme.palette.background.paper},${theme.palette.background.paper} 28%,transparent 32%)`
+        : 'radial-gradient(#fff,#fff 28%,transparent 32%)',
     content: '""',
   },
-});
+}));
 
 // Inspired by blueprintjs
-function CustomCheckbox(props: CheckboxProps) {
+function CustomRadio(props: RadioProps) {
   return (
-    <Checkbox
+    <Radio
       disableRipple
-      color={props.color ? props.color : 'default'}
+      color="default"
       checkedIcon={
         <BpCheckedIcon
           sx={{
@@ -65,4 +61,4 @@ function CustomCheckbox(props: CheckboxProps) {
   );
 }
 
-export default CustomCheckbox;
+export default CustomRadio;
