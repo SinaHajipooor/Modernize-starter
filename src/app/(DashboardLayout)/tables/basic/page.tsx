@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
@@ -29,37 +29,31 @@ const BasicTable = () => {
 
     return (
         <PageContainer title="Basic Table" description="this is Basic Table">
-            {/* breadcrumb */}
-            {/* <Breadcrumb title="Basic Table" items={BCrumb} /> */}
-            {/* end breadcrumb */}
-            <ParentCard title="سوابق فعالیت">
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Box>
-                            {/* <Table5 /> */}
-                        </Box>
+
+            <ParentCard title="سوابق فعالیت" >
+                <>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        size="large"
+                        href=""
+                        type="submit"
+                    >
+                        ایجاد
+                    </Button>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Box>
+                                {/* <Table5 /> */}
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Box>
+                                <Table2 />
+                            </Box>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Box>
-                            <Table2 />
-                        </Box>
-                    </Grid>
-                    {/* <Grid item xs={12}>
-                    <Box>
-                        <Table3 />
-                    </Box>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box>
-                        <Table1 />
-                    </Box>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box>
-                        <Table4 />
-                    </Box>
-                </Grid> */}
-                </Grid>
+                </>
             </ParentCard>
         </PageContainer>
     );
