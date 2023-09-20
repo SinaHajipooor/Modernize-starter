@@ -11,7 +11,7 @@ export default axiosConfig;
 // // USER TOKEN
 axiosConfig.interceptors.request.use(
     async (config) => {
-        const response = await axios.get('/api/auth/login')
+        const response = await axios.get('/api/auth/authenticate')
         if (response.data.token) {
             config.headers['Authorization'] = `Bearer ${response.data.token.value}`;
         }

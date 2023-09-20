@@ -59,7 +59,7 @@ const AuthContextProvider = ({ children }) => {
         try {
             setIsLoading(true);
             // ask for getting the user token
-            const response = await axios.get('/api/auth/login')
+            const response = await axios.get('/api/auth/authenticate')
             // check if user is authenticated ( send th token into backend api and get the user data if is authenticated)
             const isAuthenticatedResponse = await apiAuthenticate();
             // set user data into context state if the user is authenticated 
