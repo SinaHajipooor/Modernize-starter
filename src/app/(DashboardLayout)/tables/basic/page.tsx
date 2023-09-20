@@ -10,6 +10,7 @@ import Table3 from '@/app/(DashboardLayout)/components/tables/Table3';
 import Table1 from '@/app/(DashboardLayout)/components/tables/Table1';
 import Table4 from '@/app/(DashboardLayout)/components/tables/Table4';
 import Table5 from '@/app/(DashboardLayout)/components/tables/Table5';
+import Link from 'next/link';
 
 
 
@@ -37,7 +38,7 @@ const BasicTable = () => {
                         variant="contained"
                         size="large"
                         href="/forms/form-custom"
-                        type="submit"
+                        LinkComponent={Link}
                     >
                         ایجاد
                     </Button>
