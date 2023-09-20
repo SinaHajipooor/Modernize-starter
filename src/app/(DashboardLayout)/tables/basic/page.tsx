@@ -36,16 +36,13 @@ const BasicTable = () => {
                         color="primary"
                         variant="contained"
                         size="large"
-                        href=""
+                        href="/forms/form-custom"
                         type="submit"
                     >
                         ایجاد
                     </Button>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Box>
-                                {/* <Table5 /> */}
-                            </Box>
                         </Grid>
                         <Grid item xs={12}>
                             <Box>
