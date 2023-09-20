@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -47,9 +47,6 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
 };
 
 
-export const metadata = {
-    title: 'HajiNext'
-}
 
 
 export default function RootLayout({
