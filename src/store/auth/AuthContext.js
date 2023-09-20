@@ -74,7 +74,6 @@ const AuthContextProvider = ({ children }) => {
                 });
             }
             setIsAuthenticated(true)
-            router.replace('/');
             return response;
         } catch (error) {
             console.log(error.message)
