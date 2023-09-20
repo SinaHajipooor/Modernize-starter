@@ -59,9 +59,6 @@ export default function RootLayout({
         setTimeout(() => setIsLoading(false), 0)
     }, []);
 
-    // Define a variable for the progress value
-    const progressValue = 50; // You should set this to the actual progress value
-
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
