@@ -11,6 +11,8 @@ import Table1 from '@/app/(DashboardLayout)/components/tables/Table1';
 import Table4 from '@/app/(DashboardLayout)/components/tables/Table4';
 import Table5 from '@/app/(DashboardLayout)/components/tables/Table5';
 
+
+
 const BCrumb = [
     {
         to: '/',
@@ -21,24 +23,28 @@ const BCrumb = [
     },
 ];
 
-const BasicTable = () => (
-    <PageContainer title="Basic Table" description="this is Basic Table">
-        {/* breadcrumb */}
-        {/* <Breadcrumb title="Basic Table" items={BCrumb} /> */}
-        {/* end breadcrumb */}
-        <ParentCard title="سوابق فعالیت">
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Box>
-                        {/* <Table5 /> */}
-                    </Box>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box>
-                        <Table2 />
-                    </Box>
-                </Grid>
-                {/* <Grid item xs={12}>
+const BasicTable = () => {
+
+
+
+    return (
+        <PageContainer title="Basic Table" description="this is Basic Table">
+            {/* breadcrumb */}
+            {/* <Breadcrumb title="Basic Table" items={BCrumb} /> */}
+            {/* end breadcrumb */}
+            <ParentCard title="سوابق فعالیت">
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Box>
+                            {/* <Table5 /> */}
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box>
+                            <Table2 />
+                        </Box>
+                    </Grid>
+                    {/* <Grid item xs={12}>
                     <Box>
                         <Table3 />
                     </Box>
@@ -53,9 +59,9 @@ const BasicTable = () => (
                         <Table4 />
                     </Box>
                 </Grid> */}
-            </Grid>
-        </ParentCard>
-    </PageContainer>
-);
-
+                </Grid>
+            </ParentCard>
+        </PageContainer>
+    );
+}
 export default BasicTable;
