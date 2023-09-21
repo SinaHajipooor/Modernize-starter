@@ -177,13 +177,14 @@ export default function FormCustom() {
                                 }}
                             />
                         </LocalizationProvider>
+                        <CustomFormLabel htmlFor="time">مدت</CustomFormLabel>
+                        <CustomTextField id="cname" placeholder="مدت فعالیت را وارد کنید" variant="outlined" fullWidth />
                     </Grid>
                     {/* ----------------------------------- */}
                     {/* column 4 */}
                     {/* ----------------------------------- */}
 
                     <Grid item xs={12} sm={12} lg={12} >
-                        {/* <CustomFormLabel>Switch</CustomFormLabel> */}
                         <Grid container spacing={0} my={4}>
                             <Grid item xs={12} sm={6} lg={3}>
                                 <FormControlLabel control={<CustomSwitch />} label="گواهینامه" />
