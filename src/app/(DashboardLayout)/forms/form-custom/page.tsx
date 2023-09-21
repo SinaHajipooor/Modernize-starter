@@ -1,21 +1,19 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Grid,
-    Box,
     MenuItem,
     FormControlLabel,
     Button,
-    SliderValueLabelProps,
+    TextField,
+    Box,
 } from '@mui/material';
-import { SliderThumb } from '@mui/material/Slider';
 
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 import CustomSelect from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSelect';
@@ -31,9 +29,9 @@ export default function FormCustom() {
     const [select1, setSelect] = React.useState('1');
     const [select2, setSelect2] = React.useState('1');
 
-    const handleChange = (event: any) => {
-        setAge(event.target.value);
-    };
+    //     const handleChange = (event: any) => {
+    //         setAge(event.target.value);
+    //     };
     const handleChange4 = (event2: any) => {
         setSelect(event2.target.value);
     };
@@ -43,8 +41,8 @@ export default function FormCustom() {
     };
 
     const [value, setValue] = React.useState(null);
-
     const [selectedDate, setSelectedDate] = React.useState(null);
+
     const handleDateChange = (newValue: any) => {
         // Handle the selected date here
         console.log(newValue);
@@ -54,6 +52,23 @@ export default function FormCustom() {
         setSelectedDate(newValue);
     };
 
+    const handleFileUpload = (event: any) => {
+        const selectedFile = event.target.files[0];
+        console.log(selectedFile)
+        if (selectedFile) {
+            setFile(selectedFile.name);
+        } else {
+            setFile(null);
+        }
+    };
+
+
+    const [file, setFile] = useState(null);
+
+    function handleChange(event: any) {
+        console.log(event.target.files)
+        setFile(event.target.files[0]);
+    };
 
     return (
         <PageContainer title="Custom Form" description="this is Custom Form">
@@ -86,59 +101,86 @@ export default function FormCustom() {
                         <CustomTextField id="cname" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
                         <CustomFormLabel htmlFor="time">مدت</CustomFormLabel>
                         <CustomTextField id="cname" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
+
                     </Grid>
                     {/* ----------------------------------- */}
                     {/* column 3 */}
                     {/* ----------------------------------- */}
                     <Grid item xs={12} sm={12} lg={4}>
-                        <CustomFormLabel htmlFor="date">تاریخ شروع</CustomFormLabel>
 
-                        <LocalizationProvider dateAdapter={AdapterDateFns} >
-                            <DatePicker
-                                renderInput={(props) => (
-                                    <CustomTextField
-                                        {...props}
-                                        fullWidth
-                                        size="small"
-                                        sx={{
-                                            '& .MuiSvgIcon-root': {
-                                                width: '18px',
-                                                height: '18px',
-                                            },
-                                            '& .MuiFormHelperText-root': {
-                                                display: 'none',
-                                            },
-                                        }}
-                                    />
-                                )}
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                            />
-                        </LocalizationProvider>
-                        <CustomFormLabel htmlFor="date">تاریخ پایان</CustomFormLabel>
+                        <Grid>
+                            <CustomFormLabel htmlFor="date">تاریخ شروع</CustomFormLabel>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} >
+                                <DatePicker
+                                    renderInput={(props) => (
+                                        <CustomTextField
+                                            {...props}
+                                            fullWidth
+                                            size="small"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': {
+                                                    width: '18px',
+                                                    height: '18px',
+                                                },
+                                                '& .MuiFormHelperText-root': {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                />
 
-                        <LocalizationProvider dateAdapter={AdapterDateFns} >
-                            <DatePicker
-                                renderInput={(props) => (
-                                    <CustomTextField
-                                        {...props}
-                                        fullWidth
-                                        size="small"
-                                        sx={{
-                                            '& .MuiSvgIcon-root': {
-                                                width: '18px',
-                                                height: '18px',
-                                            },
-                                            '& .MuiFormHelperText-root': {
-                                                display: 'none',
-                                            },
-                                        }}
-                                    />
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid mt={5}>
+                            <CustomFormLabel htmlFor="date">تاریخ پایان</CustomFormLabel>
+
+                            <LocalizationProvider dateAdapter={AdapterDateFns} >
+                                <DatePicker
+                                    renderInput={(props) => (
+                                        <CustomTextField
+                                            {...props}
+                                            fullWidth
+                                            size="small"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': {
+                                                    width: '18px',
+                                                    height: '18px',
+                                                },
+                                                '& .MuiFormHelperText-root': {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                />
+                            </LocalizationProvider>
+
+                        </Grid>
+                        <Grid mt={7}>
+                            <Box border={0.2} borderRadius={4} display="flex" justifyContent="space-between" borderColor='#dbdbdb' height={45}>
+                                <TextField
+                                    type="file"
+                                    id="file-input"
+                                    onChange={handleFileUpload}
+                                    style={{ display: 'none' }}
+                                />
+                                <label htmlFor="file-input">
+                                    <Button variant="contained" component="span" style={{ height: '100%' }}>
+                                        Choose File
+                                    </Button>
+                                </label>
+                                {file && (
+                                    <span style={{ display: 'flex', alignItems: 'center', paddingRight: '8px', paddingLeft: '8px' }}>
+                                        {file}
+                                    </span>
                                 )}
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                            />
-                        </LocalizationProvider>
+                            </Box>
+                        </Grid>
                     </Grid>
                     {/* ----------------------------------- */}
                     {/* column 4 */}
@@ -146,6 +188,7 @@ export default function FormCustom() {
 
                     <Grid item xs={12} sm={12} lg={12} >
                         <Grid container spacing={0} my={4}>
+
                             <Grid item xs={12} sm={6} lg={3}>
                                 <FormControlLabel control={<CustomSwitch />} label="گواهینامه" />
                             </Grid>

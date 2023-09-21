@@ -51,6 +51,7 @@ const AuthContextProvider = ({ children }) => {
         setIsAuthenticated(true);
         setIsLoading(false);
         router.replace('/')
+
         return response;
     }
 
