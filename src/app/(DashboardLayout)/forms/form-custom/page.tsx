@@ -4,70 +4,27 @@ import React from 'react';
 import {
     Grid,
     Box,
-    Typography,
-    FormControl,
     MenuItem,
-    RadioGroup,
     FormControlLabel,
     Button,
     SliderValueLabelProps,
 } from '@mui/material';
 import { SliderThumb } from '@mui/material/Slider';
 
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 import CustomSelect from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSelect';
-import CustomSlider from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSlider';
-import CustomRangeSlider from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomRangeSlider';
 import CustomSwitch from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSwitch';
-import CustomDisabledButton from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomDisabledButton';
-import CustomOutlinedButton from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomOutlinedButton';
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
-import CustomCheckbox from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox';
-import CustomRadio from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomRadio';
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
-import { IconVolume, IconVolume2 } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
+import { format } from 'date-fns';
 
-function CustomThumbComponent(props: SliderValueLabelProps) {
-    const { children, ...other } = props;
-
-    return (
-        <SliderThumb {...other}>
-            {children}
-            <Box
-                sx={{
-                    height: 9,
-                    width: '2px',
-                    backgroundColor: '#fff',
-                }}
-            />
-            <Box
-                sx={{
-                    height: '14px',
-                    width: '2px',
-                    backgroundColor: '#fff',
-                    ml: '2px',
-                }}
-            />
-            <Box
-                sx={{
-                    height: 9,
-                    width: '2px',
-                    backgroundColor: '#fff',
-                    ml: '2px',
-                }}
-            />
-        </SliderThumb>
-    );
-}
 
 export default function FormCustom() {
     const [age, setAge] = React.useState('1');
@@ -86,12 +43,17 @@ export default function FormCustom() {
     };
 
     const [value, setValue] = React.useState(null);
-    const [value2, setValue2] = React.useState(null);
 
-    const [value3, setValue3] = React.useState(30);
-    const handleChange6 = (event: any, newValue: any) => {
-        setValue3(newValue);
+    const [selectedDate, setSelectedDate] = React.useState(null);
+    const handleDateChange = (newValue: any) => {
+        // Handle the selected date here
+        console.log(newValue);
+        // Format the selected date into "mm/dd/yyyy" format
+        const formattedDate = format(newValue, 'MM/dd/yyyy');
+        console.log('Formatted Date:', formattedDate);
+        setSelectedDate(newValue);
     };
+
 
     return (
         <PageContainer title="Custom Form" description="this is Custom Form">
@@ -122,24 +84,26 @@ export default function FormCustom() {
                         <CustomTextField id="cname" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
                         <CustomFormLabel htmlFor="time">نام موسسه</CustomFormLabel>
                         <CustomTextField id="cname" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
-                        <CustomFormLabel htmlFor="time">نام موسسه</CustomFormLabel>
-                        <CustomTextField id="cname" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                        <CustomFormLabel htmlFor="time">مدت</CustomFormLabel>
+                        <CustomTextField id="cname" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
                     </Grid>
                     {/* ----------------------------------- */}
                     {/* column 3 */}
                     {/* ----------------------------------- */}
                     <Grid item xs={12} sm={12} lg={4}>
                         <CustomFormLabel htmlFor="date">تاریخ شروع</CustomFormLabel>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
+
+                        <LocalizationProvider dateAdapter={AdapterDateFns} >
+                            <DatePicker
                                 renderInput={(props) => (
                                     <CustomTextField
                                         {...props}
                                         fullWidth
+                                        size="small"
                                         sx={{
                                             '& .MuiSvgIcon-root': {
-                                                width: 18,
-                                                height: 18,
+                                                width: '18px',
+                                                height: '18px',
                                             },
                                             '& .MuiFormHelperText-root': {
                                                 display: 'none',
@@ -147,23 +111,23 @@ export default function FormCustom() {
                                         }}
                                     />
                                 )}
-                                value={value}
-                                onChange={(newValue) => {
-                                    setValue(newValue);
-                                }}
+                                value={selectedDate}
+                                onChange={handleDateChange}
                             />
                         </LocalizationProvider>
                         <CustomFormLabel htmlFor="date">تاریخ پایان</CustomFormLabel>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
+
+                        <LocalizationProvider dateAdapter={AdapterDateFns} >
+                            <DatePicker
                                 renderInput={(props) => (
                                     <CustomTextField
                                         {...props}
                                         fullWidth
+                                        size="small"
                                         sx={{
                                             '& .MuiSvgIcon-root': {
-                                                width: 18,
-                                                height: 18,
+                                                width: '18px',
+                                                height: '18px',
                                             },
                                             '& .MuiFormHelperText-root': {
                                                 display: 'none',
@@ -171,14 +135,10 @@ export default function FormCustom() {
                                         }}
                                     />
                                 )}
-                                value={value}
-                                onChange={(newValue) => {
-                                    setValue(newValue);
-                                }}
+                                value={selectedDate}
+                                onChange={handleDateChange}
                             />
                         </LocalizationProvider>
-                        <CustomFormLabel htmlFor="time">مدت</CustomFormLabel>
-                        <CustomTextField id="cname" placeholder="مدت فعالیت را وارد کنید" variant="outlined" fullWidth />
                     </Grid>
                     {/* ----------------------------------- */}
                     {/* column 4 */}
