@@ -40,7 +40,8 @@ const Table2 = ({ data }: any) => {
                 queryKey: ['activity-histories']
             })
             handleClose();
-        }
+        },
+        onError: () => { }
     })
     // ui
     return (
