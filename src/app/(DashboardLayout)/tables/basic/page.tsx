@@ -1,14 +1,12 @@
 'use client'
 
 import { Box, Button, Grid } from '@mui/material';
-
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import Table2 from '@/app/(DashboardLayout)/components/tables/Table2';
 import Link from 'next/link';
 import { apiFetchAllActivityHistories } from '@/utils/api/activity-histories/apiActivityHistories';
 import { useQuery } from '@tanstack/react-query';
-import { SyncLoader } from 'react-spinners';
 import Loading from '@/app/loading';
 
 

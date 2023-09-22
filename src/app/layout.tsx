@@ -56,35 +56,14 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => setIsLoading(false), 0)
-    }, []);
 
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
                 <AuthContextProvider>
                     <Provider store={store}>
-                        {!isLoading ? (
-                            <>
-                                {/* eslint-disable-next-line react/no-children-prop */}
-                                <MyApp children={children} />
-                            </>
-                        ) : (
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    width: "100%",
-                                    height: "100vh",
-                                }}
-                            >
-                                <SyncLoader color="#36afd7" />
-
-                            </Box>
-                        )}
+                        {/* eslint-disable-next-line react/no-children-prop */}
+                        <MyApp children={children} />
                     </Provider>
                 </AuthContextProvider>
             </body>
