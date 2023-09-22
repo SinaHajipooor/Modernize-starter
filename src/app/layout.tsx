@@ -16,7 +16,9 @@ import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 import { SyncLoader } from "react-spinners";
 import './global.css'
-
+import { QueryClientProvider } from "@tanstack/react-query";
+import queryClientSetup from '@/queries/querySetup'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
@@ -27,21 +29,21 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
-
-
     return (
         <>
-            <NextTopLoader color="#5D87FF" />
-            <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
-                <ThemeProvider theme={theme}>
-                    <RTL direction={customizer.activeDir}>
-                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                        <CssBaseline />
-                        {children}
-                    </RTL>
-                </ThemeProvider>
-            </NextAppDirEmotionCacheProvider>
+            <QueryClientProvider client={queryClientSetup}>
+                <ReactQueryDevtools initialIsOpen={false} />
+                <NextTopLoader color="#5D87FF" />
+                <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
+                    <ThemeProvider theme={theme}>
+                        <RTL direction={customizer.activeDir}>
+                            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                            <CssBaseline />
+                            {children}
+                        </RTL>
+                    </ThemeProvider>
+                </NextAppDirEmotionCacheProvider>
+            </QueryClientProvider>
         </>
     );
 };

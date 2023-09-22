@@ -16,30 +16,18 @@ import {
 import BlankCard from '../shared/BlankCard';
 import { Box, Stack } from '@mui/system';
 import { IconDotsVertical, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { apiFetchAllActivityHistories } from '@/utils/api/activity-history/apiActivityHistory';
 
 
-const Table2 = () => {
+const Table2 = ({ data }: any) => {
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const [data, setData] = useState([])
-    useEffect(function () {
-        async function fetchData() {
-            const data = await apiFetchAllActivityHistories()
-            console.log(data.length)
-            setData(data)
-        }
-        fetchData()
-    }, [])
-
     return (
         <BlankCard>
             <TableContainer>
@@ -65,7 +53,7 @@ const Table2 = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row: any) => (
+                        {data?.map((row: any) => (
                             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>
                                     <Stack direction="row" alignItems="center" spacing={2}>
