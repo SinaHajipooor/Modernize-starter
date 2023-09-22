@@ -21,75 +21,80 @@ import CustomSwitch from '@/app/(DashboardLayout)/components/forms/theme-element
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import { Stack } from '@mui/system';
-import { format } from 'date-fns';
-import { useForm } from 'react-hook-form';
-
+import { useFormik } from 'formik';
 
 export default function FormCustom() {
 
     const [startDate, setStartDate] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
+    const [file, setFile] = useState(null);
 
 
+    const handleFileUpload = (event: any) => {
+        const selectedFile = event.target.files[0];
+        console.log(selectedFile)
+        if (selectedFile) {
+            setFile(selectedFile);
+        } else {
+            setFile(null);
+        }
+    };
 
-    //     const handleFileUpload = (event: any) => {
-    //         const selectedFile = event.target.files[0];
-    //         console.log(selectedFile)
-    //         if (selectedFile) {
-    //             setFile(selectedFile.name);
-    //         } else {
-    //             setFile(null);
-    //         }
-    //     };
-
-
-    //     const [file, setFile] = useState(null);
-
-    //     function handleChange(event: any) {
-    //         console.log(event.target.files)
-    //         setFile(event.target.files[0]);
-    //     };
-
-    const { register, handleSubmit } = useForm()
-
-
-    // submit the form 
-    function onSubmitHandler(data: any) {
-        console.log(data)
+    const formik = useFormik({
+        initialValues: {
+            title: '',
+            workType: 1,
+            position: '',
+            address: '',
+            instituteTitle: '',
+            duration: '',
+            isCurrent: false,
+            isRelated: false,
+            hasCertificate: false
+        },
+        onSubmit: () => { }
+    })
+    // handle form submite
+    function submitHandler(e: any) {
+        e.preventDefault();
+        console.log({ ...formik.values, startDate, endDate, file })
     }
 
     return (
         <Box mt={3}>
             <PageContainer title="Custom Form" description="this is Custom Form">
                 <ParentCard title="ایجاد سوابق فعالیت" >
-                    <form onSubmit={handleSubmit(onSubmitHandler)}>
+                    <form onSubmit={submitHandler}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} lg={4}>
                                 <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
-                                <CustomTextField  {...register('title')} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField value={formik.values.title} name='title' id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth onChange={formik.handleChange} />
                                 <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
                                 <CustomSelect
-                                    {...register('workType')}
+                                    name='workType'
+                                    value={formik.values.workType}
+                                    onChange={formik.handleChange}
                                     labelId="workType"
                                     id="workType"
                                     fullWidth
+
                                 >
-                                    <MenuItem >تمام وقت</MenuItem>
-                                    <MenuItem >پاره وقت</MenuItem>
+                                    <MenuItem value={1}>تمام وقت</MenuItem>
+                                    <MenuItem value={2} >پاره وقت</MenuItem>
                                 </CustomSelect>
                                 <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                <CustomTextField {...register('position')} placeholder="عنوان شغلی را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField name='position' value={formik.values.position} onChange={formik.handleChange} placeholder="عنوان شغلی را وارد کنید" variant="outlined" fullWidth />
                             </Grid>
                             {/* ----------------------------------- */}
                             {/* column 2 */}
                             {/* ----------------------------------- */}
                             <Grid item xs={12} sm={12} lg={4}>
                                 <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
-                                <CustomTextField {...register('address')} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField name='address' value={formik.values.address} onChange={formik.handleChange} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
-                                <CustomTextField {...register('instituteTitle')} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField name='instituteTitle' value={formik.values.instituteTitle} onChange={formik.handleChange} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
-                                <CustomTextField {...register('duration')} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField name='duration' value={formik.values.duration} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth onChange={formik.handleChange} />
 
                             </Grid>
                             {/* ----------------------------------- */}
@@ -99,11 +104,12 @@ export default function FormCustom() {
 
                                 <Grid>
                                     <CustomFormLabel htmlFor="time">تاریخ شروع</CustomFormLabel>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} >
+                                    <LocalizationProvider dateAdapter={AdapterDateFns} name='startDate'>
                                         <DatePicker
+                                            className='startDate'
                                             renderInput={(props) => (
                                                 <CustomTextField
-                                                    //     {...register('startDate')}
+
                                                     {...props}
                                                     fullWidth
                                                     size="small"
@@ -119,7 +125,8 @@ export default function FormCustom() {
                                                 />
                                             )}
                                             value={startDate}
-                                            onChange={(newDate: any) => setStartDate(newDate)}
+                                            onChange={(newDate) => setStartDate(newDate)}
+
                                         />
 
                                     </LocalizationProvider>
@@ -131,7 +138,7 @@ export default function FormCustom() {
                                         <DatePicker
                                             renderInput={(props) => (
                                                 <CustomTextField
-                                                    {...register('endDate')}
+
                                                     {...props}
                                                     fullWidth
                                                     size="small"
@@ -153,25 +160,44 @@ export default function FormCustom() {
 
                                 </Grid>
                                 <Grid mt={7}>
-                                    <Box border={0.2} borderRadius={2} overflow='hidden' display="flex" justifyContent="space-between" borderColor='#bcbcbc' height={45}>
-                                        <TextField
-                                            {...register('file')}
-                                            type="file"
-                                            id="file-input"
-                                            // onChange={handleFileUpload}
-                                            style={{ display: 'none' }}
-                                        />
+                                    <Box
+                                        border={0.2}
+                                        borderRadius={1}
+                                        overflow="hidden"
+                                        display="flex"
+                                        justifyContent="start"
+                                        borderColor="#bcbcbc"
+                                        height={45}
+                                    >
                                         <label htmlFor="file-input">
-                                            <Button variant="contained" component="span" style={{ height: '100%', overflow: 'hidden', width: '100px' }} >
+                                            <Button
+                                                variant="contained"
+                                                component="span"
+                                                style={{ height: '100%', overflow: 'hidden', width: '100px' }}
+                                            >
                                                 آپلود فایل
                                             </Button>
                                         </label>
-                                        {/* {file && (
-                                        <span style={{ display: 'flex', alignItems: 'center', paddingRight: '8px', paddingLeft: '8px' }}>
-                                            {file}
+                                        <span
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'start',
+                                                paddingRight: '18px',
+                                                paddingLeft: '8px',
+                                            }}
+                                        >
+                                            {file && 'فایل مورد نظر انتخاب شد'}
                                         </span>
-                                    )} */}
+                                        <TextField
+                                            name="file"
+                                            type="file"
+                                            id="file-input"
+                                            onChange={handleFileUpload}
+                                            style={{ display: 'none' }}
+                                        />
                                     </Box>
+
                                 </Grid>
                             </Grid>
                             {/* ----------------------------------- */}
@@ -182,13 +208,14 @@ export default function FormCustom() {
                                 <Grid container spacing={0} my={4}>
 
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch {...register('hasCertificate')} />} label="گواهینامه" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.hasCertificate}
+                                        />} label="گواهینامه" name='hasCertificate' onChange={formik.handleChange} />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch {...register('isRelated')} defaultChecked />} label="فعالیت مرتبط" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} defaultChecked />} label="فعالیت مرتبط" />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch {...register('isCurrent')} defaultChecked />} label="فعالیت جاری" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' onChange={formik.handleChange} defaultChecked />} label="فعالیت جاری" />
                                     </Grid>
                                 </Grid>
                                 {/* button */}

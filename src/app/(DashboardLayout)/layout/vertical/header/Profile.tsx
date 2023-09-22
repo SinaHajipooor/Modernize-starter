@@ -31,12 +31,12 @@ const Profile = () => {
     async function logoutHandler() {
         try {
             const response = context.logout();
-            toast.success('Logout successfully');
+            toast.success('با موفقیت از حساب خارج شدید');
             console.log(response)
             // redirect to login page 
         } catch (error: any) {
             console.log(error.message)
-            toast.error(error.message)
+            toast.error('خطایی رخ داد')
         }
     }
 
@@ -85,10 +85,10 @@ const Profile = () => {
                 <Stack direction="row" py={0} pb={2} spacing={2} alignItems="center">
                     <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
-                        <Typography variant="h6" color="textPrimary" fontWeight={400}>
+                        <Typography variant="body1" color="textPrimary" fontWeight={700}>
                             {context.user.firstName} {context.user.lastName}
                         </Typography>
-                        <Typography variant="caption" color="textSecondary">
+                        <Typography variant="body2" color="textSecondary">
                             {/* Designer */} {context.user.mobile}
                         </Typography>
                         {/* user role  */}
@@ -97,7 +97,7 @@ const Profile = () => {
                 <Divider />
                 {dropdownData.profile.map((profile) => (
                     <Box key={profile.title}>
-                        <Box sx={{ py: 1.5, px: 0, }} className="hover-text-primary">
+                        <Box sx={{ py: 1, px: 0, }} className="hover-text-primary">
                             <Link href={profile.href}>
                                 <Stack direction="row" spacing={2} alignItems='center'>
                                     <Box
@@ -120,8 +120,8 @@ const Profile = () => {
                                     </Box>
                                     <Box>
                                         <Typography
-                                            variant="h6"
-                                            fontWeight={400}
+                                            variant="body2"
+                                            fontWeight={600}
                                             color="textPrimary"
                                             className="text-hover"
                                             noWrap
