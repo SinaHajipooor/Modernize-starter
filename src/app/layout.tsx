@@ -53,9 +53,9 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
                     }, style: {
                         color: activeMode === 'light' ? 'black' : 'white',
                         fontSize: '16px',
-                        maxWidth: '800px',
+                        maxWidth: '500px',
                         padding: '16px 24px',
-                        width: '300px',
+                        width: '250px',
                         backgroundColor: activeMode === 'light' ? '#f7f1ff' : '#2b2e3f'
                     }
                 }} />

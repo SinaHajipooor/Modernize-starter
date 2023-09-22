@@ -18,62 +18,62 @@ import FVCheckbox from "@/app/(DashboardLayout)/components/forms/form-validation
 import FVSelect from "@/app/(DashboardLayout)/components/forms/form-validation/FVSelect";
 
 const BCrumb = [
-  {
-    to: "/",
-    title: "Home",
-  },
-  {
-    title: "Form Validation",
-  },
+    {
+        to: "/",
+        title: "Home",
+    },
+    {
+        title: "Form Validation",
+    },
 ];
 
 const FormValidation = () => {
-  return (
-    <PageContainer title="Form Validation" description="this is Form Validation">
-      <Breadcrumb title="Form Validation" items={BCrumb} />
+    return (
+        <PageContainer title="Form Validation" description="this is Form Validation">
+            <Breadcrumb title="Form Validation" items={BCrumb} />
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          {/* <BlankCard title="Register"> */}
-          <BlankCard>
-            <CardContent sx={{ pt: 0 }}>
-              <Logo />
-              <FVRegister />
-            </CardContent>
-          </BlankCard>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          {/* <BlankCard title="Login"> */}
-          <BlankCard>
-            <CardContent sx={{ pt: 0 }}>
-              <Logo />
-              <FVLogin />
-            </CardContent>
-          </BlankCard>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <ChildCard title="On Leave">
-            <FVOnLeave />
-          </ChildCard>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <ChildCard title="Select">
-            <FVSelect />
-          </ChildCard>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <ChildCard title="Radio">
-            <FVRadio />
-          </ChildCard>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <ChildCard title="Checkboxes">
-            <FVCheckbox />
-          </ChildCard>
-        </Grid>
-      </Grid>
-    </PageContainer>
-  );
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                    {/* <BlankCard title="Register"> */}
+                    <BlankCard>
+                        <CardContent sx={{ pt: 0 }}>
+                            <Logo />
+                            <FVRegister />
+                        </CardContent>
+                    </BlankCard>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    {/* <BlankCard title="Login"> */}
+                    <BlankCard>
+                        <CardContent sx={{ pt: 0 }}>
+                            <Logo />
+                            <FVLogin />
+                        </CardContent>
+                    </BlankCard>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <ChildCard title="On Leave">
+                        <FVOnLeave />
+                    </ChildCard>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <ChildCard title="Select">
+                        <FVSelect />
+                    </ChildCard>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <ChildCard title="Radio">
+                        <FVRadio />
+                    </ChildCard>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <ChildCard title="Checkboxes">
+                        <FVCheckbox />
+                    </ChildCard>
+                </Grid>
+            </Grid>
+        </PageContainer>
+    );
 };
 
 export default FormValidation;

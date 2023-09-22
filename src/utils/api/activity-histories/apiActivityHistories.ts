@@ -19,7 +19,7 @@ export async function apiFetchAllActivityHistories() {
 // delete 
 export async function apiDeleteActivityHistory(id: any) {
     try {
-        const response = await axiosConfig.delete(`${ACTIVITY_BASE_URL}/destسroy/${id}`)
+        const response = await axiosConfig.delete(`${ACTIVITY_BASE_URL}/destroy/${id}`)
         return response;
     } catch (error: any) {
         console.log(error.message);
