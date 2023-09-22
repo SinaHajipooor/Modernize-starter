@@ -68,7 +68,7 @@ import {
 const Menuitems: MenuitemsType[] = [
     {
         navlabel: true,
-        subheader: "Home",
+        subheader: "همه",
     },
 
     {
@@ -77,7 +77,6 @@ const Menuitems: MenuitemsType[] = [
         icon: IconAperture,
         href: "/",
         chipColor: "secondary",
-        //     chip: "New",
     },
     {
         id: uniqueId(),
@@ -85,7 +84,6 @@ const Menuitems: MenuitemsType[] = [
         icon: IconAperture,
         href: "/tables/basic",
         chipColor: "secondary",
-        //     chip: "New",
     },
 
 

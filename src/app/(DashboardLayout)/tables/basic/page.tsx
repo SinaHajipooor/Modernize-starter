@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { apiFetchAllActivityHistories } from '@/utils/api/activity-histories/apiActivityHistories';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '@/app/loading';
+import { useState } from 'react';
+import FormCustom from '../create/page';
 
 
 
@@ -29,7 +31,7 @@ const BasicTable = () => {
                         color="primary"
                         variant="contained"
                         size="large"
-                        href="/forms/form-custom"
+                        href="/tables/create"
                         LinkComponent={Link}
                     >
                         ایجاد

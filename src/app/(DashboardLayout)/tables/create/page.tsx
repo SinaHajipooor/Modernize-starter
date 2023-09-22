@@ -22,6 +22,7 @@ import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elem
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
+import Link from 'next/link';
 
 export default function FormCustom() {
 
@@ -228,10 +229,10 @@ export default function FormCustom() {
                                     <Stack spacing={1} direction="row">
                                     </Stack>
                                     <Stack direction="row" spacing={1}>
-                                        <Button variant="contained" type='reset' color="error">
-                                            لغو
+                                        <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
+                                            برگشت
                                         </Button>
-                                        <Button type='submit' variant="contained" color="success">
+                                        <Button LinkComponent={Link} href='/tables/basic' type='submit' variant="contained" color="success">
                                             ثبت
                                         </Button>
                                     </Stack>
