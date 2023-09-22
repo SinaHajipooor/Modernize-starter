@@ -11,6 +11,7 @@ export const Profile = () => {
     const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
     const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
     const context = useContext(AuthContext);
+    const uesrname = context.user.firstName + ' ' + context.user.lastName;
     // logout user 
     async function logoutHandler() {
         try {
@@ -33,8 +34,8 @@ export const Profile = () => {
                     <Avatar alt="Remy Sharp" src={"/images/profile/user-1.jpg"} sx={{ height: 40, width: 40 }} />
 
                     <Box>
-                        <Typography variant="h6">Mathew</Typography>
-                        <Typography variant="caption">Designer</Typography>
+                        <Typography variant="body1" fontWeight={600}>{uesrname}</Typography>
+                        <Typography variant="caption">{context.user.mobile}</Typography>
                     </Box>
                     <Box sx={{ ml: 'auto' }}>
                         <Tooltip title="Logout" placement="top">
