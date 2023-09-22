@@ -18,6 +18,7 @@ import { Box, Stack } from '@mui/system';
 import { IconDotsVertical, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
+import toast from 'react-hot-toast';
 
 const Table2 = ({ data }: any) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -39,9 +40,10 @@ const Table2 = ({ data }: any) => {
             queryClient.invalidateQueries({
                 queryKey: ['activity-histories']
             })
+            toast.success('با موفقیت حذف شد')
             handleClose();
         },
-        onError: () => { }
+        onError: () => toast.error('امکان حذف وجود ندارد')
     })
     // ui
     return (

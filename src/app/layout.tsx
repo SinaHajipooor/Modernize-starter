@@ -19,9 +19,11 @@ import './global.css'
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClientSetup from '@/queries/querySetup'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
+    const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
     const context = useContext(AuthContext)
     useEffect(() => {
@@ -43,6 +45,20 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
                         </RTL>
                     </ThemeProvider>
                 </NextAppDirEmotionCacheProvider>
+                <Toaster position="top-center" gutter={12} containerStyle={{ margin: '8px' }} toastOptions={{
+                    success: {
+                        duration: 3000,
+                    }, error: {
+                        duration: 5000,
+                    }, style: {
+                        color: activeMode === 'light' ? 'black' : 'white',
+                        fontSize: '16px',
+                        maxWidth: '800px',
+                        padding: '16px 24px',
+                        width: '300px',
+                        backgroundColor: activeMode === 'light' ? '#f7f1ff' : '#2b2e3f'
+                    }
+                }} />
             </QueryClientProvider>
         </>
     );
