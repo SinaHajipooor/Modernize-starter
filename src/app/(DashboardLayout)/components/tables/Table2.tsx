@@ -16,18 +16,33 @@ import {
 import BlankCard from '../shared/BlankCard';
 import { Box, Stack } from '@mui/system';
 import { IconDotsVertical, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 
 const Table2 = ({ data }: any) => {
-
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const [currentRowId, setcurrentRowId] = useState(null);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, row: any) => {
         setAnchorEl(event.currentTarget);
+        setcurrentRowId(row.id)
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+    // to access our query client setup 
+    const queryClient = useQueryClient()
+    // mutate the activity history 
+    const { isLoading, mutate } = useMutation({
+        mutationFn: apiDeleteActivityHistory,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['activity-histories']
+            })
+            handleClose();
+        }
+    })
+    // ui
     return (
         <BlankCard>
             <TableContainer>
@@ -49,7 +64,7 @@ const Table2 = ({ data }: any) => {
                             <TableCell>
                                 <Typography variant="h6">تاریخ شروع</Typography>
                             </TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -101,7 +116,7 @@ const Table2 = ({ data }: any) => {
                                         aria-controls={open ? 'basic-menu' : undefined}
                                         aria-haspopup="true"
                                         aria-expanded={open ? 'true' : undefined}
-                                        onClick={handleClick}
+                                        onClick={(event) => handleClick(event, row)}
                                     >
                                         <IconDotsVertical width={18} />
                                     </IconButton>
@@ -121,7 +136,7 @@ const Table2 = ({ data }: any) => {
                                             </ListItemIcon>
                                             Edit
                                         </MenuItem>
-                                        <MenuItem onClick={handleClose}>
+                                        <MenuItem onClick={() => mutate(currentRowId)} disabled={isLoading}>
                                             <ListItemIcon>
                                                 <IconTrash width={18} />
                                             </ListItemIcon>
@@ -135,7 +150,7 @@ const Table2 = ({ data }: any) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </BlankCard>
+        </BlankCard >
     );
 };
 
