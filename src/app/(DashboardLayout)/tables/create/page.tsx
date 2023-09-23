@@ -21,14 +21,21 @@ import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Link from 'next/link';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiCreateActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
+import toast from 'react-hot-toast';
+import { redirect, useRouter } from 'next/navigation';
+
 
 
 export default function FormCustom() {
+    const queryClient = useQueryClient();
     const [file, setFile] = useState(null);
+    const router = useRouter();
+
     // upload file 
     const handleFileUpload = (event: any) => {
         const selectedFile = event.target.files[0];
-        console.log(selectedFile)
         if (selectedFile) {
             setFile(selectedFile);
         } else {
@@ -45,12 +52,28 @@ export default function FormCustom() {
         instituteTitle: Yup.string().required('نام موسسه اجباری است'),
         duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
     });
+    // formate the selected date
     function formatDate(date: any) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
         const year = date.getFullYear();
-        return `${month}/${day}/${year}`;
+        return `${month}-${day}-${year}`;
     }
+    // mutate 
+    const { mutate, isLoading } = useMutation({
+        mutationFn: (newActivityHistory: any) => apiCreateActivityHistory(newActivityHistory, file),
+        onSuccess: () => {
+            toast.success('با موفقیت ایجاد شد');
+            queryClient.invalidateQueries({
+                queryKey: ['activity-histories']
+            });
+            router.back()
+        },
+        onError: () => {
+            toast.error('خطایی رخ داد ');
+        }
+    })
+
 
     // form handler 
     const formik = useFormik({
@@ -69,7 +92,9 @@ export default function FormCustom() {
         },
         validationSchema: formValidationSchema,
         onSubmit: (values) => {
-            console.log(formatDate(formik.values.startDate))
+            const userInfo = formik.values;
+            const newActivityHistory = { user_id: 1, title: userInfo.title, address: userInfo.address, start_date: '1401-09-10', end_date: '1402-09-20', position: userInfo.position, institute_title: userInfo.instituteTitle, has_certificate: userInfo.hasCertificate, status: false, is_related: userInfo.isRelated, current_position: userInfo.isCurrent, work_type_id: 1 }
+            mutate(newActivityHistory, file!)
         }
     })
 
@@ -243,7 +268,7 @@ export default function FormCustom() {
                                         <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
                                             برگشت
                                         </Button>
-                                        <Button type='submit' variant="contained" color="success">
+                                        <Button type='submit' disabled={isLoading} variant="contained" color="success">
                                             ثبت
                                         </Button>
                                     </Stack>
