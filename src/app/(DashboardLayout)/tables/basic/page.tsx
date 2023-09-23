@@ -7,9 +7,7 @@ import Table2 from '@/app/(DashboardLayout)/components/tables/Table2';
 import Link from 'next/link';
 import { apiFetchAllActivityHistories } from '@/utils/api/activity-histories/apiActivityHistories';
 import { useQuery } from '@tanstack/react-query';
-import Loading from '@/app/loading';
-import { useState } from 'react';
-import FormCustom from '../create/page';
+import Spinner from '../../components/ui/Spinner';
 
 
 
@@ -20,34 +18,35 @@ const BasicTable = () => {
         queryKey: ['activity-histories'],
         queryFn: apiFetchAllActivityHistories
     });
-    if (isLoading) return <Loading />
 
 
     return (
-        <PageContainer title="Basic Table" description="this is Basic Table">
-            <ParentCard title="سوابق فعالیت" >
-                <>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        href="/tables/create"
-                        LinkComponent={Link}
-                    >
-                        ایجاد
-                    </Button>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
+        <Box mt={2}>
+            <PageContainer title="Basic Table" description="this is Basic Table">
+                <ParentCard title="سوابق فعالیت" >
+                    {isLoading ? <Box mb={5}><Spinner /> </Box> : <>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            href="/tables/create"
+                            LinkComponent={Link}
+                        >
+                            ایجاد
+                        </Button>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                            </Grid>
+                            <Grid item xs={12} >
+                                <Box>
+                                    <Table2 data={activityHistories} />
+                                </Box>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Box>
-                                <Table2 data={activityHistories} />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </>
-            </ParentCard>
-        </PageContainer>
+                    </>}
+                </ParentCard>
+            </PageContainer>
+        </Box>
     );
 }
 export default BasicTable;
