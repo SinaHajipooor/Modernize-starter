@@ -1,5 +1,4 @@
 import axiosConfig from "@/utils/axios";
-import axios from "axios";
 
 const ACTIVITY_BASE_URL = '/api/profile/activity-history'
 
@@ -36,28 +35,25 @@ export async function apiCreateActivityHistory(newActivityHistory: any, file: an
             formData.append(key, value);
         });
         formData.append('file', file[0]);
-        const response = await axios.post(`http://45.149.77.156:8081/api/profile/activity-history/store`, formData, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
+        const response = await axiosConfig.post(`${ACTIVITY_BASE_URL}/store`, formData, {
+            headers: {}
         });
-        if (response.status === 200) {
-            console.log('Activity history added successfully')
-            return response;
-        } else {
-            console.log(response.statusText)
-            throw new Error('Failed to add new Activity history')
-        }
+        return response
     } catch (error: any) {
         console.log(error.message);
         throw new Error(error.message)
     }
-
 }
 
 
-// edit 
-export async function editActivityHistory() {
-
+// show 
+export async function apiShowActivityHistory(id: any) {
+    try {
+        const response = await axiosConfig(`${ACTIVITY_BASE_URL}/show/${id}?user_id=1`);
+        const data = response.data.result;
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 
