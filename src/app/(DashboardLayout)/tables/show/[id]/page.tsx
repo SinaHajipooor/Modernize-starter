@@ -42,7 +42,6 @@ export default function FormCustom({ params }: any) {
         queryFn: () => apiShowActivityHistory(params.id)
     });
 
-    console.log(activityHistory)
 
 
 
