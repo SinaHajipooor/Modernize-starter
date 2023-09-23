@@ -38,7 +38,6 @@ export default function FormCustom() {
             setFile(null);
         }
     };
-
     // validation schema 
     const formValidationSchema = Yup.object({
         title: Yup.string()
@@ -60,6 +59,10 @@ export default function FormCustom() {
             duration: null,
             workType: '1',
             startDate: null,
+            endDate: null,
+            hasCertificate: false,
+            isRelated: false,
+            isCurrent: false,
         },
         validationSchema: formValidationSchema,
         onSubmit: (values) => console.log(values)
@@ -139,37 +142,33 @@ export default function FormCustom() {
                                         )}
                                     />
                                 </LocalizationProvider>
-
-
-
-                                <Grid >
-                                    <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
-
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} >
-                                        <DatePicker
-                                            renderInput={(props) => (
-                                                <CustomTextField
-
-                                                    {...props}
-                                                    fullWidth
-                                                    size="larg"
-                                                    sx={{
-                                                        '& .MuiSvgIcon-root': {
-                                                            width: '18px',
-                                                            height: '18px',
-                                                        },
-                                                        '& .MuiFormHelperText-root': {
-                                                            display: 'none',
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                            value={endDate}
-                                            onChange={(newDate) => setEndDate(newDate)}
-                                        />
-                                    </LocalizationProvider>
-
-                                </Grid>
+                                <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
+                                <LocalizationProvider dateAdapter={AdapterDateFns} name='endDate'>
+                                    <DatePicker
+                                        className='endDate'
+                                        value={formik.values.endDate}
+                                        onChange={(date) => {
+                                            formik.setFieldValue('endDate', date);
+                                            formik.setFieldTouched('endDate', true);
+                                        }}
+                                        renderInput={(props) => (
+                                            <CustomTextField
+                                                {...props}
+                                                fullWidth
+                                                size="larg"
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        width: '20px',
+                                                        height: '20px',
+                                                    },
+                                                    '& .MuiFormHelperText-root': {
+                                                        display: 'none',
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </LocalizationProvider>
                                 <Grid mt={7}>
                                     <Box
                                         border={0.2}
@@ -217,16 +216,15 @@ export default function FormCustom() {
 
                             <Grid item xs={12} sm={12} lg={12} >
                                 <Grid container spacing={0} my={4}>
-
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <FormControlLabel control={<CustomSwitch
-                                        />} label="گواهینامه" name='hasCertificate' />
+                                        />} label="گواهینامه" value={formik.values.hasCertificate} name='hasCertificate' onChange={formik.handleChange} />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch name='isRelated' defaultChecked />} label="فعالیت مرتبط" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} defaultChecked />} label="فعالیت مرتبط" />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch name='isCurrent' defaultChecked />} label="فعالیت جاری" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' defaultChecked />} label="فعالیت جاری" />
                                     </Grid>
                                 </Grid>
                                 {/* button */}
