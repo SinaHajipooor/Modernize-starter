@@ -21,8 +21,8 @@ import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Link from 'next/link';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiCreateActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { apiCreateActivityHistory, apiShowActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
@@ -33,6 +33,18 @@ export default function FormCustom({ params }: any) {
     const queryClient = useQueryClient();
     const [file, setFile] = useState(null);
     const router = useRouter();
+
+
+
+
+    const { data: activityHistory } = useQuery({
+        queryKey: ['activity-histories'],
+        queryFn: () => apiShowActivityHistory(params.id)
+    });
+
+    console.log(activityHistory)
+
+
 
     // upload file 
     const handleFileUpload = (event: any) => {
