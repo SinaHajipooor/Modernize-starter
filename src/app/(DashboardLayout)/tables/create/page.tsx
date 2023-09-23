@@ -8,7 +8,6 @@ import {
     Button,
     TextField,
     Box,
-    Typography,
 } from '@mui/material';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -19,9 +18,10 @@ import CustomSwitch from '@/app/(DashboardLayout)/components/forms/theme-element
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import { Stack } from '@mui/system';
-import { Formik, useFormik, Form } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Link from 'next/link';
+
 
 export default function FormCustom() {
     const [file, setFile] = useState(null);
@@ -45,12 +45,10 @@ export default function FormCustom() {
         instituteTitle: Yup.string().required('نام موسسه اجباری است'),
         duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
     });
-
     function formatDate(date: any) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
         const year = date.getFullYear();
-
         return `${month}/${day}/${year}`;
     }
 
@@ -145,6 +143,7 @@ export default function FormCustom() {
                                             />
                                         )}
                                     />
+
                                 </LocalizationProvider>
                                 <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
                                 <LocalizationProvider dateAdapter={AdapterDateFns} name='endDate'>
