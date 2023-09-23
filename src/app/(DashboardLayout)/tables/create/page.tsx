@@ -10,7 +10,6 @@ import {
     Box,
     Typography,
 } from '@mui/material';
-
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -25,8 +24,6 @@ import * as Yup from 'yup'
 import Link from 'next/link';
 
 export default function FormCustom() {
-    const [startDate, setStartDate] = React.useState(null);
-    const [endDate, setEndDate] = React.useState(null);
     const [file, setFile] = useState(null);
     // upload file 
     const handleFileUpload = (event: any) => {
@@ -47,8 +44,16 @@ export default function FormCustom() {
         address: Yup.string().required('آدرس اجباری است'),
         instituteTitle: Yup.string().required('نام موسسه اجباری است'),
         duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
-        workType: Yup.string().required('نوع همکاری را انتخاب کنید'),
     });
+
+    function formatDate(date: any) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+
+        return `${month}/${day}/${year}`;
+    }
+
     // form handler 
     const formik = useFormik({
         initialValues: {
@@ -56,8 +61,8 @@ export default function FormCustom() {
             address: '',
             instituteTitle: '',
             position: '',
-            duration: null,
-            workType: '1',
+            duration: undefined,
+            workType: 1,
             startDate: null,
             endDate: null,
             hasCertificate: false,
@@ -65,7 +70,9 @@ export default function FormCustom() {
             isCurrent: false,
         },
         validationSchema: formValidationSchema,
-        onSubmit: (values) => console.log(values)
+        onSubmit: (values) => {
+            console.log(formatDate(formik.values.startDate))
+        }
     })
 
     return (
@@ -79,21 +86,18 @@ export default function FormCustom() {
                                 <CustomTextField value={formik.values.title} name='title' onChange={formik.handleChange} error={formik.touched.title && Boolean(formik.errors.title)}
                                     helperText={formik.touched.title && formik.errors.title} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                <CustomTextField value={formik.values.position} name='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
+                                <CustomTextField value={formik.values.position} name='position' id='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
                                     helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
                                 <CustomSelect
-                                    value={formik.values.workType} name='workType' onChange={(value: any) => {
-                                        formik.setFieldValue('workType', value);
-                                        formik.setFieldTouched('workType', true);
-                                    }} error={formik.touched.workType && Boolean(formik.errors.workType)}
+                                    value={formik.values.workType} name='workType' onChange={formik.handleChange} error={formik.touched.workType && Boolean(formik.errors.workType)}
                                     helperText={formik.touched.workType && formik.errors.workType}
                                     labelId="workType"
                                     id="workType"
                                     fullWidth
                                 >
-                                    <MenuItem value={'1'}>تمام وقت</MenuItem>
-                                    <MenuItem value={'2'} >پاره وقت</MenuItem>
+                                    <MenuItem value={1}>تمام وقت</MenuItem>
+                                    <MenuItem value={2} >پاره وقت</MenuItem>
                                 </CustomSelect>
 
                             </Grid>
@@ -221,10 +225,10 @@ export default function FormCustom() {
                                         />} label="گواهینامه" value={formik.values.hasCertificate} name='hasCertificate' onChange={formik.handleChange} />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} defaultChecked />} label="فعالیت مرتبط" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} />} label="فعالیت مرتبط" />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' defaultChecked />} label="فعالیت جاری" />
+                                        <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' onChange={formik.handleChange} />} label="فعالیت جاری" />
                                     </Grid>
                                 </Grid>
                                 {/* button */}
