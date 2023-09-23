@@ -28,7 +28,8 @@ import { useRouter } from 'next/navigation';
 
 
 
-export default function FormCustom() {
+export default function FormCustom({ params }: any) {
+    console.log(params.id)
     const queryClient = useQueryClient();
     const [file, setFile] = useState(null);
     const router = useRouter();

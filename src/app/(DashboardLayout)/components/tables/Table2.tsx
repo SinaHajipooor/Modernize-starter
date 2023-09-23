@@ -19,10 +19,12 @@ import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Table2 = ({ data }: any) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const router = useRouter()
     const [currentRowId, setcurrentRowId] = useState(null);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>, row: any) => {
         setAnchorEl(event.currentTarget);
@@ -138,13 +140,19 @@ const Table2 = ({ data }: any) => {
                                             <ListItemIcon>
                                                 <IconEdit width={18} />
                                             </ListItemIcon>
-                                            Edit
+                                            تغییر
+                                        </MenuItem>
+                                        <MenuItem onClick={() => router.push(`/tables/show/${currentRowId}`)}>
+                                            <ListItemIcon>
+                                                <IconEdit width={18} />
+                                            </ListItemIcon>
+                                            جزییات
                                         </MenuItem>
                                         <MenuItem onClick={() => mutate(currentRowId)} disabled={isLoading}>
                                             <ListItemIcon>
                                                 <IconTrash width={18} />
                                             </ListItemIcon>
-                                            Delete
+                                            خذف
                                         </MenuItem>
                                     </Menu>
 
