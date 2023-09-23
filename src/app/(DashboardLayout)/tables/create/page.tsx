@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import {
     Grid,
     MenuItem,
@@ -8,29 +8,27 @@ import {
     Button,
     TextField,
     Box,
+    Typography,
 } from '@mui/material';
 
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
 import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 import CustomSelect from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSelect';
 import CustomSwitch from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomSwitch';
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import { Stack } from '@mui/system';
-import { useFormik } from 'formik';
+import { Formik, useFormik, Form } from 'formik';
+import * as Yup from 'yup'
 import Link from 'next/link';
 
 export default function FormCustom() {
-
     const [startDate, setStartDate] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
     const [file, setFile] = useState(null);
-
-
+    // upload file 
     const handleFileUpload = (event: any) => {
         const selectedFile = event.target.files[0];
         console.log(selectedFile)
@@ -40,99 +38,121 @@ export default function FormCustom() {
             setFile(null);
         }
     };
+    // validation schema 
+    //     const formValidationSchema = Yup.object({
+    //         title: Yup.string()
+    //             .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
+    //             .required('عنوان اجباری است'),
+    //         position: Yup.string().required('سمت اجباری است'),
+    //         address: Yup.string().required('آدرس اجباری است'),
+    //         instituteTitle: Yup.string().required('نام موسسه اجباری است'),
+    //         duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
+    //         workType: Yup.string().required('نوع همکاری را انتخاب کنید'),
 
+    //     });
+
+    const formValidationSchema = Yup.object({
+        title: Yup.string()
+            .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
+            .required('عنوان اجباری است'),
+        position: Yup.string().required('سمت اجباری است'),
+        address: Yup.string().required('آدرس اجباری است'),
+        instituteTitle: Yup.string().required('نام موسسه اجباری است'),
+        duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
+        workType: Yup.string().required('نوع همکاری را انتخاب کنید'),
+    });
+    // form handler 
     const formik = useFormik({
         initialValues: {
             title: '',
-            workType: 1,
-            position: '',
             address: '',
             instituteTitle: '',
-            duration: '',
-            isCurrent: false,
-            isRelated: false,
-            hasCertificate: false
+            position: '',
+            duration: null,
+            workType: '1',
+            startDate: null,
         },
-        onSubmit: () => { }
+        validationSchema: formValidationSchema,
+        onSubmit: (values) => console.log(values)
     })
-    // handle form submite
-    function submitHandler(e: any) {
-        e.preventDefault();
-        console.log({ ...formik.values, startDate, endDate, file })
-    }
 
     return (
         <Box mt={3}>
             <PageContainer title="Custom Form" description="this is Custom Form">
                 <ParentCard title="ایجاد سوابق فعالیت" >
-                    <form onSubmit={submitHandler}>
+                    <form onSubmit={formik.handleSubmit}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} lg={4}>
                                 <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
-                                <CustomTextField value={formik.values.title} name='title' id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth onChange={formik.handleChange} />
+                                <CustomTextField value={formik.values.title} name='title' onChange={formik.handleChange} error={formik.touched.title && Boolean(formik.errors.title)}
+                                    helperText={formik.touched.title && formik.errors.title} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
                                 <CustomSelect
-                                    name='workType'
-                                    value={formik.values.workType}
-                                    onChange={formik.handleChange}
+                                    value={formik.values.workType} name='workType' onChange={(value: any) => {
+                                        formik.setFieldValue('workType', value);
+                                        formik.setFieldTouched('workType', true);
+                                    }} error={formik.touched.workType && Boolean(formik.errors.workType)}
+                                    helperText={formik.touched.workType && formik.errors.workType}
                                     labelId="workType"
                                     id="workType"
                                     fullWidth
-
                                 >
-                                    <MenuItem value={1}>تمام وقت</MenuItem>
-                                    <MenuItem value={2} >پاره وقت</MenuItem>
+                                    <MenuItem value={'1'}>تمام وقت</MenuItem>
+                                    <MenuItem value={'2'} >پاره وقت</MenuItem>
                                 </CustomSelect>
                                 <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                <CustomTextField name='position' value={formik.values.position} onChange={formik.handleChange} placeholder="عنوان شغلی را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField value={formik.values.position} name='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
+                                    helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
                             </Grid>
                             {/* ----------------------------------- */}
                             {/* column 2 */}
                             {/* ----------------------------------- */}
                             <Grid item xs={12} sm={12} lg={4}>
                                 <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
-                                <CustomTextField name='address' value={formik.values.address} onChange={formik.handleChange} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField value={formik.values.address} name='address' onChange={formik.handleChange} error={formik.touched.address && Boolean(formik.errors.address)}
+                                    helperText={formik.touched.address && formik.errors.address} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
-                                <CustomTextField name='instituteTitle' value={formik.values.instituteTitle} onChange={formik.handleChange} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                                <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' onChange={formik.handleChange} error={formik.touched.instituteTitle && Boolean(formik.errors.instituteTitle)}
+                                    helperText={formik.touched.instituteTitle && formik.errors.instituteTitle} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
-                                <CustomTextField name='duration' value={formik.values.duration} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth onChange={formik.handleChange} />
-
+                                <CustomTextField value={formik.values.duration} name='duration' onChange={formik.handleChange} error={formik.touched.duration && Boolean(formik.errors.duration)}
+                                    helperText={formik.touched.duration && formik.errors.duration} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
                             </Grid>
                             {/* ----------------------------------- */}
                             {/* column 3 */}
                             {/* ----------------------------------- */}
                             <Grid item xs={12} sm={12} lg={4}>
+                                <CustomFormLabel htmlFor="time">تاریخ شروع</CustomFormLabel>
+                                <LocalizationProvider dateAdapter={AdapterDateFns} name='startDate'>
+                                    <DatePicker
+                                        className='startDate'
+                                        value={formik.values.startDate}
+                                        onChange={(date) => {
+                                            formik.setFieldValue('startDate', date);
+                                            formik.setFieldTouched('startDate', true);
+                                        }}
+                                        renderInput={(props) => (
+                                            <CustomTextField
+                                                {...props}
+                                                fullWidth
+                                                size="larg"
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        width: '20px',
+                                                        height: '20px',
+                                                    },
+                                                    '& .MuiFormHelperText-root': {
+                                                        display: 'none',
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </LocalizationProvider>
 
-                                <Grid>
-                                    <CustomFormLabel htmlFor="time">تاریخ شروع</CustomFormLabel>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} name='startDate'>
-                                        <DatePicker
-                                            className='startDate'
-                                            renderInput={(props) => (
-                                                <CustomTextField
 
-                                                    {...props}
-                                                    fullWidth
-                                                    size="small"
-                                                    sx={{
-                                                        '& .MuiSvgIcon-root': {
-                                                            width: '18px',
-                                                            height: '18px',
-                                                        },
-                                                        '& .MuiFormHelperText-root': {
-                                                            display: 'none',
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                            value={startDate}
-                                            onChange={(newDate) => setStartDate(newDate)}
 
-                                        />
-
-                                    </LocalizationProvider>
-                                </Grid>
-                                <Grid mt={5}>
+                                <Grid >
                                     <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
 
                                     <LocalizationProvider dateAdapter={AdapterDateFns} >
@@ -142,7 +162,7 @@ export default function FormCustom() {
 
                                                     {...props}
                                                     fullWidth
-                                                    size="small"
+                                                    size="larg"
                                                     sx={{
                                                         '& .MuiSvgIcon-root': {
                                                             width: '18px',
@@ -209,14 +229,14 @@ export default function FormCustom() {
                                 <Grid container spacing={0} my={4}>
 
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch value={formik.values.hasCertificate}
-                                        />} label="گواهینامه" name='hasCertificate' onChange={formik.handleChange} />
+                                        <FormControlLabel control={<CustomSwitch
+                                        />} label="گواهینامه" name='hasCertificate' />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} defaultChecked />} label="فعالیت مرتبط" />
+                                        <FormControlLabel control={<CustomSwitch name='isRelated' defaultChecked />} label="فعالیت مرتبط" />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' onChange={formik.handleChange} defaultChecked />} label="فعالیت جاری" />
+                                        <FormControlLabel control={<CustomSwitch name='isCurrent' defaultChecked />} label="فعالیت جاری" />
                                     </Grid>
                                 </Grid>
                                 {/* button */}
@@ -232,7 +252,7 @@ export default function FormCustom() {
                                         <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
                                             برگشت
                                         </Button>
-                                        <Button LinkComponent={Link} href='/tables/basic' type='submit' variant="contained" color="success">
+                                        <Button type='submit' variant="contained" color="success">
                                             ثبت
                                         </Button>
                                     </Stack>
