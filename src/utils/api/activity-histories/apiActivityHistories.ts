@@ -1,7 +1,5 @@
 import axiosConfig from "@/utils/axios";
 import axios from "axios";
-import { headers } from "next/dist/client/components/headers";
-// const fs = require('fs').promises;
 
 const ACTIVITY_BASE_URL = '/api/profile/activity-history'
 
@@ -58,24 +56,8 @@ export async function apiCreateActivityHistory(newActivityHistory: any, file: an
 }
 
 
+// edit 
+export async function editActivityHistory() {
 
-//     try {
-//         const formData = new FormData();
+}
 
-//         formData.append('file', file);
-//         const response = await axios.post('http://45.149.77.156:8081/api/profile/activity-history', formData, {
-//             headers: {
-//                 'Content-Type': 'application/json', // CONTENT TYPE
-//             },
-//         });
-
-//         if (response.status === 200) {
-//             console.log('Activity added successfully');
-//             // You can handle the success response here.
-//         } else {
-//             throw new Error('Failed to add activity');
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         throw error;
-//     }

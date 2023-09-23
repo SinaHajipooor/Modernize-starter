@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     TableContainer,
     Table,
@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import BlankCard from '../shared/BlankCard';
 import { Box, Stack } from '@mui/system';
-import { IconDotsVertical, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
@@ -28,6 +28,7 @@ const Table2 = ({ data }: any) => {
         setAnchorEl(event.currentTarget);
         setcurrentRowId(row.id)
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
