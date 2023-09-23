@@ -38,19 +38,8 @@ export default function FormCustom() {
             setFile(null);
         }
     };
+
     // validation schema 
-    //     const formValidationSchema = Yup.object({
-    //         title: Yup.string()
-    //             .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
-    //             .required('عنوان اجباری است'),
-    //         position: Yup.string().required('سمت اجباری است'),
-    //         address: Yup.string().required('آدرس اجباری است'),
-    //         instituteTitle: Yup.string().required('نام موسسه اجباری است'),
-    //         duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
-    //         workType: Yup.string().required('نوع همکاری را انتخاب کنید'),
-
-    //     });
-
     const formValidationSchema = Yup.object({
         title: Yup.string()
             .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
@@ -86,6 +75,9 @@ export default function FormCustom() {
                                 <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
                                 <CustomTextField value={formik.values.title} name='title' onChange={formik.handleChange} error={formik.touched.title && Boolean(formik.errors.title)}
                                     helperText={formik.touched.title && formik.errors.title} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
+                                <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
+                                <CustomTextField value={formik.values.position} name='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
+                                    helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
                                 <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
                                 <CustomSelect
                                     value={formik.values.workType} name='workType' onChange={(value: any) => {
@@ -100,9 +92,7 @@ export default function FormCustom() {
                                     <MenuItem value={'1'}>تمام وقت</MenuItem>
                                     <MenuItem value={'2'} >پاره وقت</MenuItem>
                                 </CustomSelect>
-                                <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                <CustomTextField value={formik.values.position} name='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
-                                    helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
+
                             </Grid>
                             {/* ----------------------------------- */}
                             {/* column 2 */}
