@@ -3,11 +3,11 @@ import { apiShowActivityHistory } from '@/utils/api/activity-histories/apiActivi
 
 
 export default function useActivityDetails(id: any) {
-    const { data: activityHistory, isLoading } = useQuery({
+    const { data: activityHistory, isLoading, isStale } = useQuery({
         queryKey: ['activity-history', id],
-        queryFn: () => apiShowActivityHistory(id)
+        queryFn: () => apiShowActivityHistory(id),
     });
 
 
-    return { activityHistory, isLoading }
+    return { activityHistory, isLoading, isStale }
 }

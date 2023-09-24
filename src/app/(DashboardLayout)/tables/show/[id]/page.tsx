@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import {
     Grid,
     MenuItem,
@@ -20,14 +20,14 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
 import useActivityDetails from '../../hooks/useActivityDetails'
-
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store/store';
+import { useEffect } from 'react';
 
 
 export default function ShowForm({ params }: any) {
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
-    const { isLoading, activityHistory } = useActivityDetails(params.id)
+    const { isLoading, activityHistory, isStale } = useActivityDetails(params.id)
     // form handler 
     const formik = useFormik({
         initialValues: {
@@ -46,6 +46,25 @@ export default function ShowForm({ params }: any) {
         },
         onSubmit: () => { }
     })
+    useEffect(() => {
+        formik.setValues({
+            title: activityHistory?.title,
+            address: activityHistory?.address,
+            instituteTitle: activityHistory?.institute_title,
+            position: activityHistory?.position,
+            duration: activityHistory?.duration,
+            workType: activityHistory?.work_type,
+            startDate: activityHistory?.start_date,
+            endDate: activityHistory?.end_date,
+            hasCertificate: activityHistory?.has_certificate ?? false,
+            isRelated: activityHistory?.is_related ?? false,
+            isCurrent: activityHistory?.current_position ?? false,
+            file: activityHistory?.file
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activityHistory])
+
+    console.log('log')
     return (
         <Box mt={3}>
             <PageContainer title="show Form" description="this is Custom Form">
