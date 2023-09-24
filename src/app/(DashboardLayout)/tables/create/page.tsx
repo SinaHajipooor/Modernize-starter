@@ -25,6 +25,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiCreateActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { AppState } from '@/store/store';
 
 
 
@@ -32,6 +34,7 @@ export default function FormCustom() {
     const queryClient = useQueryClient();
     const [file, setFile] = useState(null);
     const router = useRouter();
+    const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
 
     // upload file 
     const handleFileUpload = (event: any) => {
@@ -204,14 +207,20 @@ export default function FormCustom() {
                                         overflow="hidden"
                                         display="flex"
                                         justifyContent="start"
-                                        borderColor="#bcbcbc"
+                                        borderColor={activeMode === 'light' ? "#EAEFF4" : '#465670'}
                                         height={45}
                                     >
                                         <label htmlFor="file-input">
                                             <Button
+
                                                 variant="contained"
                                                 component="span"
-                                                style={{ height: '100%', overflow: 'hidden', width: '100px' }}
+                                                style={{
+                                                    height: '100%', overflow: 'hidden', width: '100px', borderTopRightRadius: 1,
+                                                    borderBottomRightRadius: 1,
+                                                    borderTopLeftRadius: 0,
+                                                    borderBottomLeftRadius: 0,
+                                                }}
                                             >
                                                 آپلود فایل
                                             </Button>
@@ -223,9 +232,11 @@ export default function FormCustom() {
                                                 justifyContent: 'start',
                                                 paddingRight: '18px',
                                                 paddingLeft: '8px',
+                                                fontSize: '13px',
+                                                color: 'grey'
                                             }}
                                         >
-                                            {file && 'فایل مورد نظر انتخاب شد'}
+                                            {file ? 'فایل مورد نظر انتخاب شد' : 'یک فایل انتخاب کنید'}
                                         </span>
                                         <TextField
                                             name="file"
