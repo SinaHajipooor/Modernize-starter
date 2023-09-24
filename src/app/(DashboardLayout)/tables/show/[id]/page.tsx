@@ -20,18 +20,14 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
 import useActivityDetails from '../../hooks/useActivityDetails'
-import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store/store';
 
 
 export default function ShowForm({ params }: any) {
-
-    const { isLoading, activityHistory } = useActivityDetails(params.id)
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
-
-
+    const { isLoading, activityHistory } = useActivityDetails(params.id)
     // form handler 
     const formik = useFormik({
         initialValues: {
@@ -48,11 +44,8 @@ export default function ShowForm({ params }: any) {
             isCurrent: activityHistory?.current_position ?? false,
             file: activityHistory?.file
         },
-        validateOnBlur: false,
         onSubmit: () => { }
     })
-
-
     return (
         <Box mt={3}>
             <PageContainer title="show Form" description="this is Custom Form">
@@ -190,7 +183,7 @@ export default function ShowForm({ params }: any) {
                                             </span>
                                             <TextField
                                                 name="file"
-                                                type="file"
+                                                type=""
                                                 id="file-input"
                                                 style={{ display: 'none' }}
                                             />
