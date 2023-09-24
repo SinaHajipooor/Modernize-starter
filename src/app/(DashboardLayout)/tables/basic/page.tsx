@@ -5,20 +5,15 @@ import PageContainer from '@/app/(DashboardLayout)/components/container/PageCont
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import Table2 from '@/app/(DashboardLayout)/components/tables/Table2';
 import Link from 'next/link';
-import { apiFetchAllActivityHistories } from '@/utils/api/activity-histories/apiActivityHistories';
-import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../components/ui/Spinner';
+import useActivityIndex from '../hooks/useActivityIndex';
 
 
 
 
 const BasicTable = () => {
 
-    const { isLoading, data: activityHistories } = useQuery({
-        queryKey: ['activity-histories'],
-        queryFn: apiFetchAllActivityHistories
-    });
-
+    const { isLoading, activityHistories } = useActivityIndex()
 
     return (
         <Box mt={2}>
