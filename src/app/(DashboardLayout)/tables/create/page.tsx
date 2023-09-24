@@ -21,21 +21,17 @@ import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Link from 'next/link';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiCreateActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store/store';
+import useCreateActivity from '../hooks/useCreateActivity';
 
 
 
 export default function FormCustom() {
-    const queryClient = useQueryClient();
     const [file, setFile] = useState(null);
-    const router = useRouter();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
-
+    const { isLoading, mutate } = useCreateActivity(file)
     // upload file 
     const handleFileUpload = (event: any) => {
         const selectedFile = event.target.files[0];
@@ -62,22 +58,6 @@ export default function FormCustom() {
         const year = date.getFullYear();
         return `${month}-${day}-${year}`;
     }
-    // mutate 
-    const { mutate, isLoading } = useMutation({
-        mutationFn: (newActivityHistory: any) => apiCreateActivityHistory(newActivityHistory, file),
-        onSuccess: () => {
-            toast.success('با موفقیت ایجاد شد');
-            queryClient.invalidateQueries({
-                queryKey: ['activity-histories']
-            });
-            router.back()
-        },
-        onError: () => {
-            toast.error('خطایی رخ داد ');
-        }
-    })
-
-
     // form handler 
     const formik = useFormik({
         initialValues: {
