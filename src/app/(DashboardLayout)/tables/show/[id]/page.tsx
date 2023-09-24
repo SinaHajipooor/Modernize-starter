@@ -20,11 +20,14 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
 import useActivityDetails from '../../hooks/useActivityDetails'
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 
 export default function ShowForm({ params }: any) {
 
-    const { isFetching, activityHistory } = useActivityDetails(params.id)
+    const { isLoading, activityHistory } = useActivityDetails(params.id)
+
 
     // form handler 
     const formik = useFormik({
@@ -48,7 +51,7 @@ export default function ShowForm({ params }: any) {
         <Box mt={3}>
             <PageContainer title="show Form" description="this is Custom Form">
                 <ParentCard title="جزییات سوابق فعالیت" >
-                    {isFetching ? <Spinner /> :
+                    {isLoading ? <Spinner /> :
                         <form>
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={12} lg={4}>

@@ -142,7 +142,7 @@ const Table2 = ({ data = {} }: any) => {
                                         }}
                                     >
 
-                                        <MenuItem onClick={() => router.push(`/tables/show/${row.id}`)}>
+                                        <MenuItem onClick={() => router.push(`/tables/show/${currentRowId}`)}>
                                             <ListItemIcon>
                                                 <IconEye color='yellow' width={18} />
                                             </ListItemIcon>
