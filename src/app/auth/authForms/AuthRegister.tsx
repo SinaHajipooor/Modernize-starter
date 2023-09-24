@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { register } from "@/utils/api/auth/apiRegister";
+import { register } from "@/api/auth/apiRegister";
 
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {

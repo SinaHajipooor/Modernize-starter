@@ -1,4 +1,4 @@
-import { apiFetchAllActivityHistories } from "@/utils/api/activity-histories/apiActivityHistories";
+import { apiFetchAllActivityHistories } from "@/api/activity-histories/apiActivityHistories";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useActivityIndex() {

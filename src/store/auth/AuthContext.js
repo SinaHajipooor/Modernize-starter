@@ -1,8 +1,8 @@
-import { apiLogin } from "@/utils/api/auth/apiLogin";
+import { apiLogin } from "@/api/auth/apiLogin";
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { apiAuthenticate } from "@/utils/api/auth/apiAuthenticate";
+import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 
 
 // define default values

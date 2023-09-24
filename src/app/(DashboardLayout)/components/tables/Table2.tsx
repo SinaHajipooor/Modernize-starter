@@ -19,7 +19,7 @@ import BlankCard from '../shared/BlankCard';
 import { Box, Stack } from '@mui/system';
 import { IconDotsVertical, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
+import { apiDeleteActivityHistory } from '@/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 

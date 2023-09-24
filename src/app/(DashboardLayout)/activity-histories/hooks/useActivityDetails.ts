@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { apiShowActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
+import { apiShowActivityHistory } from '@/api/activity-histories/apiActivityHistories';
 
 
 export default function useActivityDetails(id: any) {

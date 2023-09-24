@@ -1,4 +1,4 @@
-import { apiCreateActivityHistory } from "@/utils/api/activity-histories/apiActivityHistories";
+import { apiCreateActivityHistory } from "@/api/activity-histories/apiActivityHistories";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
