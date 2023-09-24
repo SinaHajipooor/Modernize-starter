@@ -268,7 +268,13 @@ export default function FormCustom() {
                                         <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
                                             برگشت
                                         </Button>
-                                        <Button type='submit' disabled={isLoading} variant="contained" color="success">
+                                        <Button
+                                            type='submit'
+                                            style={{ fontFamily: 'IRANSans' }}
+                                            disabled={isLoading}
+                                            variant="contained"
+                                            color="success"
+                                        >
                                             ثبت
                                         </Button>
                                     </Stack>
