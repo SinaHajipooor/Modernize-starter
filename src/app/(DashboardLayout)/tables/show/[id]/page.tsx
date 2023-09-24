@@ -1,6 +1,4 @@
-"use client"
-
-import React, { Children, useState } from 'react';
+'use client'
 import {
     Grid,
     MenuItem,
@@ -19,68 +17,15 @@ import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elem
 import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
 import Link from 'next/link';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiCreateActivityHistory, apiShowActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
+import useActivityDetails from '../../hooks/useActivityDetails'
 
 
+export default function ShowForm({ params }: any) {
 
-export default function FormCustom({ params }: any) {
-    const queryClient = useQueryClient();
-    const [file, setFile] = useState(null);
-    const router = useRouter();
+    const { isFetching, activityHistory } = useActivityDetails(params.id)
 
-    const { data: activityHistory, isLoading } = useQuery({
-        queryKey: ['activity-histories'],
-        queryFn: () => apiShowActivityHistory(params.id)
-    });
-
-    // upload file 
-    const handleFileUpload = (event: any) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-        } else {
-            setFile(null);
-        }
-    };
-    // validation schema 
-    const formValidationSchema = Yup.object({
-        title: Yup.string()
-            .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
-            .required('عنوان اجباری است'),
-        position: Yup.string().required('سمت اجباری است'),
-        address: Yup.string().required('آدرس اجباری است'),
-        instituteTitle: Yup.string().required('نام موسسه اجباری است'),
-        duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
-    });
-    // formate the selected date
-    function formatDate(date: any) {
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const year = date.getFullYear();
-        return `${month}-${day}-${year}`;
-    }
-    // mutate 
-    const { mutate, isLoading: isUpdating } = useMutation({
-        mutationFn: (newActivityHistory: any) => apiCreateActivityHistory(newActivityHistory, file),
-        onSuccess: () => {
-            toast.success('با موفقیت تغییر کرد');
-            queryClient.invalidateQueries({
-                queryKey: ['activity-histories']
-            });
-            router.back()
-        },
-        onError: () => {
-            toast.error('خطایی رخ داد ');
-        }
-    })
-
-    console.log(activityHistory)
     // form handler 
     const formik = useFormik({
         initialValues: {
@@ -96,32 +41,25 @@ export default function FormCustom({ params }: any) {
             isRelated: activityHistory?.is_related,
             isCurrent: activityHistory?.current_position,
         },
-        validationSchema: formValidationSchema,
-        onSubmit: (values) => {
-            const userInfo = formik.values;
-            const newActivityHistory = { user_id: 1, title: userInfo.title, address: userInfo.address, start_date: '1401-09-10', end_date: '1402-09-20', position: userInfo.position, institute_title: userInfo.instituteTitle, has_certificate: userInfo.hasCertificate, status: false, is_related: userInfo.isRelated, current_position: userInfo.isCurrent, work_type_id: 1 }
-            mutate(newActivityHistory, file!)
-        }
+        onSubmit: () => { }
     })
 
     return (
         <Box mt={3}>
-            <PageContainer title="Custom Form" description="this is Custom Form">
+            <PageContainer title="show Form" description="this is Custom Form">
                 <ParentCard title="جزییات سوابق فعالیت" >
-                    {isLoading ? <Spinner /> :
-                        <form onSubmit={formik.handleSubmit}>
+                    {isFetching ? <Spinner /> :
+                        <form>
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={12} lg={4}>
                                     <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
-                                    <CustomTextField value={formik.values.title} name='title' onChange={formik.handleChange} error={formik.touched.title && Boolean(formik.errors.title)}
-                                        helperText={formik.touched.title && formik.errors.title} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField InputProps={{ readOnly: true, disabled: false }} value={formik.values.title} name='title' id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                    <CustomTextField value={formik.values.position} name='position' id='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
-                                        helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField InputProps={{ readOnly: true, disabled: false }} value={formik.values.position} name='position' id='position' placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
                                     <CustomSelect
-                                        value={formik.values.workType} name='workType' onChange={formik.handleChange} error={formik.touched.workType && Boolean(formik.errors.workType)}
-                                        helperText={formik.touched.workType && formik.errors.workType}
+                                        value={formik.values.workType ?? 1} name='workType'
+                                        InputProps={{ readOnly: true, disabled: false }}
                                         labelId="workType"
                                         id="workType"
                                         fullWidth
@@ -136,14 +74,11 @@ export default function FormCustom({ params }: any) {
                                 {/* ----------------------------------- */}
                                 <Grid item xs={12} sm={12} lg={4}>
                                     <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
-                                    <CustomTextField value={formik.values.address} name='address' onChange={formik.handleChange} error={formik.touched.address && Boolean(formik.errors.address)}
-                                        helperText={formik.touched.address && formik.errors.address} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField value={formik.values.address} name='address' InputProps={{ readOnly: true, disabled: false }} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
-                                    <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' onChange={formik.handleChange} error={formik.touched.instituteTitle && Boolean(formik.errors.instituteTitle)}
-                                        helperText={formik.touched.instituteTitle && formik.errors.instituteTitle} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' InputProps={{ readOnly: true, disabled: false }} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
-                                    <CustomTextField value={formik.values.duration} name='duration' onChange={formik.handleChange} error={formik.touched.duration && Boolean(formik.errors.duration)}
-                                        helperText={formik.touched.duration && formik.errors.duration} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField value={formik.values.duration} name='duration' InputProps={{ readOnly: true, disabled: false }} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
                                 </Grid>
                                 {/* ----------------------------------- */}
                                 {/* column 3 */}
@@ -154,10 +89,7 @@ export default function FormCustom({ params }: any) {
                                         <DatePicker
                                             className='startDate'
                                             value={formik.values.startDate}
-                                            onChange={(date) => {
-                                                formik.setFieldValue('startDate', date);
-                                                formik.setFieldTouched('startDate', true);
-                                            }}
+                                            onChange={() => { }}
                                             renderInput={(props) => (
                                                 <CustomTextField
                                                     {...props}
@@ -182,9 +114,7 @@ export default function FormCustom({ params }: any) {
                                         <DatePicker
                                             className='endDate'
                                             value={formik.values.endDate}
-                                            onChange={(date) => {
-                                                formik.setFieldValue('endDate', date);
-                                                formik.setFieldTouched('endDate', true);
+                                            onChange={() => {
                                             }}
                                             renderInput={(props) => (
                                                 <CustomTextField
@@ -232,13 +162,12 @@ export default function FormCustom({ params }: any) {
                                                     paddingLeft: '8px',
                                                 }}
                                             >
-                                                {file && 'فایل مورد نظر انتخاب شد'}
+                                                {activityHistory?.file && 'فایل مورد نظر انتخاب شد'}
                                             </span>
                                             <TextField
                                                 name="file"
                                                 type="file"
                                                 id="file-input"
-                                                onChange={handleFileUpload}
                                                 style={{ display: 'none' }}
                                             />
                                         </Box>
@@ -253,13 +182,15 @@ export default function FormCustom({ params }: any) {
                                     <Grid container spacing={0} my={4}>
                                         <Grid item xs={12} sm={6} lg={3}>
                                             <FormControlLabel control={<CustomSwitch
-                                            />} label="گواهینامه" value={formik.values.hasCertificate} name='hasCertificate' onChange={formik.handleChange} />
+                                                checked={formik.values.hasCertificate}
+                                                readOnly={true}
+                                            />} label="گواهینامه" name='hasCertificate' />
                                         </Grid>
                                         <Grid item xs={12} sm={6} lg={3}>
-                                            <FormControlLabel control={<CustomSwitch value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} />} label="فعالیت مرتبط" />
+                                            <FormControlLabel control={<CustomSwitch readOnly={true} checked={formik.values.isRelated} name='isRelated' />} label="فعالیت مرتبط" />
                                         </Grid>
                                         <Grid item xs={12} sm={6} lg={3}>
-                                            <FormControlLabel control={<CustomSwitch value={formik.values.isCurrent} name='isCurrent' onChange={formik.handleChange} />} label="فعالیت جاری" />
+                                            <FormControlLabel control={<CustomSwitch readOnly={true} checked={formik.values.isCurrent} name='isCurrent' />} label="فعالیت جاری" />
                                         </Grid>
                                     </Grid>
                                     {/* button */}
@@ -275,9 +206,9 @@ export default function FormCustom({ params }: any) {
                                             <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
                                                 برگشت
                                             </Button>
-                                            <Button type='submit' disabled={isUpdating} variant="contained" color="success">
+                                            {/* <Button type='submit' disabled={isUpdating} variant="contained" color="success">
                                                 ثبت
-                                            </Button>
+                                            </Button> */}
                                         </Stack>
                                     </Stack>
                                 </Grid>
@@ -288,4 +219,5 @@ export default function FormCustom({ params }: any) {
         </Box >
     );
 };
+
 

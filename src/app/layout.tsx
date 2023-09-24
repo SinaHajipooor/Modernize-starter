@@ -20,6 +20,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import queryClientSetup from '@/queries/querySetup'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
@@ -72,14 +73,17 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-
+    const [delay, setDelay] = useState(true)
+    useEffect(() => {
+        setTimeout(() => setDelay(false), 2000)
+    }, [])
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
                 <AuthContextProvider>
                     <Provider store={store}>
                         {/* eslint-disable-next-line react/no-children-prop */}
-                        <MyApp children={children} />
+                        {delay ? <Spinner /> : <MyApp children={children} />}
                     </Provider>
                 </AuthContextProvider>
             </body>

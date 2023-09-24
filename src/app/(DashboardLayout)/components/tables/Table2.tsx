@@ -1,4 +1,5 @@
-'use client'
+"use client"
+
 import React, { useState } from 'react';
 import {
     TableContainer,
@@ -22,7 +23,7 @@ import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActi
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-const Table2 = ({ data }: any) => {
+const Table2 = ({ data = {} }: any) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const router = useRouter()
@@ -79,7 +80,7 @@ const Table2 = ({ data }: any) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data?.map((row: any) => (
+                        {data.map((row: any) => (
                             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>
                                     <Stack direction="row" alignItems="center" spacing={2}>
@@ -141,7 +142,7 @@ const Table2 = ({ data }: any) => {
                                         }}
                                     >
 
-                                        <MenuItem onClick={() => showActivityHistory(row.id)}>
+                                        <MenuItem onClick={() => router.push(`/tables/show/${row.id}`)}>
                                             <ListItemIcon>
                                                 <IconEye color='yellow' width={18} />
                                             </ListItemIcon>

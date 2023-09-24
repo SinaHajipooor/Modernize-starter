@@ -23,7 +23,7 @@ const BasicTable = () => {
     return (
         <Box mt={2}>
             <PageContainer title="Basic Table" description="this is Basic Table">
-                <ParentCard title="سوابق فعالیت" >
+                <ParentCard title="فهرست سوابق فعالیت" >
                     {isLoading ? <Box mb={5}><Spinner /> </Box> : <>
                         <Button
                             color="primary"
