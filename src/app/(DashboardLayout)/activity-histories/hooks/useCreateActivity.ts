@@ -11,14 +11,14 @@ export default function useCreateActivity(file: any) {
     const { mutate, isLoading } = useMutation({
         mutationFn: (newActivityHistory: any) => apiCreateActivityHistory(newActivityHistory, file),
         onSuccess: () => {
-            toast.success('با موفقیت ایجاد شد');
+            toast.success('ایجاد سوابق فعالیت با موفقیت انجام شد');
             queryClient.invalidateQueries({
                 queryKey: ['activity-histories']
             });
             router.back()
         },
         onError: () => {
-            toast.error('خطایی رخ داد ');
+            toast.error('خطایی هنگام ایجاد رخ داد ');
         }
     });
     return { mutate, isLoading }
