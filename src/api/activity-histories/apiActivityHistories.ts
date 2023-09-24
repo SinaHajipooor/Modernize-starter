@@ -38,10 +38,29 @@ export async function apiCreateActivityHistory(newActivityHistory: any, file: an
         });
         return response
     } catch (error: any) {
-        console.log(error.message);
         throw new Error(error.message)
     }
 }
+
+// update
+export async function apiUpdateActivityHistory(updatedActivityHistory: any, file: any, id: any) {
+    try {
+        const formData = new FormData();
+        Object.entries(updatedActivityHistory).forEach(([key, value]: any) => {
+            formData.append(key, value);
+        });
+        formData.append('file', file[0]);
+        formData.append('_method', 'put');
+        const resposne = await axiosConfig.post(`${ACTIVITY_BASE_URL}/update/${id}`, formData, {
+            headers: {}
+        });
+        return resposne
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
+
+
 
 
 // show 
