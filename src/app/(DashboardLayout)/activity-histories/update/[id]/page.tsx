@@ -24,6 +24,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@/store/store';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup'
+import useUpdateActivity from '../../hooks/useUpdateActivity';
 
 
 
@@ -31,7 +32,7 @@ export default function UpdatePage({ params }: any) {
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const { isLoading, activityHistory, isStale } = useActivityDetails(params.id)
     const [file, setFile] = useState(null);
-
+    const { mutate, isLoading: isUpdating } = useUpdateActivity(file, params.id);
     // upload file 
     const handleFileUpload = (event: any) => {
         const selectedFile = event.target.files[0];
@@ -74,7 +75,12 @@ export default function UpdatePage({ params }: any) {
             isCurrent: activityHistory?.current_position ?? false,
             file: activityHistory?.file
         },
-        onSubmit: () => { }
+        validationSchema: formValidationSchema,
+        onSubmit: (values) => {
+            const userInfo = formik.values;
+            const updatedActivityHistory = { user_id: 1, title: userInfo.title, address: userInfo.address, start_date: '1401-09-10', end_date: '1402-09-20', position: userInfo.position, institute_title: userInfo.instituteTitle, has_certificate: userInfo.hasCertificate, status: false, is_related: userInfo.isRelated, current_position: userInfo.isCurrent, work_type_id: 1 }
+            mutate(updatedActivityHistory, file!)
+        }
     })
     useEffect(() => {
         formik.setValues({
@@ -278,7 +284,7 @@ export default function UpdatePage({ params }: any) {
                                         <Button
                                             type='submit'
                                             style={{ fontFamily: 'IRANSans' }}
-                                            disabled={isLoading}
+                                            disabled={isUpdating}
                                             variant="contained"
                                             color="success"
                                         >

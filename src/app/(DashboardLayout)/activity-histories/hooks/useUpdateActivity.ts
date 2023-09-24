@@ -8,7 +8,7 @@ export default function useUpdateActivity(file: any, id: any) {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading } = useMutation({
-        mutationFn: (updatedActivityHistory) => apiUpdateActivityHistory(updatedActivityHistory, file, id),
+        mutationFn: (updatedActivityHistory: any) => apiUpdateActivityHistory(updatedActivityHistory, file, id),
         onSuccess: () => {
             toast.success('تغییر با موفقیت اعمال شد');
             queryClient.invalidateQueries({
@@ -17,7 +17,8 @@ export default function useUpdateActivity(file: any, id: any) {
             router.back();
         },
         onError: () => {
-            toast.error('خطایی هنگام اعمال تغییر رخ داد')
+            toast.error('خطایی هنگام اعمال تغییر رخ داد');
         }
-    })
+    });
+    return { mutate, isLoading }
 }
