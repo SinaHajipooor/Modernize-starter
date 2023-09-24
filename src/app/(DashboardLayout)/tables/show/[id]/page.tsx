@@ -21,12 +21,15 @@ import Link from 'next/link';
 import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
 import useActivityDetails from '../../hooks/useActivityDetails'
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from '@/store/store';
 
 
 export default function ShowForm({ params }: any) {
 
     const { isLoading, activityHistory } = useActivityDetails(params.id)
+    const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
 
 
     // form handler 
@@ -40,12 +43,15 @@ export default function ShowForm({ params }: any) {
             workType: activityHistory?.work_type,
             startDate: activityHistory?.start_date,
             endDate: activityHistory?.end_date,
-            hasCertificate: activityHistory?.has_certificate,
-            isRelated: activityHistory?.is_related,
-            isCurrent: activityHistory?.current_position,
+            hasCertificate: activityHistory?.has_certificate ?? false,
+            isRelated: activityHistory?.is_related ?? false,
+            isCurrent: activityHistory?.current_position ?? false,
+            file: activityHistory?.file
         },
+        validateOnBlur: false,
         onSubmit: () => { }
     })
+
 
     return (
         <Box mt={3}>
@@ -79,9 +85,9 @@ export default function ShowForm({ params }: any) {
                                     <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
                                     <CustomTextField value={formik.values.address} name='address' InputProps={{ readOnly: true, disabled: false }} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
-                                    <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' InputProps={{ readOnly: true, disabled: false }} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' InputProps={{ readOnly: true, disabled: false }} id="instituteTitle" placeholder="نام موسسه وارد نشده است" variant="outlined" fullWidth />
                                     <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
-                                    <CustomTextField value={formik.values.duration} name='duration' InputProps={{ readOnly: true, disabled: false }} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
+                                    <CustomTextField value={formik.values.duration} name='duration' InputProps={{ readOnly: true, disabled: false }} id="duration" placeholder="مدت وارد نشده است" variant="outlined" fullWidth />
                                 </Grid>
                                 {/* ----------------------------------- */}
                                 {/* column 3 */}
@@ -93,11 +99,14 @@ export default function ShowForm({ params }: any) {
                                             className='startDate'
                                             value={formik.values.startDate}
                                             onChange={() => { }}
+                                            readOnly={true}
+                                            disabled={false}
                                             renderInput={(props) => (
                                                 <CustomTextField
                                                     {...props}
                                                     fullWidth
                                                     size="larg"
+                                                    error={false}
                                                     sx={{
                                                         '& .MuiSvgIcon-root': {
                                                             width: '20px',
@@ -111,10 +120,13 @@ export default function ShowForm({ params }: any) {
                                             )}
                                         />
 
+
                                     </LocalizationProvider>
                                     <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
                                     <LocalizationProvider dateAdapter={AdapterDateFns} name='endDate'>
                                         <DatePicker
+                                            readOnly={true}
+                                            disabled={false}
                                             className='endDate'
                                             value={formik.values.endDate}
                                             onChange={() => {
@@ -124,6 +136,7 @@ export default function ShowForm({ params }: any) {
                                                     {...props}
                                                     fullWidth
                                                     size="larg"
+                                                    error={false}
                                                     sx={{
                                                         '& .MuiSvgIcon-root': {
                                                             width: '20px',
@@ -144,16 +157,22 @@ export default function ShowForm({ params }: any) {
                                             overflow="hidden"
                                             display="flex"
                                             justifyContent="start"
-                                            borderColor="#bcbcbc"
+                                            borderColor={activeMode === 'light' ? "#EAEFF4" : '#465670'}
                                             height={45}
                                         >
                                             <label htmlFor="file-input">
                                                 <Button
+
                                                     variant="contained"
                                                     component="span"
-                                                    style={{ height: '100%', overflow: 'hidden', width: '100px' }}
+                                                    style={{
+                                                        height: '100%', overflow: 'hidden', width: '100px', borderTopRightRadius: 1,
+                                                        borderBottomRightRadius: 1,
+                                                        borderTopLeftRadius: 0,
+                                                        borderBottomLeftRadius: 0,
+                                                    }}
                                                 >
-                                                    آپلود فایل
+                                                    دانلود فایل
                                                 </Button>
                                             </label>
                                             <span
@@ -163,9 +182,11 @@ export default function ShowForm({ params }: any) {
                                                     justifyContent: 'start',
                                                     paddingRight: '18px',
                                                     paddingLeft: '8px',
+                                                    fontSize: '13px',
+                                                    color: 'grey'
                                                 }}
                                             >
-                                                {activityHistory?.file && 'فایل مورد نظر انتخاب شد'}
+                                                {formik.values.file ? 'یک فایل وجود دارد' : 'فایلی وجود ندارد'}
                                             </span>
                                             <TextField
                                                 name="file"
