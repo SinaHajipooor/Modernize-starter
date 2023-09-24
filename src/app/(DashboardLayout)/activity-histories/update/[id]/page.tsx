@@ -22,13 +22,42 @@ import Spinner from '@/app/(DashboardLayout)/components/ui/Spinner';
 import useActivityDetails from '../../hooks/useActivityDetails'
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import * as Yup from 'yup'
 
 
 
 export default function UpdatePage({ params }: any) {
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const { isLoading, activityHistory, isStale } = useActivityDetails(params.id)
+    const [file, setFile] = useState(null);
+
+    // upload file 
+    const handleFileUpload = (event: any) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        } else {
+            setFile(null);
+        }
+    };
+    // validation schema 
+    const formValidationSchema = Yup.object({
+        title: Yup.string()
+            .matches(/^[A-Za-z\s]*$/, 'فقط متن وارد کنید')
+            .required('عنوان اجباری است'),
+        position: Yup.string().required('سمت اجباری است'),
+        address: Yup.string().required('آدرس اجباری است'),
+        instituteTitle: Yup.string().required('نام موسسه اجباری است'),
+        duration: Yup.number().integer().typeError('لطفا عدد وارد کنید').required('مدت اجباری است'),
+    });
+    // formate the selected date
+    function formatDate(date: any) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    }
     // form handler 
     const formik = useFormik({
         initialValues: {
@@ -67,192 +96,199 @@ export default function UpdatePage({ params }: any) {
 
     return (
         <Box mt={3}>
-            <PageContainer title="show Form" description="this is Custom Form">
-                <ParentCard title="جزییات سوابق فعالیت" >
-                    {isLoading ? <Spinner /> :
-                        <form>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} sm={12} lg={4}>
-                                    <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
-                                    <CustomTextField InputProps={{ readOnly: true, disabled: false }} value={formik.values.title} name='title' id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
-                                    <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
-                                    <CustomTextField InputProps={{ readOnly: true, disabled: false }} value={formik.values.position} name='position' id='position' placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
-                                    <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
-                                    <CustomSelect
-                                        value={formik.values.workType ?? 1} name='workType'
-                                        InputProps={{ readOnly: true, disabled: false }}
-                                        labelId="workType"
-                                        id="workType"
-                                        fullWidth
+            <PageContainer title="Custom Form" description="this is Custom Form">
+                <ParentCard title="تغییر سوابق فعالیت" >
+                    <form onSubmit={formik.handleSubmit}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12} lg={4}>
+                                <CustomFormLabel htmlFor="title">عنوان</CustomFormLabel>
+                                <CustomTextField value={formik.values.title} name='title' onChange={formik.handleChange} error={formik.touched.title && Boolean(formik.errors.title)}
+                                    helperText={formik.touched.title && formik.errors.title} id="title" placeholder="عنوان را وارد کنید" variant="outlined" fullWidth />
+                                <CustomFormLabel htmlFor="position">سمت</CustomFormLabel>
+                                <CustomTextField value={formik.values.position} name='position' id='position' onChange={formik.handleChange} error={formik.touched.position && Boolean(formik.errors.position)}
+                                    helperText={formik.touched.position && formik.errors.position} placeholder="سمت را وارد کنید" variant="outlined" fullWidth />
+                                <CustomFormLabel htmlFor="workType">نوع همکاری</CustomFormLabel>
+                                <CustomSelect
+                                    value={formik.values.workType ?? 1} name='workType' onChange={formik.handleChange} error={formik.touched.workType && Boolean(formik.errors.workType)}
+                                    helperText={formik.touched.workType && formik.errors.workType}
+                                    labelId="workType"
+                                    id="workType"
+                                    fullWidth
+                                >
+                                    <MenuItem value={1}>تمام وقت</MenuItem>
+                                    <MenuItem value={2} >پاره وقت</MenuItem>
+                                </CustomSelect>
+
+                            </Grid>
+                            {/* ----------------------------------- */}
+                            {/* column 2 */}
+                            {/* ----------------------------------- */}
+                            <Grid item xs={12} sm={12} lg={4}>
+                                <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
+                                <CustomTextField value={formik.values.address} name='address' onChange={formik.handleChange} error={formik.touched.address && Boolean(formik.errors.address)}
+                                    helperText={formik.touched.address && formik.errors.address} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
+                                <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
+                                <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' onChange={formik.handleChange} error={formik.touched.instituteTitle && Boolean(formik.errors.instituteTitle)}
+                                    helperText={formik.touched.instituteTitle && formik.errors.instituteTitle} id="instituteTitle" placeholder="نام موسسه را وارد کنید" variant="outlined" fullWidth />
+                                <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
+                                <CustomTextField value={formik.values.duration} name='duration' onChange={formik.handleChange} error={formik.touched.duration && Boolean(formik.errors.duration)}
+                                    helperText={formik.touched.duration && formik.errors.duration} id="duration" placeholder="مدت را وارد کنید" variant="outlined" fullWidth />
+                            </Grid>
+                            {/* ----------------------------------- */}
+                            {/* column 3 */}
+                            {/* ----------------------------------- */}
+                            <Grid item xs={12} sm={12} lg={4}>
+                                <CustomFormLabel htmlFor="time">تاریخ شروع</CustomFormLabel>
+                                <LocalizationProvider dateAdapter={AdapterDateFns} name='startDate'>
+                                    <DatePicker
+
+                                        className='startDate'
+                                        value={formik.values.startDate}
+                                        onChange={(date) => {
+                                            formik.setFieldValue('startDate', date);
+                                            formik.setFieldTouched('startDate', true);
+                                        }}
+                                        renderInput={(props) => (
+                                            <CustomTextField
+                                                {...props}
+                                                fullWidth
+                                                error={false}
+                                                size="larg"
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        width: '20px',
+                                                        height: '20px',
+                                                    },
+                                                    '& .MuiFormHelperText-root': {
+                                                        display: 'none',
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+
+                                </LocalizationProvider>
+                                <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
+                                <LocalizationProvider dateAdapter={AdapterDateFns} name='endDate'>
+                                    <DatePicker
+                                        className='endDate'
+                                        value={formik.values.endDate}
+                                        onChange={(date) => {
+                                            formik.setFieldValue('endDate', date);
+                                            formik.setFieldTouched('endDate', true);
+                                        }}
+                                        renderInput={(props) => (
+                                            <CustomTextField
+                                                {...props}
+                                                fullWidth
+                                                size="larg"
+                                                error={false}
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        width: '20px',
+                                                        height: '20px',
+                                                    },
+                                                    '& .MuiFormHelperText-root': {
+                                                        display: 'none',
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </LocalizationProvider>
+                                <Grid mt={7}>
+                                    <Box
+                                        border={0.2}
+                                        borderRadius={1}
+                                        overflow="hidden"
+                                        display="flex"
+                                        justifyContent="start"
+                                        borderColor={activeMode === 'light' ? "#EAEFF4" : '#465670'}
+                                        height={45}
                                     >
-                                        <MenuItem value={1}>تمام وقت</MenuItem>
-                                        <MenuItem value={2} >پاره وقت</MenuItem>
-                                    </CustomSelect>
+                                        <label htmlFor="file-input">
+                                            <Button
 
-                                </Grid>
-                                {/* ----------------------------------- */}
-                                {/* column 2 */}
-                                {/* ----------------------------------- */}
-                                <Grid item xs={12} sm={12} lg={4}>
-                                    <CustomFormLabel htmlFor="address">آدرس</CustomFormLabel>
-                                    <CustomTextField value={formik.values.address} name='address' InputProps={{ readOnly: true, disabled: false }} id="address" placeholder="آدرس را وارد کنید" variant="outlined" fullWidth />
-                                    <CustomFormLabel htmlFor="instituteTitle">نام موسسه</CustomFormLabel>
-                                    <CustomTextField value={formik.values.instituteTitle} name='instituteTitle' InputProps={{ readOnly: true, disabled: false }} id="instituteTitle" placeholder="نام موسسه وارد نشده است" variant="outlined" fullWidth />
-                                    <CustomFormLabel htmlFor="duration">مدت</CustomFormLabel>
-                                    <CustomTextField value={formik.values.duration} name='duration' InputProps={{ readOnly: true, disabled: false }} id="duration" placeholder="مدت وارد نشده است" variant="outlined" fullWidth />
-                                </Grid>
-                                {/* ----------------------------------- */}
-                                {/* column 3 */}
-                                {/* ----------------------------------- */}
-                                <Grid item xs={12} sm={12} lg={4}>
-                                    <CustomFormLabel htmlFor="time">تاریخ شروع</CustomFormLabel>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} name='startDate'>
-                                        <DatePicker
-                                            className='startDate'
-                                            value={formik.values.startDate}
-                                            onChange={() => { }}
-                                            readOnly={true}
-                                            disabled={false}
-                                            renderInput={(props) => (
-                                                <CustomTextField
-                                                    {...props}
-                                                    fullWidth
-                                                    size="larg"
-                                                    error={false}
-                                                    sx={{
-                                                        '& .MuiSvgIcon-root': {
-                                                            width: '20px',
-                                                            height: '20px',
-                                                        },
-                                                        '& .MuiFormHelperText-root': {
-                                                            display: 'none',
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        />
-
-
-                                    </LocalizationProvider>
-                                    <CustomFormLabel htmlFor="endDate">تاریخ پایان</CustomFormLabel>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} name='endDate'>
-                                        <DatePicker
-                                            readOnly={true}
-                                            disabled={false}
-                                            className='endDate'
-                                            value={formik.values.endDate}
-                                            onChange={() => {
-                                            }}
-                                            renderInput={(props) => (
-                                                <CustomTextField
-                                                    {...props}
-                                                    fullWidth
-                                                    size="larg"
-                                                    error={false}
-                                                    sx={{
-                                                        '& .MuiSvgIcon-root': {
-                                                            width: '20px',
-                                                            height: '20px',
-                                                        },
-                                                        '& .MuiFormHelperText-root': {
-                                                            display: 'none',
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        />
-                                    </LocalizationProvider>
-                                    <Grid mt={7}>
-                                        <Box
-                                            border={0.2}
-                                            borderRadius={1}
-                                            overflow="hidden"
-                                            display="flex"
-                                            justifyContent="start"
-                                            borderColor={activeMode === 'light' ? "#EAEFF4" : '#465670'}
-                                            height={45}
-                                        >
-                                            <label htmlFor="file-input">
-                                                <Button
-
-                                                    variant="contained"
-                                                    component="span"
-                                                    style={{
-                                                        height: '100%', overflow: 'hidden', width: '100px', borderTopRightRadius: 1,
-                                                        borderBottomRightRadius: 1,
-                                                        borderTopLeftRadius: 0,
-                                                        borderBottomLeftRadius: 0,
-                                                    }}
-                                                >
-                                                    دانلود فایل
-                                                </Button>
-                                            </label>
-                                            <span
+                                                variant="contained"
+                                                component="span"
                                                 style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'start',
-                                                    paddingRight: '18px',
-                                                    paddingLeft: '8px',
-                                                    fontSize: '13px',
-                                                    color: 'grey'
+                                                    height: '100%', overflow: 'hidden', width: '100px', borderTopRightRadius: 1,
+                                                    borderBottomRightRadius: 1,
+                                                    borderTopLeftRadius: 0,
+                                                    borderBottomLeftRadius: 0,
                                                 }}
                                             >
-                                                {formik.values.file ? 'یک فایل وجود دارد' : 'فایلی وجود ندارد'}
-                                            </span>
-                                            <TextField
-                                                name="file"
-                                                type=""
-                                                id="file-input"
-                                                style={{ display: 'none' }}
-                                            />
-                                        </Box>
-
-                                    </Grid>
-                                </Grid>
-                                {/* ----------------------------------- */}
-                                {/* column 4 */}
-                                {/* ----------------------------------- */}
-
-                                <Grid item xs={12} sm={12} lg={12} >
-                                    <Grid container spacing={0} my={4}>
-                                        <Grid item xs={12} sm={6} lg={3}>
-                                            <FormControlLabel control={<CustomSwitch
-                                                checked={formik.values.hasCertificate}
-                                                readOnly={true}
-                                            />} label="گواهینامه" name='hasCertificate' />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} lg={3}>
-                                            <FormControlLabel control={<CustomSwitch readOnly={true} checked={formik.values.isRelated} name='isRelated' />} label="فعالیت مرتبط" />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} lg={3}>
-                                            <FormControlLabel control={<CustomSwitch readOnly={true} checked={formik.values.isCurrent} name='isCurrent' />} label="فعالیت جاری" />
-                                        </Grid>
-                                    </Grid>
-                                    {/* button */}
-                                    <Stack
-                                        direction={{ xs: 'column', sm: 'row' }}
-                                        spacing={2}
-                                        justifyContent="space-between"
-                                        mt={2}
-                                    >
-                                        <Stack spacing={1} direction="row">
-                                        </Stack>
-                                        <Stack direction="row" spacing={1}>
-                                            <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
-                                                برگشت
+                                                آپلود فایل
                                             </Button>
-                                            <Button type='submit'
-                                                style={{ fontFamily: 'IRANSans' }}
+                                        </label>
+                                        <span
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'start',
+                                                paddingRight: '18px',
+                                                paddingLeft: '8px',
+                                                fontSize: '13px',
+                                                color: 'grey'
+                                            }}
+                                        >
+                                            {file ? 'فایل مورد نظر انتخاب شد' : 'یک فایل انتخاب کنید'}
+                                        </span>
+                                        <TextField
+                                            name="file"
+                                            type="file"
+                                            id="file-input"
+                                            onChange={handleFileUpload}
+                                            style={{ display: 'none' }}
+                                        />
+                                    </Box>
 
-                                                disabled={false} variant="contained" color="success">
-                                                ثبت
-                                            </Button>
-                                        </Stack>
-                                    </Stack>
                                 </Grid>
                             </Grid>
-                        </form>}
+                            {/* ----------------------------------- */}
+                            {/* column 4 */}
+                            {/* ----------------------------------- */}
+
+                            <Grid item xs={12} sm={12} lg={12} >
+                                <Grid container spacing={0} my={4}>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControlLabel control={<CustomSwitch
+                                        />} label="گواهینامه" checked={formik.values.hasCertificate} value={formik.values.hasCertificate} name='hasCertificate' onChange={formik.handleChange} />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControlLabel control={<CustomSwitch checked={formik.values.isRelated} value={formik.values.isRelated} name='isRelated' onChange={formik.handleChange} />} label="فعالیت مرتبط" />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControlLabel control={<CustomSwitch checked={formik.values.isCurrent} value={formik.values.isCurrent} name='isCurrent' onChange={formik.handleChange} />} label="فعالیت جاری" />
+                                    </Grid>
+                                </Grid>
+                                {/* button */}
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    spacing={2}
+                                    justifyContent="space-between"
+                                    mt={2}
+                                >
+                                    <Stack spacing={1} direction="row">
+                                    </Stack>
+                                    <Stack direction="row" spacing={1}>
+                                        <Button LinkComponent={Link} href='/activity-histories/index' variant="contained" type='reset' color="error">
+                                            برگشت
+                                        </Button>
+                                        <Button
+                                            type='submit'
+                                            style={{ fontFamily: 'IRANSans' }}
+                                            disabled={isLoading}
+                                            variant="contained"
+                                            color="success"
+                                        >
+                                            ثبت
+                                        </Button>
+                                    </Stack>
+                                </Stack>
+                            </Grid>
+                        </Grid>
+                    </form>
                 </ParentCard>
             </PageContainer >
         </Box >
