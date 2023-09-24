@@ -82,7 +82,7 @@ const Menuitems: MenuitemsType[] = [
         id: uniqueId(),
         title: "سوابق فعالیت",
         icon: IconAperture,
-        href: "/tables/basic",
+        href: "/activity-histories/index",
         chipColor: "secondary",
     },
 

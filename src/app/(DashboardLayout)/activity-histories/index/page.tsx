@@ -24,7 +24,7 @@ const BasicTable = () => {
                             color="primary"
                             variant="contained"
                             size="large"
-                            href="/tables/create"
+                            href="/activity-histories/create"
                             LinkComponent={Link}
                         >
                             ایجاد

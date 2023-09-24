@@ -50,10 +50,6 @@ const Table2 = ({ data = {} }: any) => {
         },
         onError: () => toast.error('امکان حذف وجود ندارد')
     })
-    // navigate to detail page 
-    function showActivityHistory(id: any) {
-        router.push(`/tables/show/${id}`)
-    }
     // ui
     return (
         <BlankCard>
@@ -142,13 +138,13 @@ const Table2 = ({ data = {} }: any) => {
                                         }}
                                     >
 
-                                        <MenuItem onClick={() => router.push(`/tables/show/${currentRowId}`)}>
+                                        <MenuItem onClick={() => router.push(`/activity-histories/show/${currentRowId}`)}>
                                             <ListItemIcon>
                                                 <IconEye color='yellow' width={18} />
                                             </ListItemIcon>
                                             جزییات
                                         </MenuItem>
-                                        <MenuItem onClick={handleClose}>
+                                        <MenuItem onClick={() => router.push(`/activity-histories/update/${currentRowId}`)} >
                                             <ListItemIcon>
                                                 <IconEdit color='orange' width={18} />
                                             </ListItemIcon>

@@ -239,7 +239,7 @@ export default function ShowForm({ params }: any) {
                                         <Stack spacing={1} direction="row">
                                         </Stack>
                                         <Stack direction="row" spacing={1}>
-                                            <Button LinkComponent={Link} href='/tables/basic' variant="contained" type='reset' color="error">
+                                            <Button LinkComponent={Link} href='/activity-histories/index' variant="contained" type='reset' color="error">
                                                 برگشت
                                             </Button>
                                             {/* <Button type='submit' disabled={isUpdating} variant="contained" color="success">
