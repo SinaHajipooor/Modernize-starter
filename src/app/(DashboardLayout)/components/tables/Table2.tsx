@@ -28,6 +28,9 @@ const Table2 = ({ data = {} }: any) => {
     const open = Boolean(anchorEl);
     const router = useRouter()
     const [currentRowId, setcurrentRowId] = useState(null);
+    const [showNavigating, setShowNavigating] = useState(false)
+    const [updateNavigating, setUpdateNavigating] = useState(false);
+    // click on menu items
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>, row: any) => {
         setAnchorEl(event.currentTarget);
         setcurrentRowId(row.id)
@@ -50,6 +53,12 @@ const Table2 = ({ data = {} }: any) => {
         },
         onError: () => toast.error('امکان حذف وجود ندارد')
     })
+
+    function navigating(destination: any) {
+        destination === 'show' ? setShowNavigating(true) : setUpdateNavigating(true)
+        router.push(`/activity-histories/${destination}/${currentRowId}`)
+    }
+
     // ui
     return (
         <BlankCard>
@@ -138,13 +147,16 @@ const Table2 = ({ data = {} }: any) => {
                                         }}
                                     >
 
-                                        <MenuItem onClick={() => router.push(`/activity-histories/show/${currentRowId}`)}>
+
+
+                                        <MenuItem onClick={() => navigating('show')} disabled={showNavigating}>
                                             <ListItemIcon>
                                                 <IconEye color='yellow' width={18} />
                                             </ListItemIcon>
                                             جزییات
                                         </MenuItem>
-                                        <MenuItem onClick={() => router.push(`/activity-histories/update/${currentRowId}`)} >
+
+                                        <MenuItem onClick={() => navigating('update')} disabled={updateNavigating} >
                                             <ListItemIcon>
                                                 <IconEdit color='orange' width={18} />
                                             </ListItemIcon>
