@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import BlankCard from '../shared/BlankCard';
 import { Box, Stack } from '@mui/system';
-import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
+import { IconDotsVertical, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { apiDeleteActivityHistory } from '@/utils/api/activity-histories/apiActivityHistories';
 import toast from 'react-hot-toast';
@@ -136,26 +136,25 @@ const Table2 = ({ data }: any) => {
                                         }}
                                     >
 
-                                        <MenuItem onClick={handleClose}>
-                                            <ListItemIcon>
-                                                <IconEdit width={18} />
-                                            </ListItemIcon>
-                                            تغییر
-                                        </MenuItem>
                                         <MenuItem onClick={() => router.push(`/tables/show/${currentRowId}`)}>
                                             <ListItemIcon>
-                                                <IconEdit width={18} />
+                                                <IconEye color='yellow' width={18} />
                                             </ListItemIcon>
                                             جزییات
                                         </MenuItem>
+                                        <MenuItem onClick={handleClose}>
+                                            <ListItemIcon>
+                                                <IconEdit color='orange' width={18} />
+                                            </ListItemIcon>
+                                            تغییر
+                                        </MenuItem>
                                         <MenuItem onClick={() => mutate(currentRowId)} disabled={isLoading}>
                                             <ListItemIcon>
-                                                <IconTrash width={18} />
+                                                <IconTrash color='red' width={18} />
                                             </ListItemIcon>
                                             خذف
                                         </MenuItem>
                                     </Menu>
-
                                 </TableCell>
                             </TableRow>
                         ))}

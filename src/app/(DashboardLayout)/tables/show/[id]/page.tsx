@@ -34,16 +34,10 @@ export default function FormCustom({ params }: any) {
     const [file, setFile] = useState(null);
     const router = useRouter();
 
-
-
-
     const { data: activityHistory } = useQuery({
         queryKey: ['activity-histories'],
         queryFn: () => apiShowActivityHistory(params.id)
     });
-
-
-
 
     // upload file 
     const handleFileUpload = (event: any) => {
@@ -113,7 +107,7 @@ export default function FormCustom({ params }: any) {
     return (
         <Box mt={3}>
             <PageContainer title="Custom Form" description="this is Custom Form">
-                <ParentCard title="ایجاد سوابق فعالیت" >
+                <ParentCard title="جزییات سوابق فعالیت" >
                     <form onSubmit={formik.handleSubmit}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} lg={4}>
