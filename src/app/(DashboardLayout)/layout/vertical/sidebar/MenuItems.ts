@@ -63,6 +63,11 @@ import {
     IconBoxAlignLeft,
     IconBorderStyle2,
     IconAppWindow,
+    IconHome,
+    IconDashboard,
+    IconDashboardOff,
+    IconHome2,
+    IconRun,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -74,14 +79,14 @@ const Menuitems: MenuitemsType[] = [
     {
         id: uniqueId(),
         title: "داشبورد",
-        icon: IconAperture,
+        icon: IconHome,
         href: "/",
         chipColor: "secondary",
     },
     {
         id: uniqueId(),
         title: "سوابق فعالیت",
-        icon: IconAperture,
+        icon: IconRun,
         href: "/activity-histories/index",
         chipColor: "secondary",
     },
