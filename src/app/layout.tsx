@@ -1,5 +1,4 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -14,15 +13,13 @@ import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 import './global.css'
-import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import queryClientSetup from '@/services/querySetup'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 import useAuthenticate from "./auth/hooks/useAuthenticate";
-import useUserData from "./auth/hooks/useUserData";
-import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
 
@@ -75,7 +72,12 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-
+    const [isLoading, setIsLoading] = useState(true)
+    useEffect(function () {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 500);
+    }, [])
 
     return (
         <html lang="en" suppressHydrationWarning>
@@ -84,7 +86,7 @@ export default function RootLayout({
                     <AuthContextProvider>
                         <Provider store={store}>
                             {/* eslint-disable-next-line react/no-children-prop */}
-                            <MyApp children={children} />
+                            {isLoading ? <Spinner /> : <MyApp children={children} />}
                         </Provider>
                     </AuthContextProvider>
                 </QueryClientProvider>
