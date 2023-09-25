@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuthenticate from "./useAuthenticate";
 import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 
 export default function useUserData() {

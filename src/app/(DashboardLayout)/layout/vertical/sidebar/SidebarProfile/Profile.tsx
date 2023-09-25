@@ -5,6 +5,7 @@ import { AppState } from '@/store/store';
 import Link from 'next/link';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
+import useUserData from '@/app/auth/hooks/useUserData';
 
 export const Profile = () => {
     const customizer = useSelector((state: AppState) => state.customizer);
@@ -22,6 +23,9 @@ export const Profile = () => {
             console.log(error.message)
         }
     }
+
+
+    const { userData } = useUserData()
     return (
         <Box
             display={'flex'}
@@ -31,11 +35,10 @@ export const Profile = () => {
         >
             {!hideMenu ? (
                 <>
-                    <Avatar alt="Remy Sharp" src={"/images/profile/user-1.jpg"} sx={{ height: 40, width: 40 }} />
-
+                    <Avatar alt="Remy Sharp" src={userData?.data.avatar} sx={{ height: 40, width: 40 }} />
                     <Box>
-                        <Typography variant="body1" fontWeight={600}>{uesrname}</Typography>
-                        <Typography variant="caption">{context.user.mobile}</Typography>
+                        <Typography variant="body1" fontWeight={600}>{userData?.data.first_name} {userData?.data.last_name}</Typography>
+                        <Typography variant="caption">{userData?.data.mobile}</Typography>
                     </Box>
                     <Box sx={{ ml: 'auto' }}>
                         <Tooltip title="Logout" placement="top">

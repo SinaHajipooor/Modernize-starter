@@ -28,16 +28,18 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
-    const context = useContext(AuthContext)
+    //     const context = useContext(AuthContext)
 
-    useEffect(() => {
-        context.authenticate()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     useEffect(() => {
+    //         context.authenticate()
+    //         // eslint-disable-next-line react-hooks/exhaustive-deps
+    //     }, []);
+
+    const { isLoading } = useUserData()
 
     return (
         <>
-            <QueryClientProvider client={queryClientSetup}>
+            {isLoading ? <Spinner /> : <>
                 <ReactQueryDevtools initialIsOpen={false} />
                 <NextTopLoader color="#5D87FF" />
                 <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
@@ -63,7 +65,8 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
                         backgroundColor: activeMode === 'light' ? '#f7f1ff' : '#2b2e3f'
                     }
                 }} />
-            </QueryClientProvider>
+            </>
+            }
         </>
     );
 };
@@ -76,22 +79,20 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [delay, setDelay] = useState(true)
-    useEffect(() => {
-        setTimeout(() => setDelay(false), 2000)
-    }, [])
-
 
 
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
-                <AuthContextProvider>
-                    <Provider store={store}>
-                        {/* eslint-disable-next-line react/no-children-prop */}
-                        {delay ? <Spinner /> : <MyApp children={children} />}
-                    </Provider>
-                </AuthContextProvider>
+                <QueryClientProvider client={queryClientSetup}>
+                    <AuthContextProvider>
+                        <Provider store={store}>
+                            {/* eslint-disable-next-line react/no-children-prop */}
+                            <MyApp children={children} />
+                        </Provider>
+                    </AuthContextProvider>
+                </QueryClientProvider>
+
             </body>
         </html>
     );
