@@ -195,7 +195,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                                 </InputAdornment>
                             ),
                         }}
-                        placeholder="Search Product"
+                        placeholder="جستجو کنید"
                         size="small"
                         onChange={handleSearch}
                         value={search}

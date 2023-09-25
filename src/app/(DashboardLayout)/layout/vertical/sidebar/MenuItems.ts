@@ -98,7 +98,13 @@ const Menuitems: MenuitemsType[] = [
         href: "/activity-histories/index",
         chipColor: "secondary",
     },
-
+    {
+        id: uniqueId(),
+        title: "تقویم",
+        icon: IconCalendar,
+        href: "/apps/calendar",
+        chipColor: "secondary",
+    },
 
     //   {
     //     navlabel: true,
