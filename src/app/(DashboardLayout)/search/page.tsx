@@ -10,10 +10,10 @@ import Spinner from '../components/ui/Spinner';
 const BCrumb = [
     {
         to: '/',
-        title: 'Home',
+        title: 'داشبورد',
     },
     {
-        title: 'Search Table',
+        title: 'فهرست اعضا',
     },
 ];
 
@@ -24,7 +24,7 @@ const SearchTable = () => {
     return (
         <PageContainer title="Search Table" description="this is Search Table">
             {/* breadcrumb */}
-            <Breadcrumb title="Search Table" items={BCrumb} />
+            <Breadcrumb title="فهرست اعضا" items={BCrumb} />
             {/* end breadcrumb */}
             {isLoading ? <Spinner /> : <Box>
                 <ProductTableList data={activityHistories} />

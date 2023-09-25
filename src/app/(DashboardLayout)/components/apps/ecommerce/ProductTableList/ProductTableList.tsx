@@ -20,6 +20,7 @@ import {
     TextField,
     InputAdornment,
     Paper,
+    Chip,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { useSelector, useDispatch } from '@/store/hooks';
@@ -74,35 +75,35 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
     {
-        id: 'name',
+        id: 'عنوان',
         numeric: false,
         disablePadding: false,
-        label: 'Products',
+        label: 'عنوان',
     },
     {
-        id: 'pname',
+        id: 'تاریخ شروع',
         numeric: false,
         disablePadding: false,
-        label: 'Date',
+        label: 'تاریخ شروع',
     },
 
     {
-        id: 'status',
+        id: 'تاریخ پایان',
         numeric: false,
         disablePadding: false,
-        label: 'Status',
+        label: 'تاریخ پایان',
     },
     {
-        id: 'price',
+        id: 'سمت',
         numeric: false,
         disablePadding: false,
-        label: 'Price',
+        label: 'سمت',
     },
     {
-        id: 'action',
+        id: 'نوع همکاری',
         numeric: false,
         disablePadding: false,
-        label: 'Action',
+        label: 'نوع همکاری',
     },
 ];
 
@@ -340,7 +341,6 @@ const ProductTableList = ({ data }: any) => {
                                     .map((row: any, index) => {
                                         const isItemSelected = isSelected(row.title);
                                         const labelId = `enhanced-table-checkbox-${index}`;
-
                                         return (
                                             <TableRow
                                                 hover
@@ -372,7 +372,7 @@ const ProductTableList = ({ data }: any) => {
                                                             <Typography variant="h6" fontWeight="600">
                                                                 {row.title}
                                                             </Typography>
-                                                            <Typography color="textSecondary" variant="subtitle2">
+                                                            <Typography variant="caption" fontWeight="200">
                                                                 {row.address}
                                                             </Typography>
                                                         </Box>
@@ -395,29 +395,34 @@ const ProductTableList = ({ data }: any) => {
                                                                 width: '10px',
                                                             }}
                                                         />
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="subtitle2"
-                                                            sx={{
-                                                                ml: 1,
-                                                            }}
-                                                        >
-                                                            {/* {row.stock ? 'InStock' : 'Out of Stock'} */}
-                                                        </Typography>
+                                                        {/* {row.stock ? 'InStock' : 'Out of Stock'} */}
+                                                        <Typography>{row.end_date}</Typography>
                                                     </Box>
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    <Typography fontWeight={600} variant="h6">
-                                                        ${row.position}
+                                                    <Typography fontWeight={600} variant="body1">
+                                                        {row.position}
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Tooltip title="Edit">
-                                                        <IconButton size="small">
-                                                            <IconDotsVertical size="1.1rem" />
-                                                        </IconButton>
-                                                    </Tooltip>
+                                                    <Chip
+                                                        label={row.work_type}
+                                                        sx={{
+                                                            backgroundColor:
+                                                                row.work_type == 'تمام وقت'
+                                                                    ? (theme) => theme.palette.primary.light
+                                                                    : row.status == 'پاره وقت'
+                                                                        ? (theme) => theme.palette.error.light
+                                                                        : (theme) => theme.palette.success.light,
+                                                            color:
+                                                                row.work_type == 'تمام وقت'
+                                                                    ? (theme) => theme.palette.primary.main
+                                                                    : row.work_type == 'پاره وقت'
+                                                                        ? (theme) => theme.palette.error.main
+                                                                        : (theme) => theme.palette.success.main,
+                                                        }}
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                         );
