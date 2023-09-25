@@ -68,6 +68,7 @@ import {
     IconDashboardOff,
     IconHome2,
     IconRun,
+    IconUser,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -81,6 +82,13 @@ const Menuitems: MenuitemsType[] = [
         title: "داشبورد",
         icon: IconHome,
         href: "/",
+        chipColor: "secondary",
+    },
+    {
+        id: uniqueId(),
+        title: "فهرست اعضا",
+        icon: IconUser,
+        href: "/search",
         chipColor: "secondary",
     },
     {

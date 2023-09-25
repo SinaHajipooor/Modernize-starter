@@ -1,16 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import CustomizerReducer from "./customizer/CustomizerSlice";
+import EcommerceReducer from "./apps/eCommerce/ECommerceSlice";
+
 
 export const store = configureStore({
-  reducer: {
-    customizer: CustomizerReducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
+    reducer: {
+        customizer: CustomizerReducer,
+        ecommerceReducer: EcommerceReducer,
+
+    },
+    devTools: process.env.NODE_ENV !== "production",
 });
 
 const rootReducer = combineReducers({
- customizer: CustomizerReducer,
+    customizer: CustomizerReducer,
+    ecommerceReducer: EcommerceReducer,
+
 });
 
 export type RootState = ReturnType<typeof store.getState>;
