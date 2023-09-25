@@ -146,9 +146,6 @@ const Table2 = ({ data = {} }: any) => {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-
-
-
                                         <MenuItem onClick={() => navigating('show')} disabled={showNavigating}>
                                             <ListItemIcon>
                                                 <IconEye color='yellow' width={18} />
