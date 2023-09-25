@@ -17,6 +17,7 @@ axiosConfig.interceptors.request.use(
             config.headers['Authorization'] = `Bearer ${response.data.token.value}`;
         }
         return config;
+
     },
     (error) => {
         return Promise.reject(error);

@@ -5,7 +5,6 @@ import NextLink from "next/link";
 import breadcrumbImg from "public/images/breadcrumb/ChatBc.png";
 import { IconCircle } from "@tabler/icons-react";
 import Image from "next/image";
-import FavaLogo from 'public/images/breadcrumb/fava-logo.png'
 
 interface BreadCrumbType {
     subtitle?: string;

@@ -14,17 +14,22 @@ import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
 import './global.css'
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import queryClientSetup from '@/services/querySetup'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Spinner from "./(DashboardLayout)/components/ui/Spinner";
+import useAuthenticate from "./auth/hooks/useAuthenticate";
+import useUserData from "./auth/hooks/useUserData";
+import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
+
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
     const context = useContext(AuthContext)
+
     useEffect(() => {
         context.authenticate()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,6 +80,9 @@ export default function RootLayout({
     useEffect(() => {
         setTimeout(() => setDelay(false), 2000)
     }, [])
+
+
+
     return (
         <html lang="en" suppressHydrationWarning>
             <body>

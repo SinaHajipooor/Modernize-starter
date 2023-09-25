@@ -12,6 +12,7 @@ import MonthlyEarnings from '@/app/(DashboardLayout)/components/dashboard/Monthl
 
 export default function Dashboard() {
 
+
     return (
         <PageContainer title="Dashboard" description="this is Dashboard">
             <Box mt={3}>
@@ -40,7 +41,7 @@ export default function Dashboard() {
                     </Grid>
                 </Grid>
             </Box>
-        </PageContainer>
+        </PageContainer >
     )
 }
 

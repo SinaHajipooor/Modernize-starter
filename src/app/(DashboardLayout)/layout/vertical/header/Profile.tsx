@@ -14,13 +14,16 @@ import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import { toast } from 'react-hot-toast';
+import { useQueries, useQuery } from '@tanstack/react-query';
+import { apiAuthenticate } from '@/api/auth/apiAuthenticate';
 
 
 
-const Profile = () => {
+const Profile = ({ userData }: any) => {
     // get user data from context 
     const context = useContext(AuthContext)
     const [anchorEl2, setAnchorEl2] = useState(null);
+
     const handleClick2 = (event: any) => {
         setAnchorEl2(event.currentTarget);
     };
@@ -87,9 +90,10 @@ const Profile = () => {
                     <Box>
                         <Typography variant="body1" color="textPrimary" fontWeight={700}>
                             {context.user.firstName} {context.user.lastName}
+                            {/* {userData!.data.first_name} {userData!.data.last_name} */}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                            {/* Designer */} {context.user.mobile}
+                            {/* {userData!.data.mobile} */} {context.user.mobile}
                         </Typography>
                         {/* user role  */}
                     </Box>
