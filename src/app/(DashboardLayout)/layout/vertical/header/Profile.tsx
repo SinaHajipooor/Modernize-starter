@@ -15,13 +15,16 @@ import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import { toast } from 'react-hot-toast';
 import useUserData from '@/app/auth/hooks/useUserData';
+import useLogout from '@/app/auth/hooks/useLogout';
 
 
 const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
     const [anchorEl2, setAnchorEl2] = useState(null);
-
+    const { userData } = useUserData()
+    const { mutate, isLoading } = useLogout();
+    // handlers
     const handleClick2 = (event: any) => {
         setAnchorEl2(event.currentTarget);
     };
@@ -30,18 +33,8 @@ const Profile = () => {
     };
     // logout user 
     async function logoutHandler() {
-        try {
-            const response = context.logout();
-            toast.success('با موفقیت از حساب خارج شدید');
-            console.log(response)
-            // redirect to login page 
-        } catch (error: any) {
-            console.log(error.message)
-            toast.error('خطایی رخ داد')
-        }
+        mutate()
     }
-    const { userData } = useUserData()
-
 
     return (
         <Box>
@@ -144,7 +137,7 @@ const Profile = () => {
                     </Box>
                 ))}
                 <Box mt={2}>
-                    <Button onClick={logoutHandler} href="" variant="outlined" color="primary" component={Link} fullWidth>
+                    <Button onClick={logoutHandler} disabled={isLoading} href="" variant="outlined" color="primary" component={Link} fullWidth>
                         خروج
                     </Button>
                 </Box>

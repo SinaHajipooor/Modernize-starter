@@ -17,6 +17,7 @@ export default function useAuthenticate() {
 
         }, onError: (error: any) => {
             console.log(error.message)
+            router.push('/auth/login')
         }
     })
     return { mutate, isLoading }
