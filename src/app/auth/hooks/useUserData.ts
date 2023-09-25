@@ -3,11 +3,12 @@ import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 
 export default function useUserData() {
 
-    const { data: userData, isLoading } = useQuery({
+    const { data: userData, isLoading, isError } = useQuery({
         queryKey: ['userData'],
         queryFn: apiAuthenticate,
+        retry: false,
     });
 
 
-    return { isLoading, userData }
+    return { isLoading, userData, isError }
 }

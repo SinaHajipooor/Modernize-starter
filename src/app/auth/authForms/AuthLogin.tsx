@@ -7,18 +7,20 @@ import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elem
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/store/auth/AuthContext";
+import useLogin from "../hooks/useLogin";
+import { userInfo } from "os";
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-    const context = useContext(AuthContext)
-    // user information 
+
     const [user, setUser] = useState({ username: '', password: '' });
-    const [isLoading, setIsLoading] = useState(false);
+    const { mutate, isLoading } = useLogin()
+
     // onLogin handler
     async function onLogin() {
-        setIsLoading(true)
-        context.login(user);
+        mutate(user)
     }
+
     // onchange for form inputs
     function onChangeHandler(e: any, fieldName: any) {
         setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))

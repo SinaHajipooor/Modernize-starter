@@ -22,20 +22,18 @@ import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 import useAuthenticate from "./auth/hooks/useAuthenticate";
 import useUserData from "./auth/hooks/useUserData";
 import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
+import { useRouter } from "next/navigation";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
 
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
-    //     const context = useContext(AuthContext)
-
-    //     useEffect(() => {
-    //         context.authenticate()
-    //         // eslint-disable-next-line react-hooks/exhaustive-deps
-    //     }, []);
-
-    const { isLoading } = useUserData()
+    const router = useRouter()
+    const { isLoading, isError } = useUserData()
+    if (isError) {
+        router.push('/auth/login')
+    }
 
     return (
         <>

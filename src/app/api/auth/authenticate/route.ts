@@ -4,6 +4,5 @@ export async function GET(request: NextRequest) {
     // get the token from cookies
     const token = request.cookies.get('token');
     // return the token in the response
-    console.log(token)
     return new Response(JSON.stringify({ token }));
 }

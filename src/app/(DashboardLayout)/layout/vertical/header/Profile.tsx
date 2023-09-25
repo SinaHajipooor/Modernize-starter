@@ -14,6 +14,7 @@ import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import { toast } from 'react-hot-toast';
+import useUserData from '@/app/auth/hooks/useUserData';
 
 
 const Profile = () => {
@@ -39,6 +40,7 @@ const Profile = () => {
             toast.error('خطایی رخ داد')
         }
     }
+    const { userData } = useUserData()
 
     return (
         <Box>
@@ -86,11 +88,12 @@ const Profile = () => {
                     <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
                         <Typography variant="body1" color="textPrimary" fontWeight={700}>
-                            {context.user.firstName} {context.user.lastName}
-                            {/* {userData!.data.first_name} {userData!.data.last_name} */}
+                            {/* {context.user.firstName} {context.user.lastName} */}
+                            {userData?.data.first_name} {userData?.data.last_name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                            {/* {userData!.data.mobile} */} {context.user.mobile}
+                            {userData!.data.mobile}
+                            {/* {context.user.mobile} */}
                         </Typography>
                         {/* user role  */}
                     </Box>
