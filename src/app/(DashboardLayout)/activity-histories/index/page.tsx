@@ -2,7 +2,6 @@
 
 import { Box, Button, Grid } from '@mui/material';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import ParentCard from '@/app/(DashboardLayout)/components/shared/ParentCard';
 import Table2 from '@/app/(DashboardLayout)/components/tables/Table2';
 import Link from 'next/link';
 import Spinner from '../../components/ui/Spinner';

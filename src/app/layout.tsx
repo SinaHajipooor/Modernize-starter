@@ -11,7 +11,7 @@ import NextTopLoader from 'nextjs-toploader';
 import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
-import AuthContextProvider, { AuthContext } from "@/store/auth/AuthContext";
+import AuthContextProvider from "@/store/auth/AuthContext";
 import './global.css'
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClientSetup from '@/services/querySetup'

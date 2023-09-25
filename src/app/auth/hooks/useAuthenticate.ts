@@ -13,8 +13,7 @@ export default function useAuthenticate() {
             queryClient.invalidateQueries({
                 queryKey: ['userData']
             });
-            router.replace('/')
-
+            router.push('/');
         }, onError: (error: any) => {
             console.log(error.message)
             router.push('/auth/login')

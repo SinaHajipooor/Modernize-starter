@@ -19,7 +19,9 @@ export default function useCreateActivity(file: any) {
         },
         onError: () => {
             toast.error('خطایی هنگام ایجاد رخ داد ');
-        }
+        },
+
+
     });
     return { mutate, isLoading }
 }
