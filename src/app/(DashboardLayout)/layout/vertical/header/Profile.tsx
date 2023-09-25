@@ -59,7 +59,7 @@ const Profile = () => {
                 onClick={handleClick2}
             >
                 <Avatar
-                    src={"/images/profile/user-1.jpg"}
+                    src={userData?.data.avatar}
                     alt={'ProfileImg'}
                     sx={{
                         width: 30,
@@ -86,7 +86,7 @@ const Profile = () => {
                 }}
             >
                 <Stack direction="row" py={0} pb={2} spacing={2} alignItems="center">
-                    <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
+                    <Avatar src={userData?.data.avatar} alt={"ProfileImg"} sx={{ width: 45, height: 45 }} />
                     <Box>
                         <Typography variant="body1" color="textPrimary" fontWeight={700}>
                             {/* {context.user.firstName} {context.user.lastName} */}
