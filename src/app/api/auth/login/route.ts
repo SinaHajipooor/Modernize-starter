@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
         success: true
     })
     // set token in cookie
-    response.cookies.set('token', token, { httpOnly: true });
+    response.cookies.set('token', token, { httpOnly: true, maxAge: 2 * 60 * 60, });
 
     return response;
 }
