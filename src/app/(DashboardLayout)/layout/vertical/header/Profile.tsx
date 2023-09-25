@@ -14,12 +14,9 @@ import { Stack } from '@mui/system';
 import { useContext } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import { toast } from 'react-hot-toast';
-import { useQueries, useQuery } from '@tanstack/react-query';
-import { apiAuthenticate } from '@/api/auth/apiAuthenticate';
 
 
-
-const Profile = ({ userData }: any) => {
+const Profile = () => {
     // get user data from context 
     const context = useContext(AuthContext)
     const [anchorEl2, setAnchorEl2] = useState(null);
