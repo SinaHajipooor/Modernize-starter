@@ -62,8 +62,8 @@ const Profile = () => {
                     src={userData?.data.avatar}
                     alt={'ProfileImg'}
                     sx={{
-                        width: 30,
-                        height: 30,
+                        width: 28,
+                        height: 28,
                     }}
                 />
             </IconButton>
