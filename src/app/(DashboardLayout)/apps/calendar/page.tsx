@@ -28,22 +28,40 @@ import 'moment/locale/fa'; // Import the Farsi locale for moment.js
 
 import jalaliMoment from 'jalali-moment';
 
-// moment.locale('fa');
-const localizer = momentLocalizer(moment);
+// // moment.locale('fa');
+// const localizer = momentLocalizer(moment);
 
-// jalaliMoment.loadPersian({ dialect: 'persian-modern' });
+// // jalaliMoment.loadPersian({ dialect: 'persian-modern' });
 
-jalaliMoment.locale('fa');
+// jalaliMoment.locale('fa');
 
 class AdapterJalaliDateFns extends AdapterDateFns {
     toGregorian(value: any) {
-        return jalaliMoment(value, 'jalali').doAsGregorian().toDate();
+        return jalaliMoment(value, "jalali").doAsGregorian().toDate();
     }
 
     fromGregorian(value: any) {
-        return jalaliMoment(value).format('jalaliYYYY/jalaliM/jalaliD');
+        return jalaliMoment(value).format("jalaliYYYY/jalaliM/jalaliD");
     }
 }
+
+// const moment = require("moment");
+// const momentLocalizer = require("react-widgets-moment");
+
+// Set the locale to Persian (Jalali)
+jalaliMoment.locale("fa");
+moment.locale("fa");
+const localizer = momentLocalizer(jalaliMoment);
+
+// Configure jalali-moment for Jalali dates
+
+
+// const localizer = (date: Date) => {
+//     const jalaliDate = moment(date).locale('fa').format('YYYY/MM/DD');
+//     return {
+//         date: jalaliDate,
+//     };
+// };
 
 
 type EvType = {
@@ -175,6 +193,8 @@ const BigCalendar = () => {
         setEnd(newValue);
     };
 
+
+
     return (
         <PageContainer title="Calendar" description="this is Calendar">
             {/* <Breadcrumb title="Calendar" subtitle="App" /> */}
@@ -195,6 +215,8 @@ const BigCalendar = () => {
                         onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
                         eventPropGetter={(event: any) => eventColors(event)}
                     />
+
+
                 </CardContent>
             </BlankCard>
             {/* ------------------------------------------- */}
@@ -233,6 +255,7 @@ const BigCalendar = () => {
                                 label="تاریخ شروع"
                                 inputFormat="MM/dd/yyyy"
                                 value={start}
+
                                 onChange={handleStartChange}
                                 renderInput={(params: any) => <TextField {...params} fullWidth sx={{ mb: 3 }} />}
                             />
