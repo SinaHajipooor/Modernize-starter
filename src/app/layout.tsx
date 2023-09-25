@@ -29,11 +29,9 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
-    const router = useRouter()
-    const { isLoading, isError } = useUserData()
-    if (isError) {
-        router.push('/auth/login')
-    }
+
+    const { isLoading } = useAuthenticate()
+
 
     return (
         <>

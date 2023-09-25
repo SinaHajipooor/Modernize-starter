@@ -26,7 +26,7 @@ const Breadcrumb = ({ subtitle, items, title, children }: BreadCrumbType) => (
         }}
     >
         <Grid item xs={12} sm={6} lg={8} mb={1}>
-            <Typography variant="h4">{title}</Typography>
+            <Typography variant="h4" color='textPrimary'>{title}</Typography>
             <Typography
                 color="textSecondary"
                 variant="h6"

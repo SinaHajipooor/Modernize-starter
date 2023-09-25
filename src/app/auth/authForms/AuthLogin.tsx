@@ -14,11 +14,11 @@ import { userInfo } from "os";
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
     const [user, setUser] = useState({ username: '', password: '' });
-    const { mutate, isLoading } = useLogin()
-
+    const { isLoading, mutate } = useLogin()
     // onLogin handler
     async function onLogin() {
-        mutate(user)
+        mutate(user);
+
     }
 
     // onchange for form inputs

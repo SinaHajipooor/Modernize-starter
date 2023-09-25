@@ -12,7 +12,7 @@ export default axiosConfig;
 // SET USER TOKEN INTO HEADER
 axiosConfig.interceptors.request.use(
     async (config) => {
-        const response = await axios.get('/api/auth/authenticate')
+        const response = await axios.get('/api/auth/authenticate');
         if (response.data.token) {
             config.headers['Authorization'] = `Bearer ${response.data.token.value}`;
         }

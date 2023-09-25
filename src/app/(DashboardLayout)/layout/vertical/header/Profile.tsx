@@ -42,6 +42,7 @@ const Profile = () => {
     }
     const { userData } = useUserData()
 
+
     return (
         <Box>
             <IconButton
@@ -92,7 +93,7 @@ const Profile = () => {
                             {userData?.data.first_name} {userData?.data.last_name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                            {userData!.data.mobile}
+                            {userData?.data.mobile}
                             {/* {context.user.mobile} */}
                         </Typography>
                         {/* user role  */}

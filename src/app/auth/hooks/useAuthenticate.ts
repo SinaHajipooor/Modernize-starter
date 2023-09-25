@@ -1,16 +1,20 @@
 import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function useAuthenticate() {
 
+    const router = useRouter()
     const queryClient = useQueryClient()
 
-    const { mutate, isLoading } = useMutation({
+    const { mutate, isLoading, } = useMutation({
         mutationFn: apiAuthenticate,
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['userData']
-            })
+            });
+            router.replace('/')
+
         }, onError: (error: any) => {
             console.log(error.message)
         }
