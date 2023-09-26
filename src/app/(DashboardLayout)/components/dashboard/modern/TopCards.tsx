@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Box, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
 import icon1 from "public/images/svgs/icon-connect.svg";
 import icon2 from "public/images/svgs/icon-user-male.svg";
@@ -11,71 +11,64 @@ import icon6 from "public/images/svgs/icon-speech-bubble.svg";
 const topcards = [
     {
         icon: icon2,
-        title: "Employees",
+        title: "ادمین",
         digits: "96",
         bgcolor: "primary",
     },
     {
         icon: icon3,
-        title: "Clients",
+        title: "کاربر شماره 1",
         digits: "3,650",
         bgcolor: "warning",
     },
     {
         icon: icon4,
-        title: "Projects",
+        title: "کاربر شماره 2",
         digits: "356",
         bgcolor: "secondary",
     },
     {
         icon: icon5,
-        title: "Events",
+        title: "کاربر شماره 3",
         digits: "696",
         bgcolor: "error",
     },
-    {
-        icon: icon6,
-        title: "Payroll",
-        digits: "$96k",
-        bgcolor: "success",
-    },
-    {
-        icon: icon1,
-        title: "Reports",
-        digits: "59",
-        bgcolor: "info",
-    },
 ];
-
 const TopCards = () => {
     return (
-        <Grid container spacing={3} mt={0}>
+        <Grid container spacing={3}>
             {topcards.map((topcard, i) => (
-                <Grid item xs={12} sm={4} lg={2} key={i}>
-                    <Box bgcolor={topcard.bgcolor + ".light"} textAlign="center">
+                <Grid item xs={12} sm={3} md={3} key={i} mt={1.5}>
+                    <Card
+
+                        sx={{ height: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', boxShadow: '0px 2px 7px rgba(0, 0, 0, 0.1)' }}
+                    >
                         <CardContent>
-                            <Image src={topcard.icon} alt={"topcard.icon"} width="50" height="50" />
-                            <Typography
-                                color={topcard.bgcolor + ".main"}
-                                mt={1}
-                                variant="subtitle1"
-                                fontWeight={600}
-                            >
-                                {topcard.title}
-                            </Typography>
-                            <Typography
-                                color={topcard.bgcolor + ".main"}
-                                variant="h4"
-                                fontWeight={600}
-                            >
-                                {topcard.digits}
-                            </Typography>
+                            <Box textAlign="center">
+                                <Image src={topcard.icon} alt={topcard.title} width="50" height="50" />
+                                <Typography
+                                    color={topcard.bgcolor + '.main'}
+                                    mt={1}
+                                    variant="subtitle1"
+                                    fontWeight={600}
+                                >
+                                    {topcard.title}
+                                </Typography>
+                                <Typography
+                                    color={topcard.bgcolor + '.main'}
+                                    variant="h5"
+                                    fontWeight={400}
+                                >
+                                    {topcard.digits}
+                                </Typography>
+                            </Box>
                         </CardContent>
-                    </Box>
+                    </Card>
                 </Grid>
             ))}
         </Grid>
     );
 };
+
 
 export default TopCards;
