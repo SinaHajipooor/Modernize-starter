@@ -36,6 +36,7 @@
     "flatpickr": "^4.6.13",
     "formik": "^2.4.5",
     "i18next": "^22.4.9",
+    "jalali-date": "^1.1.4",
     "jalali-moment": "^3.3.11",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",

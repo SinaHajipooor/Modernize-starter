@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     CardContent,
     Button,
@@ -11,57 +11,21 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import jalaliMoment from 'jalali-moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import moment from 'moment';
 import Events from '@/app/(DashboardLayout)/EventData';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import { IconCheck } from '@tabler/icons-react';
 import BlankCard from '@/app/(DashboardLayout)/components/shared/BlankCard';
 import 'moment/locale/fa'; // Import the Farsi locale for moment.js
-
-import jalaliMoment from 'jalali-moment';
-
-// // moment.locale('fa');
-// const localizer = momentLocalizer(moment);
-
-// // jalaliMoment.loadPersian({ dialect: 'persian-modern' });
-
-// jalaliMoment.locale('fa');
-
-class AdapterJalaliDateFns extends AdapterDateFns {
-    toGregorian(value: any) {
-        return jalaliMoment(value, "jalali").doAsGregorian().toDate();
-    }
-
-    fromGregorian(value: any) {
-        return jalaliMoment(value).format("jalaliYYYY/jalaliM/jalaliD");
-    }
-}
-
-// const moment = require("moment");
-// const momentLocalizer = require("react-widgets-moment");
-
-// Set the locale to Persian (Jalali)
-jalaliMoment.locale("fa");
-moment.locale("fa");
-const localizer = momentLocalizer(jalaliMoment);
-
-// Configure jalali-moment for Jalali dates
-
-
-// const localizer = (date: Date) => {
-//     const jalaliDate = moment(date).locale('fa').format('YYYY/MM/DD');
-//     return {
-//         date: jalaliDate,
-//     };
-// };
+import 'jalali-moment'
+import moment from 'moment';
 
 
 type EvType = {
@@ -126,6 +90,10 @@ const BigCalendar = () => {
         setEnd(newEditEvent.end);
         setUpdate(event);
     };
+
+    moment.locale('fa')
+    //     jalaliMoment.locale('fa')
+    const localizer = momentLocalizer(moment);
 
     const updateEvent = (e: any) => {
         e.preventDefault();
@@ -194,7 +162,6 @@ const BigCalendar = () => {
     };
 
 
-
     return (
         <PageContainer title="Calendar" description="this is Calendar">
             {/* <Breadcrumb title="Calendar" subtitle="App" /> */}
@@ -207,16 +174,14 @@ const BigCalendar = () => {
                         selectable
                         events={calevents}
                         defaultView="month"
-                        scrollToTime={new Date(1970, 1, 1, 6)}
-                        defaultDate={new Date()}
+                        scrollToTime={start}
+                        defaultDate={end}
                         localizer={localizer}
                         style={{ height: 'calc(100vh - 350px' }}
                         onSelectEvent={(event) => editEvent(event)}
                         onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
                         eventPropGetter={(event: any) => eventColors(event)}
                     />
-
-
                 </CardContent>
             </BlankCard>
             {/* ------------------------------------------- */}
@@ -250,7 +215,7 @@ const BigCalendar = () => {
                         {/* ------------------------------------------- */}
                         {/* Selection of Start and end date */}
                         {/* ------------------------------------------- */}
-                        <LocalizationProvider dateAdapter={AdapterJalaliDateFns}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
                                 label="تاریخ شروع"
                                 inputFormat="MM/dd/yyyy"
