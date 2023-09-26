@@ -137,21 +137,6 @@ const Sidebar = () => {
             ? customizer.MiniSidebarWidth
             : customizer.SidebarWidth;
 
-    //     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const onHoverEnter = () => {
-        // if (customizer.isCollapse) {
-        //     dispatch(hoverSidebar(true));
-        // }
-    };
-
-    const onHoverLeave = () => {
-        // dispatch(hoverSidebar(false));
-    };
-
-    //     const handleSidebarToggle = () => {
-    //         setIsSidebarOpen(!isSidebarOpen);
-    //     };
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -160,9 +145,7 @@ const Sidebar = () => {
     };
 
     const handleCloseSidebar = () => {
-
         setIsSidebarOpen(false);
-        // Delay the state update to allow the closing animation
     };
 
     return (
@@ -181,8 +164,6 @@ const Sidebar = () => {
                 anchor="left"
                 open={isSidebarOpen}
                 onClose={handleCloseSidebar}
-                // onMouseEnter={onHoverEnter}
-                // onMouseLeave={onHoverLeave}
                 closeAfterTransition
                 variant="permanent"
                 PaperProps={{
