@@ -69,6 +69,8 @@ import {
     IconHome2,
     IconRun,
     IconUser,
+    IconMap,
+    IconMap2,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -103,6 +105,13 @@ const Menuitems: MenuitemsType[] = [
         title: "تقویم",
         icon: IconCalendar,
         href: "/apps/calendar",
+        chipColor: "secondary",
+    },
+    {
+        id: uniqueId(),
+        title: "نقشه",
+        icon: IconMap2,
+        href: "/map",
         chipColor: "secondary",
     },
 
