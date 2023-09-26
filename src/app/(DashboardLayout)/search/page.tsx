@@ -24,14 +24,14 @@ const SearchTable = () => {
     return (
         <PageContainer title="Search Table" description="this is Search Table">
             {/* breadcrumb */}
-            <Grow in timeout={2 * 700}>
+            <Grow in timeout={1 * 500}>
                 <Box>
                     <Breadcrumb title="فهرست اعضا" items={BCrumb} />
                 </Box>
             </Grow>
             {/* end breadcrumb */}
             {isLoading ? <Spinner /> :
-                <Grow in timeout={1 * 700}>
+                <Grow in timeout={1 * 500}>
                     <Box>
                         <ProductTableList data={activityHistories} />
                     </Box>

@@ -28,28 +28,37 @@ const BasicTable = () => {
 
         <Box mt={2}>
             <PageContainer title="Basic Table" description="this is Basic Table">
-                <Breadcrumb title="سوابق فعالیت" items={BCrumb} />
+                <Grow in timeout={1 * 500}>
+                    <Box>
+                        <Breadcrumb title="سوابق فعالیت" items={BCrumb} />
+                    </Box>
+                </Grow>
                 {/* <ParentCard title="فهرست سوابق فعالیت" > */}
-                {isLoading ? <Box mb={5}><Spinner /> </Box> : <>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        href="/activity-histories/create"
-                        LinkComponent={Link}
-                    >
-                        ایجاد
-                    </Button>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                        </Grid>
-                        <Grid item xs={12} >
-                            <Box>
-                                <Table2 data={activityHistories} />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </>}
+                {isLoading ? <Box mb={5}><Spinner />
+                </Box> :
+                    <Grow in timeout={1 * 500}>
+                        <Box>
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                size="large"
+                                href="/activity-histories/create"
+                                LinkComponent={Link}
+                            >
+                                ایجاد
+                            </Button>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12}>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Box>
+                                        <Table2 data={activityHistories} />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Grow>
+                }
                 {/* </ParentCard> */}
             </PageContainer>
         </Box>
