@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Grow } from '@mui/material';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import Table2 from '@/app/(DashboardLayout)/components/tables/Table2';
 import Link from 'next/link';
@@ -25,6 +25,7 @@ const BasicTable = () => {
     const { isLoading, activityHistories } = useActivityIndex()
 
     return (
+
         <Box mt={2}>
             <PageContainer title="Basic Table" description="this is Basic Table">
                 <Breadcrumb title="سوابق فعالیت" items={BCrumb} />
@@ -52,6 +53,7 @@ const BasicTable = () => {
                 {/* </ParentCard> */}
             </PageContainer>
         </Box>
+
     );
 }
 export default BasicTable;

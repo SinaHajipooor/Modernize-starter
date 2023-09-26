@@ -6,7 +6,6 @@ import SalesOverview from '@/app/(DashboardLayout)/components/dashboard/SalesOve
 import YearlyBreakup from '@/app/(DashboardLayout)/components/dashboard/YearlyBreakup';
 import RecentTransactions from '@/app/(DashboardLayout)/components/dashboard/RecentTransactions';
 import ProductPerformance from '@/app/(DashboardLayout)/components/dashboard/ProductPerformance';
-import Blog from '@/app/(DashboardLayout)/components/dashboard/Blog';
 import MonthlyEarnings from '@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings';
 import TopCards from './components/dashboard/modern/TopCards';
 
@@ -30,7 +29,7 @@ export default function Dashboard() {
                 <Grid item xs={12} lg={4}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Grow in timeout={4 * 800}>
+                            <Grow in timeout={3 * 800}>
                                 <Box>
                                     <YearlyBreakup />
                                 </Box>
@@ -46,7 +45,7 @@ export default function Dashboard() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} lg={4}>
-                    <Grow in timeout={5 * 800}>
+                    <Grow in timeout={6 * 800}>
                         <Box>
                             <RecentTransactions />
                         </Box>

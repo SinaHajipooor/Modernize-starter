@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@mui/material';
+import { Box, Grow } from '@mui/material';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import ProductTableList from '@/app/(DashboardLayout)/components/apps/ecommerce/ProductTableList/ProductTableList';
@@ -24,11 +24,19 @@ const SearchTable = () => {
     return (
         <PageContainer title="Search Table" description="this is Search Table">
             {/* breadcrumb */}
-            <Breadcrumb title="فهرست اعضا" items={BCrumb} />
+            <Grow in timeout={2 * 700}>
+                <Box>
+                    <Breadcrumb title="فهرست اعضا" items={BCrumb} />
+                </Box>
+            </Grow>
             {/* end breadcrumb */}
-            {isLoading ? <Spinner /> : <Box>
-                <ProductTableList data={activityHistories} />
-            </Box>}
+            {isLoading ? <Spinner /> :
+                <Grow in timeout={1 * 700}>
+                    <Box>
+                        <ProductTableList data={activityHistories} />
+                    </Box>
+                </Grow>
+            }
         </PageContainer>
     );
 };
