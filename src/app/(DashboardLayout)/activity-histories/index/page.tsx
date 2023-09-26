@@ -28,7 +28,7 @@ const BasicTable = () => {
 
         <Box mt={2}>
             <PageContainer title="Basic Table" description="this is Basic Table">
-                <Grow in timeout={1 * 500}>
+                <Grow in timeout={1 * 600}>
                     <Box>
                         <Breadcrumb title="سوابق فعالیت" items={BCrumb} />
                     </Box>
@@ -36,7 +36,7 @@ const BasicTable = () => {
                 {/* <ParentCard title="فهرست سوابق فعالیت" > */}
                 {isLoading ? <Box mb={5}><Spinner />
                 </Box> :
-                    <Grow in timeout={1 * 500}>
+                    <Grow in timeout={1 * 600}>
                         <Box>
                             <Button
                                 color="primary"

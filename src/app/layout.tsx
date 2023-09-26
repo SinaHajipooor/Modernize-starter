@@ -20,7 +20,6 @@ import { Toaster } from "react-hot-toast";
 import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 import useAuthenticate from "./auth/hooks/useAuthenticate";
 import { useEffect, useState } from "react";
-
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
 
     const theme = ThemeSettings();
@@ -90,7 +89,6 @@ export default function RootLayout({
                         </Provider>
                     </AuthContextProvider>
                 </QueryClientProvider>
-
             </body>
         </html>
     );
