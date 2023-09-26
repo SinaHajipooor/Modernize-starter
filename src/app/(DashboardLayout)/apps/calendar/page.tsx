@@ -10,6 +10,7 @@ import {
     Fab,
     TextField,
     Typography,
+    Grow,
 } from '@mui/material';
 import jalaliMoment from 'jalali-moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -166,23 +167,25 @@ const BigCalendar = () => {
         <PageContainer title="Calendar" description="this is Calendar">
             {/* <Breadcrumb title="Calendar" subtitle="App" /> */}
             <BlankCard>
-                {/* ------------------------------------------- */}
-                {/* Calendar */}
-                {/* ------------------------------------------- */}
-                <CardContent>
-                    <Calendar
-                        selectable
-                        events={calevents}
-                        defaultView="month"
-                        scrollToTime={start}
-                        defaultDate={end}
-                        localizer={localizer}
-                        style={{ height: 'calc(100vh - 350px' }}
-                        onSelectEvent={(event) => editEvent(event)}
-                        onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
-                        eventPropGetter={(event: any) => eventColors(event)}
-                    />
-                </CardContent>
+                <Grow in timeout={2.5 * 700}>
+                    {/* ------------------------------------------- */}
+                    {/* Calendar */}
+                    {/* ------------------------------------------- */}
+                    <CardContent>
+                        <Calendar
+                            selectable
+                            events={calevents}
+                            defaultView="month"
+                            scrollToTime={start}
+                            defaultDate={end}
+                            localizer={localizer}
+                            style={{ height: 'calc(100vh - 350px' }}
+                            onSelectEvent={(event) => editEvent(event)}
+                            onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
+                            eventPropGetter={(event: any) => eventColors(event)}
+                        />
+                    </CardContent>
+                </Grow>
             </BlankCard>
             {/* ------------------------------------------- */}
             {/* Add Calendar Event Dialog */}
