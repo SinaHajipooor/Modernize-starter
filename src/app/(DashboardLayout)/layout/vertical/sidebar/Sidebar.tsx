@@ -160,10 +160,9 @@ const Sidebar = () => {
     };
 
     const handleCloseSidebar = () => {
-        setTimeout(() => {
-            setIsSidebarOpen(false);
-        }, 200); // Delay the state update to allow the closing animation
 
+        setIsSidebarOpen(false);
+        // Delay the state update to allow the closing animation
     };
 
     return (
