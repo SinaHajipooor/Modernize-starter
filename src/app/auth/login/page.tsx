@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { Grid, Box, Card, Stack, Typography } from '@mui/material';
+import { Grid, Box, Card, Stack, Typography, Grow } from '@mui/material';
 
 // components
 import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
@@ -37,28 +37,32 @@ export default function Login2() {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
-                            <Box display="flex" alignItems="center" justifyContent="center">
-                                <Logo />
-                            </Box>
-                            <AuthLogin
-                                subtitle={
-                                    <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-                                        <Typography
-                                            component={Link}
-                                            href="/auth/forgot-password"
-                                            fontWeight="500"
-                                            sx={{
-                                                textDecoration: "none",
-                                                color: "primary.main",
-                                            }}
-                                        >
-                                            رمز عبور خود را فراموش کردید ؟
-                                        </Typography>
-                                    </Stack>
-                                }
-                            />
-                        </Card>
+                        <Grow in timeout={2 * 600}>
+                            {/* <Box> */}
+                            <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
+                                <Box display="flex" alignItems="center" justifyContent="center">
+                                    <Logo />
+                                </Box>
+                                <AuthLogin
+                                    subtitle={
+                                        <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
+                                            <Typography
+                                                component={Link}
+                                                href="/auth/forgot-password"
+                                                fontWeight="500"
+                                                sx={{
+                                                    textDecoration: "none",
+                                                    color: "primary.main",
+                                                }}
+                                            >
+                                                رمز عبور خود را فراموش کردید ؟
+                                            </Typography>
+                                        </Stack>
+                                    }
+                                />
+                            </Card>
+                            {/* </Box> */}
+                        </Grow>
                     </Grid>
                 </Grid>
             </Box>
