@@ -14,6 +14,11 @@ const LightThemeColors = [
                 dark: '#23afdb',
                 contrastText: '#ffffff',
             },
+            background: {
+                default: '#F6F6F7',
+                dark: '#DBDADE',
+                paper: '#FFF'
+            },
         },
     },
     {
