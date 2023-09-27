@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+// send user info to api 
 export default function useLogin() {
     const router = useRouter()
     const { mutate, isLoading } = useMutation({
@@ -10,10 +11,6 @@ export default function useLogin() {
         onSuccess: () => {
             toast.success('با موفقیت وارد شدید');
             router.replace('/')
-        },
-        onError: (err: any) => {
-            toast.error('امکان ورود وجود ندارد');
-            throw new Error(err.message);
         },
 
     })
