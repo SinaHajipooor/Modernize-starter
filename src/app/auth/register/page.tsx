@@ -46,7 +46,7 @@ export default function Register2() {
                                 }
                                 subtitle={
                                     <Stack direction="row" spacing={1} mt={3} justifyContent='center'>
-                                        <Typography color="textSecondary" variant="h6" fontWeight="400">
+                                        <Typography color="textSecondary" variant="body1" fontWeight="400">
                                             حساب دیگری دارید ؟
                                         </Typography>
                                         <Typography

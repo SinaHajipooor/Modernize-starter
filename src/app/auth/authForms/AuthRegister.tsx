@@ -16,7 +16,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
     // pending
     const [isLoading, setIsLoading] = useState(false);
     // user information
-    const [user, setUser] = useState({ email: '', username: '', password: '' })
+    const [user, setUser] = useState({ username: '', mobile: '', password: '' })
     // onChange handler for form inputs 
     function onChangeHandler(e: any, fieldName: any) {
         setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
@@ -48,10 +48,10 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
             ) : null}
             <Box>
                 <Stack mb={3}>
-                    <CustomFormLabel htmlFor="name">نام</CustomFormLabel>
-                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'username')} id="name" variant="outlined" fullWidth />
-                    <CustomFormLabel htmlFor="email">آدرس ایمیل</CustomFormLabel>
-                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'email')} id="email" variant="outlined" fullWidth />
+                    <CustomFormLabel htmlFor="mobile">تلفن همراه</CustomFormLabel>
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'mobile')} id="mobile" variant="outlined" fullWidth />
+                    <CustomFormLabel htmlFor="username">نام کاربری</CustomFormLabel>
+                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'username')} id="username" variant="outlined" fullWidth />
                     <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
                     <CustomTextField onChange={(e: any) => onChangeHandler(e, 'password')} id="password" variant="outlined" fullWidth />
                 </Stack>
