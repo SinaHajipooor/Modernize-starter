@@ -37,32 +37,32 @@ export default function Login2() {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Grow in timeout={2 * 600}>
-                            {/* <Box> */}
-                            <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
-                                <Box display="flex" alignItems="center" justifyContent="center">
-                                    <Logo />
-                                </Box>
-                                <AuthLogin
-                                    subtitle={
-                                        <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-                                            <Typography
-                                                component={Link}
-                                                href="/auth/forgot-password"
-                                                fontWeight="500"
-                                                sx={{
-                                                    textDecoration: "none",
-                                                    color: "primary.main",
-                                                }}
-                                            >
-                                                رمز عبور خود را فراموش کردید ؟
-                                            </Typography>
-                                        </Stack>
-                                    }
-                                />
-                            </Card>
-                            {/* </Box> */}
-                        </Grow>
+
+
+                        <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
+                            <Box display="flex" alignItems="center" justifyContent="center">
+                                <Logo />
+                            </Box>
+                            <AuthLogin
+                                subtitle={
+                                    <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
+                                        <Typography
+                                            component={Link}
+                                            href="/auth/forgot-password"
+                                            fontWeight="500"
+                                            sx={{
+                                                textDecoration: "none",
+                                                color: "primary.main",
+                                            }}
+                                        >
+                                            رمز عبور خود را فراموش کردید ؟
+                                        </Typography>
+                                    </Stack>
+                                }
+                            />
+                        </Card>
+
+
                     </Grid>
                 </Grid>
             </Box>

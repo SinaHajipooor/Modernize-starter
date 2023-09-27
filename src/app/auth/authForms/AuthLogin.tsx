@@ -58,7 +58,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                     </FormGroup> */}
                     <Typography
                         my={1}
-                        href="/auth/register"
+                        href="/auth/two-steps"
                         component={Link}
                         fontWeight="500"
                         sx={{

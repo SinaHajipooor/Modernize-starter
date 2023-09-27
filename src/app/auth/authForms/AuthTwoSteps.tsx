@@ -6,12 +6,12 @@ import { Stack } from "@mui/system";
 
 const AuthTwoSteps = () => (
     <>
-        <Box mt={4}>
+        <Box mt={2}>
             <Stack mb={3}>
                 <CustomFormLabel htmlFor="code">
                     کد 6 رقمی را وارد کنید{" "}
                 </CustomFormLabel>
-                <Stack spacing={2} direction="row">
+                <Stack spacing={2} mt={2} direction="row">
                     <CustomTextField id="code" variant="outlined" fullWidth />
                     <CustomTextField id="code" variant="outlined" fullWidth />
                     <CustomTextField id="code" variant="outlined" fullWidth />
@@ -32,7 +32,7 @@ const AuthTwoSteps = () => (
             </Button>
 
             <Stack direction="row" spacing={1} mt={3} justifyContent='center'>
-                <Typography color="textSecondary" variant="h6" fontWeight="400">
+                <Typography color="textSecondary" variant="body1" fontWeight="400">
                     کد را دریافت نکردید ؟
                 </Typography>
                 <Typography
