@@ -45,6 +45,8 @@ export const CustomizerSlice = createSlice({
         },
         setDarkMode: (state: StateType, action) => {
             state.activeMode = action.payload;
+            console.log(action.payload)
+            localStorage.setItem('avtiveThemeMode', action.payload)
         },
         setDir: (state: StateType, action) => {
             state.activeDir = action.payload;

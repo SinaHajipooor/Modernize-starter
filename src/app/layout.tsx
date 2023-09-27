@@ -20,15 +20,21 @@ import { Toaster } from "react-hot-toast";
 import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 import useAuthenticate from "./auth/hooks/useAuthenticate";
 import { useEffect, useState } from "react";
+import { setDarkMode } from "@/store/customizer/CustomizerSlice";
+
+
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
-
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
     const { isLoading } = useAuthenticate()
+    const dispatch = useDispatch()
 
-
+    useEffect(() => {
+        const savedMode = localStorage.getItem('avtiveThemeMode') || 'light';
+        dispatch(setDarkMode(savedMode))
+    }, [dispatch])
 
 
     return (
