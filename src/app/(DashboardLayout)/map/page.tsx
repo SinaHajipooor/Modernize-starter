@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from "react"
 import "@neshan-maps-platform/react-openlayers/dist/style.css"
 
 import NeshanMap, { NeshanMapRef, OlMap, Ol } from "@neshan-maps-platform/react-openlayers"
+import { CoordsObj } from "@neshan-maps-platform/react-openlayers/dist/types/components/Map.model"
 
 function App() {
     const mapRef = useRef<NeshanMapRef | null>(null)
 
     const [ol, setOl] = useState<Ol>()
     const [olMap, setOlMap] = useState<OlMap>()
-    const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null)
+    const [userLocation, setUserLocation] = useState<CoordsObj | undefined>()
 
     const onInit = (ol: Ol, map: OlMap) => {
         setOl(ol)
