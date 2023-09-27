@@ -50,13 +50,26 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                     alignItems="center"
                     my={2}
                 >
-                    <FormGroup>
+                    {/* <FormGroup>
                         <FormControlLabel
                             control={<CustomCheckbox defaultChecked />}
                             label="به خاطر بسپار"
                         />
-                    </FormGroup>
+                    </FormGroup> */}
                     <Typography
+                        my={1}
+                        href="/auth/register"
+                        component={Link}
+                        fontWeight="500"
+                        sx={{
+                            textDecoration: 'none',
+                            color: 'primary.main',
+                        }}
+                    >
+                        ورود با تلفن همراه
+                    </Typography>
+                    <Typography
+                        my={1}
                         href="/auth/register"
                         component={Link}
                         fontWeight="500"
