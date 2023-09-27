@@ -6,28 +6,14 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '@/store/auth/AuthContext';
 import useUserData from '@/app/auth/hooks/useUserData';
+import useLogout from '@/app/auth/hooks/useLogout';
 
 export const Profile = () => {
     const customizer = useSelector((state: AppState) => state.customizer);
     const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
     const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
-    const context = useContext(AuthContext);
-    const uesrname = context.user.firstName + ' ' + context.user.lastName;
-    // logout user 
-    async function logoutHandler() {
-        try {
-            const response = context.logout();
-            console.log(response)
-            // redirect to login page 
-        } catch (error: any) {
-            console.log(error.message)
-        }
-    }
-
-
     const { userData } = useUserData()
-
-
+    const { mutate, isLoading } = useLogout()
     const [isVisible, setIsVisible] = useState(false);
 
     // Add an effect to toggle visibility when data arrives
@@ -36,6 +22,10 @@ export const Profile = () => {
             setIsVisible(true);
         }
     }, [userData]);
+    // logout handler 
+    function logoutHandler() {
+        mutate()
+    }
 
     return (
         <Box
@@ -69,6 +59,7 @@ export const Profile = () => {
                                 href=""
                                 aria-label="logout"
                                 size="small"
+                                disabled={isLoading}
                             >
                                 <IconPower size="20" />
                             </IconButton>
