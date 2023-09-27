@@ -11,6 +11,7 @@ import {
     TextField,
     Typography,
     Grow,
+    Box,
 } from '@mui/material';
 import jalaliMoment from 'jalali-moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -164,147 +165,149 @@ const BigCalendar = () => {
 
 
     return (
-        <PageContainer title="Calendar" description="this is Calendar">
-            {/* <Breadcrumb title="Calendar" subtitle="App" /> */}
-            <BlankCard>
-                <Grow in timeout={2.5 * 700}>
-                    {/* ------------------------------------------- */}
-                    {/* Calendar */}
-                    {/* ------------------------------------------- */}
-                    <CardContent>
-                        <Calendar
-                            selectable
-                            events={calevents}
-                            defaultView="month"
-                            scrollToTime={start}
-                            defaultDate={end}
-                            localizer={localizer}
-                            style={{ height: 'calc(100vh - 350px' }}
-                            onSelectEvent={(event) => editEvent(event)}
-                            onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
-                            eventPropGetter={(event: any) => eventColors(event)}
-                        />
-                    </CardContent>
-                </Grow>
-            </BlankCard>
-            {/* ------------------------------------------- */}
-            {/* Add Calendar Event Dialog */}
-            {/* ------------------------------------------- */}
-            <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
-                <form onSubmit={update ? updateEvent : submitHandler}>
-                    <DialogContent>
+        <Box mt={2}>
+            <PageContainer title="Calendar" description="this is Calendar">
+                {/* <Breadcrumb title="Calendar" subtitle="App" /> */}
+                <BlankCard>
+                    <Grow in timeout={2.5 * 700}>
                         {/* ------------------------------------------- */}
-                        {/* Add Edit title */}
+                        {/* Calendar */}
                         {/* ------------------------------------------- */}
-                        <Typography variant="h4" sx={{ mb: 2 }}>
-                            {update ? 'تغییر رویداد' : 'ایجاد رویداد'}
-                        </Typography>
-                        <Typography mb={3} variant="subtitle2">
-                            {!update
-                                ? 'برای افزودن رویداد لطفا عنوان را پر کنید و رنگ رویداد را انتخاب کنید و دکمه افزودن را فشار دهید'
-                                : 'برای به‌روزرسانی رویداد لطفاً عنوان را تغییر دهید و رنگ رویداد را انتخاب کنید و دکمه به‌روزرسانی را فشار دهید'}
-                            {slot?.title}
-                        </Typography>
-                        <TextField
-                            id="Event Title"
-                            placeholder="عنوان رویداد را وارد کنید"
-                            variant="outlined"
-                            fullWidth
-                            label="عنوان رویداد"
-                            value={title}
-                            sx={{ mb: 3 }}
-                            onChange={inputChangeHandler}
-                        />
-                        {/* ------------------------------------------- */}
-                        {/* Selection of Start and end date */}
-                        {/* ------------------------------------------- */}
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DatePicker
-                                label="تاریخ شروع"
-                                inputFormat="MM/dd/yyyy"
-                                value={start}
-                                onChange={handleStartChange}
-                                renderInput={(params: any) => <TextField {...params} fullWidth sx={{ mb: 3 }} />}
+                        <CardContent>
+                            <Calendar
+                                selectable
+                                events={calevents}
+                                defaultView="month"
+                                scrollToTime={start}
+                                defaultDate={end}
+                                localizer={localizer}
+                                style={{ height: 'calc(100vh - 350px' }}
+                                onSelectEvent={(event) => editEvent(event)}
+                                onSelectSlot={(slotInfo: any) => addNewEventAlert(slotInfo)}
+                                eventPropGetter={(event: any) => eventColors(event)}
                             />
-                            <DatePicker
-                                label="تاریخ پایان"
-                                inputFormat="MM/dd/yyyy"
-                                value={end}
-                                onChange={handleEndChange}
-                                renderInput={(params: any) => (
-                                    <TextField
-                                        {...params}
-                                        fullWidth
-                                        sx={{ mb: 3 }}
-                                        error={start > end}
-                                        helperText={start > end ? 'End date must be later than start date' : ''}
-                                    />
-                                )}
+                        </CardContent>
+                    </Grow>
+                </BlankCard>
+                {/* ------------------------------------------- */}
+                {/* Add Calendar Event Dialog */}
+                {/* ------------------------------------------- */}
+                <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+                    <form onSubmit={update ? updateEvent : submitHandler}>
+                        <DialogContent>
+                            {/* ------------------------------------------- */}
+                            {/* Add Edit title */}
+                            {/* ------------------------------------------- */}
+                            <Typography variant="h4" sx={{ mb: 2 }}>
+                                {update ? 'تغییر رویداد' : 'ایجاد رویداد'}
+                            </Typography>
+                            <Typography mb={3} variant="subtitle2">
+                                {!update
+                                    ? 'برای افزودن رویداد لطفا عنوان را پر کنید و رنگ رویداد را انتخاب کنید و دکمه افزودن را فشار دهید'
+                                    : 'برای به‌روزرسانی رویداد لطفاً عنوان را تغییر دهید و رنگ رویداد را انتخاب کنید و دکمه به‌روزرسانی را فشار دهید'}
+                                {slot?.title}
+                            </Typography>
+                            <TextField
+                                id="Event Title"
+                                placeholder="عنوان رویداد را وارد کنید"
+                                variant="outlined"
+                                fullWidth
+                                label="عنوان رویداد"
+                                value={title}
+                                sx={{ mb: 3 }}
+                                onChange={inputChangeHandler}
                             />
-                        </LocalizationProvider>
+                            {/* ------------------------------------------- */}
+                            {/* Selection of Start and end date */}
+                            {/* ------------------------------------------- */}
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="تاریخ شروع"
+                                    inputFormat="MM/dd/yyyy"
+                                    value={start}
+                                    onChange={handleStartChange}
+                                    renderInput={(params: any) => <TextField {...params} fullWidth sx={{ mb: 3 }} />}
+                                />
+                                <DatePicker
+                                    label="تاریخ پایان"
+                                    inputFormat="MM/dd/yyyy"
+                                    value={end}
+                                    onChange={handleEndChange}
+                                    renderInput={(params: any) => (
+                                        <TextField
+                                            {...params}
+                                            fullWidth
+                                            sx={{ mb: 3 }}
+                                            error={start > end}
+                                            helperText={start > end ? 'End date must be later than start date' : ''}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
 
+                            {/* ------------------------------------------- */}
+                            {/* Calendar Event Color*/}
+                            {/* ------------------------------------------- */}
+                            <Typography variant="h6" fontWeight={600} my={2}>
+                                رنگ رویداد را انتخاب کنید
+                            </Typography>
+                            {/* ------------------------------------------- */}
+                            {/* colors for event */}
+                            {/* ------------------------------------------- */}
+                            {ColorVariation.map((mcolor) => {
+                                return (
+                                    <Fab
+                                        color="primary"
+                                        style={{ backgroundColor: mcolor.eColor }}
+                                        sx={{
+                                            marginRight: '3px',
+                                            transition: '0.1s ease-in',
+                                            scale: mcolor.value === color ? '0.9' : '0.7',
+                                        }}
+                                        size="small"
+                                        key={mcolor.id}
+                                        onClick={() => selectinputChangeHandler(mcolor.value)}
+                                    >
+                                        {mcolor.value === color ? <IconCheck width={16} /> : ''}
+                                    </Fab>
+                                );
+                            })}
+                        </DialogContent>
                         {/* ------------------------------------------- */}
-                        {/* Calendar Event Color*/}
+                        {/* Action for dialog */}
                         {/* ------------------------------------------- */}
-                        <Typography variant="h6" fontWeight={600} my={2}>
-                            رنگ رویداد را انتخاب کنید
-                        </Typography>
-                        {/* ------------------------------------------- */}
-                        {/* colors for event */}
-                        {/* ------------------------------------------- */}
-                        {ColorVariation.map((mcolor) => {
-                            return (
-                                <Fab
-                                    color="primary"
-                                    style={{ backgroundColor: mcolor.eColor }}
-                                    sx={{
-                                        marginRight: '3px',
-                                        transition: '0.1s ease-in',
-                                        scale: mcolor.value === color ? '0.9' : '0.7',
-                                    }}
-                                    size="small"
-                                    key={mcolor.id}
-                                    onClick={() => selectinputChangeHandler(mcolor.value)}
+                        <DialogActions sx={{ p: 3 }}>
+                            {!update && <Button
+                                style={{ fontFamily: 'IRANSans' }}
+                                onClick={handleClose}>لغو</Button>}
+                            {update ? (
+                                <Button
+                                    type="submit"
+                                    color="error"
+                                    variant="contained"
+                                    style={{ fontFamily: 'IRANSans' }}
+
+                                    onClick={() => deleteHandler(update)}
                                 >
-                                    {mcolor.value === color ? <IconCheck width={16} /> : ''}
-                                </Fab>
-                            );
-                        })}
-                    </DialogContent>
-                    {/* ------------------------------------------- */}
-                    {/* Action for dialog */}
-                    {/* ------------------------------------------- */}
-                    <DialogActions sx={{ p: 3 }}>
-                        {!update && <Button
-                            style={{ fontFamily: 'IRANSans' }}
-                            onClick={handleClose}>لغو</Button>}
-                        {update ? (
-                            <Button
-                                type="submit"
-                                color="error"
-                                variant="contained"
+                                    حذف
+                                </Button>
+                            ) : (
+                                ''
+                            )}
+                            <Button type="submit"
                                 style={{ fontFamily: 'IRANSans' }}
 
-                                onClick={() => deleteHandler(update)}
-                            >
-                                حذف
+                                disabled={!title} variant="contained">
+                                {update ? 'تغییر رویداد' : 'افزودن رویداد'}
                             </Button>
-                        ) : (
-                            ''
-                        )}
-                        <Button type="submit"
-                            style={{ fontFamily: 'IRANSans' }}
-
-                            disabled={!title} variant="contained">
-                            {update ? 'تغییر رویداد' : 'افزودن رویداد'}
-                        </Button>
-                    </DialogActions>
-                    {/* ------------------------------------------- */}
-                    {/* End Calendar */}
-                    {/* ------------------------------------------- */}
-                </form>
-            </Dialog>
-        </PageContainer>
+                        </DialogActions>
+                        {/* ------------------------------------------- */}
+                        {/* End Calendar */}
+                        {/* ------------------------------------------- */}
+                    </form>
+                </Dialog>
+            </PageContainer>
+        </Box>
     );
 };
 

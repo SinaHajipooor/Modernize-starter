@@ -22,22 +22,24 @@ const SearchTable = () => {
     const { isLoading, activityHistories } = useActivityIndex()
 
     return (
-        <PageContainer title="Search Table" description="this is Search Table">
-            {/* breadcrumb */}
-            <Grow in timeout={1 * 600}>
-                <Box>
-                    <Breadcrumb title="فهرست اعضا" items={BCrumb} />
-                </Box>
-            </Grow>
-            {/* end breadcrumb */}
-            {isLoading ? <Spinner /> :
+        <Box mt={2}>
+            <PageContainer title="Search Table" description="this is Search Table">
+                {/* breadcrumb */}
                 <Grow in timeout={1 * 600}>
                     <Box>
-                        <ProductTableList data={activityHistories} />
+                        <Breadcrumb title="فهرست اعضا" items={BCrumb} />
                     </Box>
                 </Grow>
-            }
-        </PageContainer>
+                {/* end breadcrumb */}
+                {isLoading ? <Spinner /> :
+                    <Grow in timeout={1 * 600}>
+                        <Box>
+                            <ProductTableList data={activityHistories} />
+                        </Box>
+                    </Grow>
+                }
+            </PageContainer>
+        </Box>
     );
 };
 
