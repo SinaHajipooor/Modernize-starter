@@ -5,6 +5,7 @@ import "@neshan-maps-platform/react-openlayers/dist/style.css"
 
 import NeshanMap, { NeshanMapRef, OlMap, Ol } from "@neshan-maps-platform/react-openlayers"
 import { CoordsObj } from "@neshan-maps-platform/react-openlayers/dist/types/components/Map.model"
+import { Card } from "@mui/material"
 
 function App() {
     const mapRef = useRef<NeshanMapRef | null>(null)
@@ -37,7 +38,6 @@ function App() {
     }, [])
 
     return (
-
         <NeshanMap
             //     center={userLocation}
             mapKey="web.5d4589bb590945249a496c878c8d3f56"
@@ -45,7 +45,6 @@ function App() {
             onInit={onInit}
             zoom={13}
         ></NeshanMap>
-
     )
 }
 
