@@ -29,12 +29,12 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
     const { isLoading } = useAuthenticate()
-    const dispatch = useDispatch()
+    //     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const savedMode = localStorage.getItem('avtiveThemeMode') || 'light';
-        dispatch(setDarkMode(savedMode))
-    }, [dispatch])
+    //     useEffect(() => {
+    //         const savedMode = localStorage.getItem('avtiveThemeMode') || 'light';
+    //         dispatch(setDarkMode(savedMode))
+    //     }, [dispatch])
 
 
     return (
