@@ -10,10 +10,19 @@ function App() {
 
     const [ol, setOl] = useState<Ol>()
     const [olMap, setOlMap] = useState<OlMap>()
+    const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null)
 
     const onInit = (ol: Ol, map: OlMap) => {
         setOl(ol)
         setOlMap(map)
+
+        // Get the user's location
+        navigator.geolocation.getCurrentPosition((position) => {
+            setUserLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            })
+        })
     }
 
     useEffect(() => {
@@ -27,14 +36,15 @@ function App() {
     }, [])
 
     return (
+
         <NeshanMap
+            //     center={userLocation}
             mapKey="web.5d4589bb590945249a496c878c8d3f56"
             defaultType="neshan"
-            center={{ latitude: 35.7665394, longitude: 51.4749824 }}
-            style={{ height: "100%", width: "100%" }}
             onInit={onInit}
             zoom={13}
-        />
+        ></NeshanMap>
+
     )
 }
 
