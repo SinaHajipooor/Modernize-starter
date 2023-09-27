@@ -16,6 +16,7 @@ interface StateType {
     isLanguage?: string;
     isCardShadow?: boolean;
     borderRadius?: number | any;
+    themeMode?: string;
 }
 
 const initialState: StateType = {

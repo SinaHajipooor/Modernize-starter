@@ -6,7 +6,7 @@ import { ThemeSettings } from "@/utils/theme/Theme";
 import { store } from "@/store/store";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import NextTopLoader from 'nextjs-toploader';
 import "@/app/api/index";
 import "@/utils/i18n";
@@ -20,13 +20,15 @@ import { Toaster } from "react-hot-toast";
 import Spinner from "./(DashboardLayout)/components/ui/Spinner";
 import useAuthenticate from "./auth/hooks/useAuthenticate";
 import { useEffect, useState } from "react";
+
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
 
     const theme = ThemeSettings();
     const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
     const customizer = useSelector((state: AppState) => state.customizer);
-
     const { isLoading } = useAuthenticate()
+
+
 
 
     return (
