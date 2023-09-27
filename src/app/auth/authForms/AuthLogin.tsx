@@ -50,12 +50,6 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                     alignItems="center"
                     my={2}
                 >
-                    {/* <FormGroup>
-                        <FormControlLabel
-                            control={<CustomCheckbox defaultChecked />}
-                            label="به خاطر بسپار"
-                        />
-                    </FormGroup> */}
                     <Typography
                         my={1}
                         href="/auth/two-steps"
