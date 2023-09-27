@@ -4,21 +4,16 @@ import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
-import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
-import { AuthContext } from "@/store/auth/AuthContext";
+import { useState } from "react";
 import useLogin from "../hooks/useLogin";
-import { userInfo } from "os";
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-
     const [user, setUser] = useState({ username: '', password: '' });
     const { isLoading, mutate } = useLogin()
     // onLogin handler
     async function onLogin() {
         mutate(user);
-
     }
 
     // onchange for form inputs
