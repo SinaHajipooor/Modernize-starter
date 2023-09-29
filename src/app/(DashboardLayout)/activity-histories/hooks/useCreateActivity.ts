@@ -4,10 +4,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function useCreateActivity(file: any) {
-
     const router = useRouter()
     const queryClient = useQueryClient();
-
     const { mutate, isLoading } = useMutation({
         mutationFn: (newActivityHistory: any) => apiCreateActivityHistory(newActivityHistory, file),
         onSuccess: () => {
@@ -20,8 +18,6 @@ export default function useCreateActivity(file: any) {
         onError: () => {
             toast.error('خطایی هنگام ایجاد رخ داد ');
         },
-
-
     });
     return { mutate, isLoading }
 }
