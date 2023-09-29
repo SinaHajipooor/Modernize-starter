@@ -2,6 +2,7 @@ import { apiAuthenticate } from "@/api/auth/apiAuthenticate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+// authenticate user 
 export default function useAuthenticate() {
 
     const router = useRouter()
@@ -15,8 +16,8 @@ export default function useAuthenticate() {
             });
             router.push('/');
         }, onError: (error: any) => {
-            console.log(error.message)
             router.push('/auth/login')
+            throw new Error(error.message)
         }
     })
     return { mutate, isLoading }

@@ -3,6 +3,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
+// logiut user and clear all user data 
 export default function useLogout() {
     const router = useRouter()
 
