@@ -1,18 +1,27 @@
 'use client'
 
-import { Box, Typography, FormGroup, FormControlLabel, Button, Stack, } from "@mui/material";
+import { Box, Typography, Button, Stack, } from "@mui/material";
 import Link from "next/link";
 import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { useState } from "react";
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/navigation";
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     const [user, setUser] = useState({ username: '', password: '' });
+    const router = useRouter()
     // onLogin handler
     async function onLogin() {
-
+        const response = await signIn('credentials', { username: user.username, password: user.password, redirect: false });
+        if (response?.error) {
+            throw new Error(response.error)
+        } else {
+            router.refresh();
+            router.replace('/')
+        }
     }
 
     // onchange for form inputs
