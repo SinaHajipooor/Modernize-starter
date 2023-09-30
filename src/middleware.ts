@@ -1,25 +1,35 @@
-import { NextResponse, NextRequest } from "next/server";
+import { withAuth, NextRequestWithAuth } from 'next-auth/middleware'
+import { NextResponse } from 'next/server'
 
-
-// loging part
-export function middleware(request: NextRequest) {
-    // get the path that user has entered
-    const path = request.nextUrl.pathname;
-    // check if the user path is public or not 
-    const isPublicPath = path.startsWith('/auth');
-    // Extract token from cookies
-    const token = request.cookies.get('token')?.value || '';
-    // Redirect the authenticated users into dashboard
-    if (isPublicPath && token) {
-        return NextResponse.redirect(new URL('/', request.nextUrl));
+export default withAuth(
+    function middleware(request: NextRequestWithAuth) {
+        // admin middleware
+        if (request.nextUrl.pathname.startsWith('/admin') && request.nextauth.token?.role !== 'admin') {
+            return NextResponse.rewrite(
+                new URL('/denied', request.url)
+            )
+        }
+        // client middleware
+        if (request.nextUrl.pathname.startsWith('/user') && request.nextauth.token?.role !== 'user') {
+            return NextResponse.rewrite(
+                new URL('/denied', request.url)
+            )
+        }
+        // manager middleware
+        if (request.nextUrl.pathname.startsWith('/manager') && request.nextauth.token?.role !== 'manager') {
+            return NextResponse.rewrite(
+                new URL('/denied', request.url)
+            )
+        }
+    },
+    {
+        callbacks: {
+            authorized: ({ token }) => token?.role === 'user' || token?.role === 'admin' || token?.role === 'manager',
+        },
     }
-    // Redirect the users that are not authenticated into the login page
-    if (!isPublicPath && !token) {
-        return NextResponse.redirect(new URL('/auth/login', request.nextUrl));
-    }
-}
+)
 
-// matchin part 
+
 export const config = {
-    matcher: ['/', '/auth/login', '/auth/register', '/auth/two-steps', '/auth/forgot-password']
+    matcher: ['/admin/:path*', '/user/:path*', '/manager/:path*']
 }
