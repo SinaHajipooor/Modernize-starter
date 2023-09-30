@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 export async function apiLogin(userData: any) {
     try {
         const response = await axiosConfig.post('/api/auth/base/login', userData);
+        console.log(response.status)
         if (response.status != 200) {
+
             toast.error('اطلاعات وارد شده اشتباه است')
             throw new Error('Failed to login user')
         } else {
