@@ -13,15 +13,14 @@ import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import AuthProvider from '../context/AuthProvider'
 
-
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
     const theme = ThemeSettings();
+
 
     const customizer = useSelector((state: AppState) => state.customizer);
 
     return (
         <>
-
             <NextTopLoader color="#5D87FF" />
             <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
                 <ThemeProvider theme={theme}>
