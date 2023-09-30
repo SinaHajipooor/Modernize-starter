@@ -1,107 +1,99 @@
-'use client'
-
-import { Box, Typography, Button, Stack, } from "@mui/material";
+import {
+  Box,
+  Typography,
+  FormGroup,
+  FormControlLabel,
+  Button,
+  Stack,
+  Divider,
+} from "@mui/material";
 import Link from "next/link";
 import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
+import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
-import { useState } from "react";
-import { signIn } from 'next-auth/react'
-import { useRouter } from "next/navigation";
+import AuthSocialButtons from "./AuthSocialButtons";
 
+const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
+  <>
+    {title ? (
+      <Typography fontWeight="700" variant="h3" mb={1}>
+        {title}
+      </Typography>
+    ) : null}
 
-const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-    const [user, setUser] = useState({ username: '', password: '' });
-    const router = useRouter()
-    // onLogin handler
-    async function onLogin() {
-        const response = await signIn('credentials', { username: user.username, password: user.password, redirect: false });
-        if (response?.error) {
-            throw new Error(response.error)
-        } else {
-            router.refresh();
-            router.replace('/')
-        }
-    }
+    {subtext}
 
-    // onchange for form inputs
-    function onChangeHandler(e: any, fieldName: any) {
-        setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
-    }
-    // ui
-    return (
-        <>
-            {title ? (
-                <Typography fontWeight="700" variant="h3" mb={1}>
-                    {title}
-                </Typography>
-            ) : null}
-            <Stack>
-                <Box>
-                    <CustomFormLabel htmlFor="username">نام کاربری</CustomFormLabel>
-                    <CustomTextField onChange={(e: any) => onChangeHandler(e, 'username')} id="username" variant="outlined" fullWidth />
-                </Box>
-                <Box>
-                    <CustomFormLabel htmlFor="password">رمز عبور</CustomFormLabel>
-                    <CustomTextField
-                        onChange={(e: any) => onChangeHandler(e, 'password')}
-                        id="password"
-                        type="password"
-                        variant="outlined"
-                        fullWidth
-                        value={user.password}
-                    />
-                </Box>
-                <Stack
-                    justifyContent="space-between"
-                    direction="row"
-                    alignItems="center"
-                    my={2}
-                >
-                    <Typography
-                        my={1}
-                        href="/auth/two-steps"
-                        component={Link}
-                        fontWeight="500"
-                        sx={{
-                            textDecoration: 'none',
-                            color: 'primary.main',
-                        }}
-                    >
-                        ورود با تلفن همراه
-                    </Typography>
-                    <Typography
-                        my={1}
-                        href="/auth/register"
-                        component={Link}
-                        fontWeight="500"
-                        sx={{
-                            textDecoration: 'none',
-                            color: 'primary.main',
-                        }}
-                    >
-                        ثبت‌ نام
-                    </Typography>
-                </Stack>
-            </Stack>
-            <Box>
-                <Button
+    <AuthSocialButtons title="Sign in with" />
+    <Box mt={3}>
+      <Divider>
+        <Typography
+          component="span"
+          color="textSecondary"
+          variant="h6"
+          fontWeight="400"
+          position="relative"
+          px={2}
+        >
+          or sign in with
+        </Typography>
+      </Divider>
+    </Box>
 
-                    onClick={onLogin}
-                    color="primary"
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    component={Link}
-                    href=""
-                    type="submit"
-                >
-                    ورود
-                </Button>
-            </Box>
-            {/* forget password text */}
-            {subtitle}
-        </>
-    );
-}
+    <Stack>
+      <Box>
+        <CustomFormLabel htmlFor="username">Username</CustomFormLabel>
+        <CustomTextField id="username" variant="outlined" fullWidth />
+      </Box>
+      <Box>
+        <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
+        <CustomTextField
+          id="password"
+          type="password"
+          variant="outlined"
+          fullWidth
+        />
+      </Box>
+      <Stack
+        justifyContent="space-between"
+        direction="row"
+        alignItems="center"
+        my={2}
+      >
+        <FormGroup>
+          <FormControlLabel
+            control={<CustomCheckbox defaultChecked />}
+            label="Remeber this Device"
+          />
+        </FormGroup>
+        <Typography
+          component={Link}
+          href="/auth/auth1/forgot-password"
+          fontWeight="500"
+          sx={{
+            textDecoration: "none",
+            color: "primary.main",
+          }}
+        >
+          Forgot Password ?
+        </Typography>
+      </Stack>
+    </Stack>
+    <Box>
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        fullWidth
+        component={Link}
+        href="/"
+        type="submit"
+      >
+        Sign In
+      </Button>
+    </Box>
+    {subtitle}
+  </>
+);
+
 export default AuthLogin;
