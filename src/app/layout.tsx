@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
@@ -8,90 +9,68 @@ import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { Provider } from "react-redux";
 import NextTopLoader from 'nextjs-toploader';
+
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
-import AuthContextProvider from "@/store/auth/AuthContext";
-import './global.css'
-import { QueryClientProvider } from "@tanstack/react-query";
-import queryClientSetup from '@/services/querySetup'
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
-import Spinner from "./(DashboardLayout)/components/ui/Spinner";
-import useAuthenticate from "./auth/hooks/useAuthenticate";
-import { useEffect, useState } from "react";
-
-
+import Head from "next/head";
 
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
-    const theme = ThemeSettings();
-    const activeMode = useSelector((state: AppState) => state.customizer.activeMode);
-    const customizer = useSelector((state: AppState) => state.customizer);
-    const { isLoading } = useAuthenticate()
+  const theme = ThemeSettings();
 
+  const customizer = useSelector((state: AppState) => state.customizer);
 
-    return (
-        <>
-            {isLoading ? <Spinner /> : <>
-                <ReactQueryDevtools initialIsOpen={false} />
-                <NextTopLoader color="#5D87FF" />
-                <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
-                    <ThemeProvider theme={theme}>
-                        <RTL direction={customizer.activeDir}>
-                            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                            <CssBaseline />
-                            {children}
-                        </RTL>
-                    </ThemeProvider>
-                </NextAppDirEmotionCacheProvider>
-                <Toaster position="top-center" gutter={12} containerStyle={{ margin: '8px' }} toastOptions={{
-                    success: {
-                        duration: 3000,
-                    }, error: {
-                        duration: 5000,
-                    }, style: {
-                        color: activeMode === 'light' ? 'black' : 'white',
-                        fontSize: '16px',
-                        maxWidth: '500px',
-                        padding: '16px 24px',
-                        width: '350px',
-                        backgroundColor: activeMode === 'light' ? '#f7f1ff' : '#2b2e3f'
-                    }
-                }} />
-            </>
-            }
-        </>
-    );
+  return (
+    <>
+    
+      <NextTopLoader color="#5D87FF" />
+      <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
+      <ThemeProvider theme={theme}>
+        <RTL direction={customizer.activeDir}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          {children}
+        </RTL>
+      </ThemeProvider>
+      </NextAppDirEmotionCacheProvider>
+    </>
+  );
 };
 
-
-
-
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    const [isLoading, setIsLoading] = useState(true)
-    useEffect(function () {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 500);
-    }, [])
-
-    return (
-        <html lang="en" suppressHydrationWarning>
-            <body>
-                <QueryClientProvider client={queryClientSetup}>
-                    <AuthContextProvider>
-                        <Provider store={store}>
-                            {/* eslint-disable-next-line react/no-children-prop */}
-                            {isLoading ? <Spinner /> : <MyApp children={children} />}
-                        </Provider>
-                    </AuthContextProvider>
-                </QueryClientProvider>
-            </body>
-        </html>
-    );
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    setTimeout(() => setLoading(true), 3000);
+  }, []);
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Provider store={store}>
+          {loading ? (
+            // eslint-disable-next-line react/no-children-prop
+            <MyApp children={children} />
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100vh",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          )}
+        </Provider>
+      </body>
+    </html>
+  );
 }

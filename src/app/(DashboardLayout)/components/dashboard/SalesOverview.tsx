@@ -48,7 +48,7 @@ const SalesOverview = () => {
             width: 5,
             lineCap: "butt",
             colors: ["transparent"],
-        },
+          },
         dataLabels: {
             enabled: false,
         },
@@ -91,7 +91,7 @@ const SalesOverview = () => {
 
     return (
 
-        <DashboardCard title="سوابق فروش" action={
+        <DashboardCard title="Sales Overview" action={
             <Select
                 labelId="month-dd"
                 id="month-dd"
