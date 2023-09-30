@@ -10,6 +10,7 @@ import Blog from '@/app/(DashboardLayout)/components/dashboard/Blog';
 import MonthlyEarnings from '@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings';
 
 
+
 export default function Dashboard() {
 
     return (
@@ -17,7 +18,6 @@ export default function Dashboard() {
             <Box mt={3}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} lg={8}>
-
                         <SalesOverview />
                     </Grid>
                     <Grid item xs={12} lg={4}>

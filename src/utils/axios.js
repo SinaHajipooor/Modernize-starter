@@ -1,12 +1,12 @@
- import axios from 'axios';
+import axios from 'axios';
 
- const axiosServices = axios.create();
- 
- // interceptor for http
- axiosServices.interceptors.response.use(
-     (response) => response,
-     (error) => Promise.reject((error.response && error.response.data) || 'Wrong Services')
- );
- 
- export default axiosServices;
- 
+const axiosConfig = axios.create({
+    baseURL: 'http://45.149.77.156:8081',  // BASE URL
+    headers: {
+        'Content-Type': 'application/json', // CONTENT TYPE
+    },
+});
+
+
+
+export default axiosConfig;

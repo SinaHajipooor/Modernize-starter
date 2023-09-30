@@ -4,18 +4,27 @@ import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
 import { useState } from "react";
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/navigation"
 
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     // user infor
     const [user, setUser] = useState({ username: '', password: '' });
-    // onLogin handler
-    async function onLogin() {
-
-    }
+    const router = useRouter()
     // onchange for form inputs
     function onChangeHandler(e: any, fieldName: any) {
         setUser((curUser) => ({ ...curUser, [fieldName]: e.target.value }))
+    }
+    // onLogin handler
+    async function onLogin() {
+        const response = await signIn('credentials', { username: user.username, password: user.password, redirect: false });
+        if (response?.error) {
+            throw new Error(response.error)
+        } else {
+            router.refresh()
+            router.replace('/')
+        }
     }
     // ui
     return (

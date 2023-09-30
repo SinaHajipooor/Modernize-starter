@@ -37,8 +37,6 @@ export default function Login2() {
                         justifyContent="center"
                         alignItems="center"
                     >
-
-
                         <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
                             <Box display="flex" alignItems="center" justifyContent="center">
                                 <Logo />
