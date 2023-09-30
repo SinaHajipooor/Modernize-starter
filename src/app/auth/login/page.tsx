@@ -16,7 +16,7 @@ export default function Login2() {
                     position: 'relative',
                     '&:before': {
                         content: '""',
-                        background: 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)',
+                        background: 'radial-gradient(#d2f1df, #d3d7fa, #2774bd)',
                         backgroundSize: '400% 400%',
                         animation: 'gradient 15s ease infinite',
                         position: 'absolute',
@@ -37,6 +37,8 @@ export default function Login2() {
                         justifyContent="center"
                         alignItems="center"
                     >
+
+
                         <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '450px' }}>
                             <Box display="flex" alignItems="center" justifyContent="center">
                                 <Logo />
@@ -44,24 +46,23 @@ export default function Login2() {
                             <AuthLogin
                                 subtitle={
                                     <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-                                        <Typography color="textSecondary" variant="h6" fontWeight="500">
-                                            New to Modernize?
-                                        </Typography>
                                         <Typography
                                             component={Link}
-                                            href="/auth/auth2/register"
+                                            href="/auth/forgot-password"
                                             fontWeight="500"
                                             sx={{
-                                                textDecoration: 'none',
-                                                color: 'primary.main',
+                                                textDecoration: "none",
+                                                color: "primary.main",
                                             }}
                                         >
-                                            Create an account
+                                            رمز عبور خود را فراموش کردید ؟
                                         </Typography>
                                     </Stack>
                                 }
                             />
                         </Card>
+
+
                     </Grid>
                 </Grid>
             </Box>
